@@ -3,3 +3,73 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Slick Carousel Custom Styles */
+.slick-dots {
+  bottom: -50px !important;
+  display: flex !important;
+  justify-content: center !important;
+  gap: 8px !important;
+}
+
+.slick-dots li {
+  margin: 0 4px !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+.slick-dots li button:before {
+  display: none !important;
+}
+
+.slick-dots li div {
+  background-color: #922930;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.slick-dots li.slick-active div {
+  opacity: 1 !important;
+  background-color: #922930;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  display: none !important;
+}
+
+.slick-track {
+  display: flex !important;
+  align-items: stretch !important;
+}
+
+.slick-slide {
+  height: inherit !important;
+}
+
+.slick-slide > div {
+  height: 100% !important;
+}
+
+.slick-slide > div > div {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Custom dots styling */
+.custom-dots {
+  bottom: -50px !important;
+  display: flex !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.custom-dots li {
+  margin: 0 4px !important;
+  width: auto !important;
+  height: auto !important;
+}

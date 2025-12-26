@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import IntroLoader from '../components/IntroLoader';
+import ServicesCarousel from '../components/ServicesCarousel';
+import ShopSection from '../components/ShopSection';
+import GetInTouchSection from '../components/GetInTouchSection';
+import Footer from '../components/Footer';
 
 const Home: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -40,7 +44,7 @@ const Home: React.FC = () => {
       >
       {/* Background with image */}
       <div 
-        className="absolute inset-0 bg-cover bg-contain bg-no-repeat"
+        className="absolute inset-0  bg-contain bg-no-repeat"
         style={{ backgroundImage: 'url(/GNN_background.png)' }}
       >
         {/* Dark overlay for better text readability */}
@@ -136,125 +140,134 @@ const Home: React.FC = () => {
       </div>
 
       {/* Services Section */}
-      <div className="relative z-10 bg-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-amber-900 mb-4">OUR SERVICES</h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Service 1 - Life Path Reading */}
-            <div className="bg-orange-50 rounded-2xl p-8 text-center hover:shadow-lg transition-shadow duration-300">
-              <div className="w-20 h-20 mx-auto mb-6">
-                <div className="w-full h-full bg-orange-100 rounded-2xl flex items-center justify-center">
-                  <span className="text-3xl">🔮</span>
-                </div>
-              </div>
-              <div className="h-1 w-20 bg-amber-900 mx-auto mb-6"></div>
-              <p className="text-gray-700 text-lg leading-relaxed">
-                Understand your life purpose and future direction through your Life Path and Destiny numbers, 
-                guiding you toward clarity, growth, and fulfillment.
-              </p>
-            </div>
-
-            {/* Service 2 - Numerology Report */}
-            <div className="bg-orange-50 rounded-2xl p-8 text-center hover:shadow-lg transition-shadow duration-300">
-              <div className="w-20 h-20 mx-auto mb-6">
-                <div className="w-full h-full bg-orange-100 rounded-2xl flex items-center justify-center">
-                  <span className="text-3xl">📊</span>
-                </div>
-              </div>
-              <div className="h-1 w-20 bg-amber-900 mx-auto mb-6"></div>
-              <p className="text-gray-700 text-lg leading-relaxed">
-                A detailed analysis of your birth numbers that reveals your personality traits, strengths, 
-                challenges, & life patterns to help you make informed decisions.
-              </p>
-            </div>
-
-            {/* Service 3 - Career Guidance */}
-            <div className="bg-orange-50 rounded-2xl p-8 text-center hover:shadow-lg transition-shadow duration-300">
-              <div className="w-20 h-20 mx-auto mb-6">
-                <div className="w-full h-full bg-orange-100 rounded-2xl flex items-center justify-center">
-                  <span className="text-3xl">💼</span>
-                </div>
-              </div>
-              <div className="h-1 w-20 bg-amber-900 mx-auto mb-6"></div>
-              <p className="text-gray-700 text-lg leading-relaxed">
-                Get guidance on career choices, financial growth, and prosperity by aligning your numerology 
-                numbers with the right professional and wealth opportunities.
-              </p>
-            </div>
-          </div>
-
-          {/* Pagination dots */}
-          <div className="flex justify-center mt-12 space-x-2">
-            <div className="w-4 h-4 bg-amber-900 rounded-full"></div>
-            <div className="w-4 h-4 bg-amber-900 rounded-full"></div>
-            <div className="w-4 h-4 bg-amber-900 rounded-full"></div>
-            <div className="w-4 h-4 border-2 border-amber-900 rounded-full"></div>
-            <div className="w-4 h-4 bg-amber-900 rounded-full"></div>
-          </div>
-        </div>
-      </div>
+      <ServicesCarousel />
 
       {/* Testimonial Section */}
-      <div className="relative z-10 bg-gradient-to-r from-amber-900 to-orange-800 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div 
+        className="relative z-10 py-20 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: 'url(/Testimonial_bg.png)' }}
+      >
+        {/* Dark overlay for better text readability */}
+        <div className="absolute inset-0 bg-black/20"></div>
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-orange-100 mb-8">TESTIMONIALS</h2>
+            <h2 
+              className="text-5xl font-bold font-bebas tracking-wide mb-8"
+              style={{ color: '#FFFAE5' }}
+            >
+              TESTIMONIAL
+            </h2>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left side - Testimonial */}
-            <div className="bg-orange-50 rounded-2xl p-8 shadow-xl border-l-8 border-b-8 border-orange-400">
-              <div className="flex items-start space-x-6">
-                <div className="text-6xl text-amber-900 font-bold leading-none">"</div>
-                <div className="flex-1">
-                  <blockquote className="text-xl text-gray-700 mb-6 leading-relaxed">
+            {/* Left side - Testimonial Card */}
+            <div className="relative">
+              <div 
+                className="bg-cover bg-center bg-no-repeat rounded-2xl p-8 shadow-2xl mb-8"
+                style={{ 
+                  backgroundImage: 'url(/Testimonial_card.png)',
+                  minHeight: '300px'
+                }}
+              >
+                {/* Card content overlay */}
+                <div className="relative z-10">
+                  <div className="text-6xl font-bold leading-none mb-4" style={{ color: '#922930' }}>"</div>
+                  <blockquote 
+                    className="text-lg mb-6 leading-relaxed font-matter"
+                    style={{ color: '#922930' }}
+                  >
                     Through my Life Path and Destiny reading, I gained a deep understanding of my life purpose 
                     and where I'm truly headed. The insights brought me clarity, confidence, and a sense of 
                     direction that helped me grow and feel more fulfilled.
                   </blockquote>
                   <div className="mt-6">
-                    <div className="font-semibold text-amber-900 text-lg">Sneha Iyer</div>
-                    <div className="text-gray-600">Mumbai</div>
+                    <div 
+                      className="font-semibold text-lg font-matter"
+                      style={{ color: '#922930' }}
+                    >
+                      Sneha Iyer
+                    </div>
+                    <div 
+                      className="font-matter"
+                      style={{ color: '#922930', opacity: 0.8 }}
+                    >
+                      Mumbai
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Stats directly under the card */}
+              <div className="grid grid-cols-3 gap-6 text-left">
+                <div>
+                  <div 
+                    className="text-4xl font-bold font-bebas mb-1"
+                    style={{ color: '#FFFAE5' }}
+                  >
+                    500+
+                  </div>
+                  <div 
+                    className="text-sm font-matter"
+                    style={{ color: '#FFFAE5', opacity: 0.9 }}
+                  >
+                    Clients served
+                  </div>
+                </div>
+                <div>
+                  <div 
+                    className="text-4xl font-bold font-bebas mb-1"
+                    style={{ color: '#FFFAE5' }}
+                  >
+                    95%
+                  </div>
+                  <div 
+                    className="text-sm font-matter"
+                    style={{ color: '#FFFAE5', opacity: 0.9 }}
+                  >
+                    Positive Feedback
+                  </div>
+                </div>
+                <div>
+                  <div className="flex items-center space-x-1 mb-1">
+                    <span 
+                      className="text-4xl font-bold font-bebas"
+                      style={{ color: '#FFFAE5' }}
+                    >
+                      4.8
+                    </span>
+                    <img 
+                      src="/Star.png" 
+                      alt="Star Rating" 
+                      className="w-6 h-6 object-contain"
+                    />
+                  </div>
+                  <div 
+                    className="text-sm font-matter"
+                    style={{ color: '#FFFAE5', opacity: 0.9 }}
+                  >
+                    Client Ratings
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Right side - Gaurab's Image */}
+            {/* Right side - Decorative space or additional content */}
             <div className="relative">
-              <div className="w-80 h-80 mx-auto">
-                <img 
-                  src="/GaurabNPP.png" 
-                  alt="Gaurab Nerpagar" 
-                  className="w-full h-full object-cover rounded-2xl shadow-2xl"
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Stats */}
-          <div className="grid md:grid-cols-3 gap-8 mt-16 text-center">
-            <div>
-              <div className="text-5xl font-bold text-orange-100 mb-2">500+</div>
-              <div className="text-orange-200 text-lg">Clients Served</div>
-            </div>
-            <div>
-              <div className="text-5xl font-bold text-orange-100 mb-2">95%</div>
-              <div className="text-orange-200 text-lg">Positive Feedback</div>
-            </div>
-            <div>
-              <div className="flex items-center justify-center space-x-2 mb-2">
-                <span className="text-5xl font-bold text-orange-100">4.8</span>
-                <span className="text-orange-200 text-2xl">⭐</span>
-              </div>
-              <div className="text-orange-200 text-lg">Client Ratings</div>
+              {/* This space can be used for decorative elements or additional content */}
             </div>
           </div>
         </div>
       </div>
+
+      {/* Shop Section */}
+      <ShopSection />
+
+      {/* Get In Touch Section */}
+      <GetInTouchSection />
+
+      {/* Footer */}
+      <Footer />
       </motion.div>
     </>
   );

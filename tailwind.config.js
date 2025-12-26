@@ -11,7 +11,8 @@ module.exports = {
           500: '#3b82f6',
           600: '#2563eb',
           700: '#1d4ed8',
-        }
+        },
+        cream: '#FFFAE5',
       },
       fontFamily: {
         'bebas': ['Bebas Neue', 'cursive'],
