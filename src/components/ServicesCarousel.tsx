@@ -109,8 +109,8 @@ const ServicesCarousel: React.FC = () => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          centerMode: true,
-          centerPadding: '20px',
+          centerMode: false,
+          arrows: false,
         }
       }
     ]
@@ -153,10 +153,10 @@ const ServicesCarousel: React.FC = () => {
             {services.map((service, index) => (
               <div key={service.id} className="px-2 sm:px-4">
                 <motion.div 
-                  className="rounded-3xl p-6 sm:p-8 text-center transition-all duration-300 mx-auto"
+                  className="rounded-3xl p-4 sm:p-6 lg:p-8 text-center transition-all duration-300 mx-auto"
                   style={{ 
                     backgroundColor: '#FFFAE5',
-                    height: '400px', // Responsive height
+                    height: '350px', // Responsive height
                     display: 'flex',
                     flexDirection: 'column'
                   }}
@@ -170,30 +170,30 @@ const ServicesCarousel: React.FC = () => {
                   transition={{ duration: 0.5, delay: 0.6 + (index * 0.1) }}
                 >
                   {/* Service Image - Fixed positioning */}
-                  <div className="mt-4 sm:mt-7 mb-4 sm:mb-6 flex justify-center items-center" style={{ height: '120px' }}>
+                  <div className="mt-2 sm:mt-4 lg:mt-7 mb-3 sm:mb-4 lg:mb-6 flex justify-center items-center" style={{ height: '100px' }}>
                     <motion.img 
                       src={service.image} 
                       alt={`Service ${service.id}`}
                       className="max-w-full max-h-full object-contain"
-                      style={{ width: 'auto', height: 'auto', maxWidth: '200px', maxHeight: '200px' }}
+                      style={{ width: 'auto', height: 'auto', maxWidth: '150px', maxHeight: '150px' }}
                       whileHover={{ scale: 1.05 }}
                       transition={{ duration: 0.2 }}
                     />
                   </div>
 
                   {/* Decorative Line */}
-                  <div className="mt-6 sm:mt-10 mb-4 sm:mb-6 flex justify-center">
+                  <div className="mt-4 sm:mt-6 lg:mt-10 mb-3 sm:mb-4 lg:mb-6 flex justify-center">
                     <img 
                       src="/Line.png" 
                       alt="Decorative line" 
-                      className="h-2 w-40 sm:w-60 object-contain"
+                      className="h-2 w-32 sm:w-40 lg:w-60 object-contain"
                     />
                   </div>
 
                   {/* Service Description - Flexible height */}
-                  <div className="flex-1 flex items-center">
+                  <div className="flex-1 flex items-center px-2">
                     <p 
-                      className="text-sm sm:text-base leading-relaxed font-matter"
+                      className="text-xs sm:text-sm lg:text-base leading-relaxed font-matter"
                       style={{ color: '#922930' }}
                     >
                       {service.description}
