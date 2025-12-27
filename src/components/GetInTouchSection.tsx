@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 
 const GetInTouchSection: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -24,147 +25,172 @@ const GetInTouchSection: React.FC = () => {
   };
 
   return (
-    <div 
-      className="relative bg-white bg-cover bg-center bg-no-repeat py-20 lg:py-24"
-     
+    <motion.div 
+      className="relative py-12 sm:py-16 lg:py-20 bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: 'url(/Getintouch_bg.png)' }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6 }}
     >
-      {/* Optional overlay for better form readability */}
-      <div className="absolute inset-0 bg-black/5"></div>
+      {/* Background overlay for better readability */}
+      <div className="absolute inset-0 bg-black/10"></div>
       
-      <div className="relative z-10 flex justify-center items-center min-h-full px-4 md:px-6 lg:px-8">
-        {/* Centered container with max-width */}
-        <div className="w-full max-w-6xl mx-auto">
-          <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-3xl shadow-lg overflow-hidden relative bg-cover bg-center bg-no-repeat lg:block hidden"    style={{ backgroundImage: 'url(/Getintouch_bg.png)' }}>
-            <div className="grid lg:grid-cols-2 min-h-[600px]">
-              {/* Left side - Background image area (no padding, edge-to-edge) */}
-              <div 
-                className=""
-             
-              >
-                {/* Image shows edge-to-edge */}
-              </div>
-
-              {/* Right side - Contact Form with responsive padding */}
-              <div className="flex items-center justify-center">
-                <div className="w-full px-6 py-8 md:px-10 md:py-12 lg:px-14 lg:py-16">
-                  <h2 
-                    className="text-4xl md:text-5xl font-bold font-bebas tracking-wide mb-8"
-                    style={{ color: '#922930' }}
-                  >
-                    GET IN TOUCH
-                  </h2>
-
-                  <form onSubmit={handleSubmit}>
-                    {/* Full Name */}
-                    <div className="mb-6">
-                      <input
-                        type="text"
-                        name="fullName"
-                        placeholder="Full Name"
-                        value={formData.fullName}
-                        onChange={handleInputChange}
-                        className="w-full px-0 py-3 bg-transparent border-0 border-b-2 focus:outline-none focus:ring-0 font-matter text-lg placeholder-opacity-70"
-                        style={{ 
-                          borderBottomColor: '#922930',
-                          color: '#922930'
-                        }}
-                        required
-                      />
-                    </div>
-
-                    {/* Email Address */}
-                    <div className="mb-6">
-                      <input
-                        type="email"
-                        name="email"
-                        placeholder="Email Address"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        className="w-full px-0 py-3 bg-transparent border-0 border-b-2 focus:outline-none focus:ring-0 font-matter text-lg placeholder-opacity-70"
-                        style={{ 
-                          borderBottomColor: '#922930',
-                          color: '#922930'
-                        }}
-                        required
-                      />
-                    </div>
-
-                    {/* Phone Number */}
-                    <div className="mb-6">
-                      <input
-                        type="tel"
-                        name="phone"
-                        placeholder="Phone Number"
-                        value={formData.phone}
-                        onChange={handleInputChange}
-                        className="w-full px-0 py-3 bg-transparent border-0 border-b-2 focus:outline-none focus:ring-0 font-matter text-lg placeholder-opacity-70"
-                        style={{ 
-                          borderBottomColor: '#922930',
-                          color: '#922930'
-                        }}
-                        required
-                      />
-                    </div>
-
-                    {/* Service Interest */}
-                    <div className="mb-6">
-                      <select
-                        name="serviceInterest"
-                        value={formData.serviceInterest}
-                        onChange={handleInputChange}
-                        className="w-full px-0 py-3 bg-transparent border-0 border-b-2 focus:outline-none focus:ring-0 font-matter text-lg"
-                        style={{ 
-                          borderBottomColor: '#922930',
-                          color: formData.serviceInterest ? '#922930' : '#922930'
-                        }}
-                        required
-                      >
-                        <option value="" disabled style={{ color: '#922930' }}>Service Interest</option>
-                        <option value="life-path-reading" style={{ color: '#922930' }}>Life Path Reading</option>
-                        <option value="numerology-report" style={{ color: '#922930' }}>Numerology Report</option>
-                        <option value="career-guidance" style={{ color: '#922930' }}>Career Guidance</option>
-                        <option value="consultation" style={{ color: '#922930' }}>Personal Consultation</option>
-                      </select>
-                    </div>
-
-                    {/* Message with extra spacing */}
-                    <div className="mb-6 mt-8">
-                      <textarea
-                        name="message"
-                        placeholder="Message"
-                        value={formData.message}
-                        onChange={handleInputChange}
-                        rows={4}
-                        className="w-full px-4 py-3 bg-transparent border-2 rounded-lg focus:outline-none focus:ring-0 font-matter text-lg placeholder-opacity-70 resize-none"
-                        style={{ 
-                          borderColor: '#922930',
-                          color: '#922930'
-                        }}
-                        required
-                      />
-                    </div>
-
-                    {/* Submit Button with extra top margin */}
-                    <div className="mt-8">
-                      <button
-                        type="submit"
-                        className="px-12 py-4 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg font-matter"
-                        style={{ 
-                          backgroundColor: '#922930',
-                          color: '#FFFAE5'
-                        }}
-                      >
-                        Send
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 min-h-[500px] lg:min-h-[600px] gap-8 lg:gap-12 items-center">
+          {/* Left side - Empty space for background to show */}
+          <div className="hidden lg:block">
+            {/* This space allows the background image to be visible */}
           </div>
+
+          {/* Right side - Contact Form with semi-transparent background */}
+          <motion.div 
+            className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl p-6 md:p-8 lg:p-12"
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <div className="w-full">
+              <motion.h2 
+                className="text-2xl sm:text-3xl md:text-4xl font-bold font-bebas tracking-wide mb-4 sm:mb-6"
+                style={{ color: '#922930' }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+              >
+                GET IN TOUCH
+              </motion.h2>
+
+              <motion.form 
+                onSubmit={handleSubmit} 
+                className="space-y-4 sm:space-y-6"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.8 }}
+              >
+                {/* Full Name */}
+                <div>
+                  <motion.input
+                    type="text"
+                    name="fullName"
+                    placeholder="Full Name"
+                    value={formData.fullName}
+                    onChange={handleInputChange}
+                    className="w-full px-0 py-3 sm:py-4 bg-transparent border-0 border-b-2 focus:outline-none focus:ring-0 font-matter text-base sm:text-lg placeholder-gray-500 transition-colors duration-300"
+                    style={{ 
+                      borderBottomColor: '#922930',
+                      color: '#922930'
+                    }}
+                    whileFocus={{ borderBottomWidth: '3px' }}
+                    required
+                  />
+                </div>
+
+                {/* Email Address */}
+                <div>
+                  <motion.input
+                    type="email"
+                    name="email"
+                    placeholder="Email Address"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="w-full px-0 py-3 sm:py-4 bg-transparent border-0 border-b-2 focus:outline-none focus:ring-0 font-matter text-base sm:text-lg placeholder-gray-500 transition-colors duration-300"
+                    style={{ 
+                      borderBottomColor: '#922930',
+                      color: '#922930'
+                    }}
+                    whileFocus={{ borderBottomWidth: '3px' }}
+                    required
+                  />
+                </div>
+
+                {/* Phone Number */}
+                <div>
+                  <motion.input
+                    type="tel"
+                    name="phone"
+                    placeholder="Phone Number"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    className="w-full px-0 py-3 sm:py-4 bg-transparent border-0 border-b-2 focus:outline-none focus:ring-0 font-matter text-base sm:text-lg placeholder-gray-500 transition-colors duration-300"
+                    style={{ 
+                      borderBottomColor: '#922930',
+                      color: '#922930'
+                    }}
+                    whileFocus={{ borderBottomWidth: '3px' }}
+                    required
+                  />
+                </div>
+
+                {/* Service Interest */}
+                <div>
+                  <motion.select
+                    name="serviceInterest"
+                    value={formData.serviceInterest}
+                    onChange={handleInputChange}
+                    className="w-full px-0 py-3 sm:py-4 bg-transparent border-0 border-b-2 focus:outline-none focus:ring-0 font-matter text-base sm:text-lg transition-colors duration-300"
+                    style={{ 
+                      borderBottomColor: '#922930',
+                      color: formData.serviceInterest ? '#922930' : '#6b7280'
+                    }}
+                    whileFocus={{ borderBottomWidth: '3px' }}
+                    required
+                  >
+                    <option value="" disabled className="text-gray-500">Service Interest</option>
+                    <option value="life-path-reading" className="text-gray-900">Life Path Reading</option>
+                    <option value="numerology-report" className="text-gray-900">Numerology Report</option>
+                    <option value="career-guidance" className="text-gray-900">Career Guidance</option>
+                    <option value="consultation" className="text-gray-900">Personal Consultation</option>
+                  </motion.select>
+                </div>
+
+                {/* Message */}
+                <div className="pt-1 sm:pt-2">
+                  <motion.textarea
+                    name="message"
+                    placeholder="Message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    rows={3}
+                    className="w-full px-3 py-2 sm:py-3 bg-gray-50 border-2 rounded-lg focus:outline-none focus:ring-0 font-matter text-sm sm:text-base placeholder-gray-500 resize-none transition-colors duration-300"
+                    style={{ 
+                      borderColor: '#922930',
+                      color: '#922930'
+                    }}
+                    whileFocus={{ borderWidth: '3px' }}
+                    required
+                  />
+                </div>
+
+                {/* Submit Button */}
+                <div className="pt-3 sm:pt-4">
+                  <motion.button
+                    type="submit"
+                    className="px-8 sm:px-10 py-2 sm:py-3 rounded-full font-semibold text-sm sm:text-base transition-all duration-300 shadow-lg font-matter"
+                    style={{ 
+                      backgroundColor: '#922930',
+                      color: '#FFFAE5'
+                    }}
+                    whileHover={{ 
+                      scale: 1.05, 
+                      boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)' 
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    Send Message
+                  </motion.button>
+                </div>
+              </motion.form>
+            </div>
+          </motion.div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
+
 export default GetInTouchSection;

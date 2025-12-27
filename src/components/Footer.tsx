@@ -1,15 +1,26 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 const Footer: React.FC = () => {
   return (
-    <footer 
+    <motion.footer 
       className="relative bg-cover bg-center bg-no-repeat text-white"
       style={{ backgroundImage: 'url(/Footer_bg.png)' }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6 }}
     >
       {/* Main Footer Content */}
       <div className="relative z-10 py-12 md:py-16 lg:py-20">
         <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 lg:gap-12">
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 lg:gap-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             
             {/* Column 1 - Brand Information */}
             <div className="space-y-4">
@@ -144,21 +155,27 @@ const Footer: React.FC = () => {
                 </a>
               </nav>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
 
       {/* Divider & Copyright */}
       <div className="relative z-10 border-t border-cream/20">
         <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-4">
-          <div className="text-center">
+          <motion.div 
+            className="text-center"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
             <p className="text-cream/80 font-matter">
               © Copyright 2025 GNN. All Rights Reserved
             </p>
-          </div>
+          </motion.div>
         </div>
       </div>
-    </footer>
+    </motion.footer>
   );
 };
 

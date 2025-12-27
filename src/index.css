@@ -41,10 +41,12 @@
 .slick-track {
   display: flex !important;
   align-items: stretch !important;
+  transition: transform 0.8s cubic-bezier(0.45, 0, 0.55, 1) !important;
 }
 
 .slick-slide {
   height: inherit !important;
+  transition: opacity 0.5s ease, transform 0.5s ease !important;
 }
 
 .slick-slide > div {
@@ -55,6 +57,20 @@
   height: 100% !important;
   display: flex !important;
   flex-direction: column !important;
+}
+
+/* Smooth infinite scroll animation */
+.slick-slider {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.slick-list {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 /* Custom dots styling */
@@ -72,4 +88,65 @@
   margin: 0 4px !important;
   width: auto !important;
   height: auto !important;
+}
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .slick-dots {
+    bottom: -30px !important;
+  }
+  
+  /* Ensure smooth scrolling on mobile */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Prevent horizontal scroll */
+  body {
+    overflow-x: hidden;
+  }
+}
+
+/* Smooth transitions for all interactive elements */
+* {
+  transition-property: transform, opacity, box-shadow;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #922930;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7a1f26;
+}
+
+/* Focus states for accessibility */
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid #922930;
+  outline-offset: 2px;
+}
+
+/* Smooth animations for reduced motion users */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
