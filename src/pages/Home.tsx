@@ -41,20 +41,20 @@ const Home: React.FC = () => {
       >
         {/* Background with image */}
         <div 
-          className="absolute inset-0 bg-cover"
+          className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: 'url(/GNN_background.png)' }}
         >
           {/* Dark overlay for better text readability */}
         </div>
 
         {/* Main content */}
-        <div className="relative z-10 flex items-center min-h-screen">
+        <div className="relative z-10 flex items-center min-h-screen py-8 lg:py-0">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
               
               {/* Left side - Content */}
               <motion.div 
-                className="text-white space-y-6 lg:space-y-8 order-2 lg:order-1 text-center lg:text-left pt-16 lg:pt-0"
+                className="text-white space-y-4 lg:space-y-8 order-2 lg:order-1 text-center lg:text-left pt-20 lg:pt-0"
                 initial={{ opacity: 0, x: -50 }}
                 animate={{ opacity: isLoading ? 0 : 1, x: isLoading ? -50 : 0 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -124,7 +124,7 @@ const Home: React.FC = () => {
 
                 {/* Mobile Image - Only visible on mobile after Book a call button */}
                 <motion.div 
-                  className="flex justify-center pt-6 lg:hidden"
+                  className="flex justify-center pt-4 lg:hidden"
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 30 : 0 }}
                   transition={{ duration: 0.8, delay: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -132,7 +132,7 @@ const Home: React.FC = () => {
                   <motion.img 
                     src="/GaurabNPP.png" 
                     alt="Gaurab Nerpagar - Numerology Expert" 
-                    className="w-64 sm:w-80 h-auto object-contain"
+                    className="w-56 sm:w-72 h-auto object-contain"
                     whileHover={{ scale: 1.02 }}
                     transition={{ duration: 0.3 }}
                   />
@@ -140,7 +140,7 @@ const Home: React.FC = () => {
 
                 {/* Stats */}
                 <motion.div 
-                  className="flex flex-row items-center justify-center lg:justify-start space-x-6 sm:space-x-8 lg:space-x-12 pt-4 lg:pt-8 pb-8 lg:pb-0"
+                  className="flex flex-row items-center justify-center lg:justify-start space-x-4 sm:space-x-8 lg:space-x-12 pt-2 lg:pt-8"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 20 : 0 }}
                   transition={{ duration: 0.6, delay: 1.4 }}

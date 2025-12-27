@@ -112,7 +112,15 @@ const ServicesCarousel: React.FC = () => {
         }
       },
       {
-        breakpoint: 640,
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows: false,
+        }
+      },
+      {
+        breakpoint: 480,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
@@ -149,13 +157,14 @@ const ServicesCarousel: React.FC = () => {
 
         {/* Services Carousel */}
         <motion.div 
-          className="relative px-4 sm:px-8 lg:px-16"
+          className="relative px-4 sm:px-8 lg:px-16 overflow-hidden"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
-          <Slider {...settings}>
+          <div className="services-carousel-wrapper">
+            <Slider {...settings}>
             {services.map((service, index) => (
               <div key={service.id} className="px-2 sm:px-4">
                 <motion.div 
@@ -209,6 +218,7 @@ const ServicesCarousel: React.FC = () => {
               </div>
             ))}
           </Slider>
+          </div>
         </motion.div>
       </div>
     </motion.div>
