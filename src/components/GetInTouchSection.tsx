@@ -43,9 +43,13 @@ const GetInTouchSection: React.FC = () => {
             {/* This space allows the background image to be visible */}
           </div>
 
-          {/* Right side - Contact Form with semi-transparent background */}
+          {/* Right side - Contact Form with glassmorphism effect */}
           <motion.div 
-            className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl p-6 md:p-8 lg:p-12"
+            className="bg-white/70 backdrop-blur-xl rounded-2xl shadow-xl p-6 md:p-8 lg:p-12 border border-white/30"
+            style={{
+              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.6) 100%)',
+              boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.3)'
+            }}
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
