@@ -145,68 +145,80 @@ const Contact: React.FC = () => {
         {/* Left Column: Dark Section - 50% width */}
         <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-8 lg:p-12 relative bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/Footer_bg.png)' }}>
           <div className="max-w-md">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight text-cream">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bebas mb-6 leading-tight" style={{ color: '#FFFAE5' }}>
               GUIDED BY NUMBERS,<br />GROUNDED IN MEANING
             </h2>
-            <p className="text-lg text-cream/90 leading-relaxed">
-              Gaurab Nerpagar Numerologics helps you connect with life's deeper rhythms, offering thoughtful guidance that brings clarity, balance, and harmony to your everyday journey.
-            </p>
+       <p
+  className="font-poppins font-normal text-left"
+  style={{
+    color: '#FFFAE5',
+    fontSize: '18px',        
+    lineHeight: '1.6',
+    width: '420px',            
+    maxWidth: '420px',
+    whiteSpace: 'normal',
+    wordBreak: 'keep-all',
+    overflowWrap: 'normal',
+  }}
+>
+  Gaurab Nerpagar Numerologics helps you connect with life’s deeper rhythms,
+  offering thoughtful guidance that brings clarity, balance, and harmony to
+  your everyday journey.
+</p>
+
+
+
           </div>
         </div>
 
         {/* Right Column: Light Beige Section - 50% width */}
-        <div className="w-full lg:w-1/2 bg-[#F5F5DC] flex items-center justify-center">
-          <form className="w-[80%] px-12 py-16 space-y-6 mx-auto">
+        <div className="w-full lg:w-1/2 bg-[#FFFAE5] flex items-center justify-center">
+          <form className="w-[80%] px-12 py-16 space-y-8 mx-auto">
             <div className="space-y-0.5">
-              <label className="block text-[11px] font-poppins font-medium text-[#8B5A2B] tracking-[0.2em] uppercase">Full Name</label>
               <input
                 type="text"
-                className="w-full bg-transparent border-b-2 border-[#8B5A2B]/60 py-1 focus:outline-none focus:border-b-2 focus:border-[#8B5A2B]/80 text-[#5D4037] text-sm font-poppins font-medium placeholder-transparent"
-                placeholder=" "
+                className="w-full bg-transparent border-b-2 border-[#922930]/60 py-1 focus:outline-none focus:border-b-2 focus:border-[#922930]/80 text-[#5D4037] text-sm font-matter font-medium placeholder-[#922930]"
+                placeholder="Full Name"
               />
             </div>
 
             <div className="space-y-0.5">
-              <label className="block text-[11px] font-poppins font-medium text-[#8B5A2B] tracking-[0.2em] uppercase">Email Address</label>
               <input
                 type="email"
-                className="w-full bg-transparent border-b-2 border-[#8B5A2B]/60 py-1 focus:outline-none focus:border-b-2 focus:border-[#8B5A2B]/80 text-[#5D4037] text-sm font-poppins font-medium placeholder-transparent"
-                placeholder=" "
+                className="w-full bg-transparent border-b-2 border-[#922930]/60 py-1 focus:outline-none focus:border-b-2 focus:border-[#922930]/80 text-[#5D4037] text-sm font-matter font-medium placeholder-[#922930]"
+                placeholder="Email Address"
               />
             </div>
 
             <div className="space-y-0.5">
-              <label className="block text-[11px] font-poppins font-medium text-[#8B5A2B] tracking-[0.2em] uppercase">Phone Number</label>
               <input
                 type="tel"
-                className="w-full bg-transparent border-b-2 border-[#8B5A2B]/60 py-1 focus:outline-none focus:border-b-2 focus:border-[#8B5A2B]/80 text-[#5D4037] text-sm font-poppins font-medium placeholder-transparent"
-                placeholder=" "
+                className="w-full bg-transparent border-b-2 border-[#922930]/60 py-1 focus:outline-none focus:border-b-2 focus:border-[#922930]/80 text-[#5D4037] text-sm font-matter font-medium placeholder-[#922930]"
+                placeholder="Phone Number"
               />
             </div>
 
             <div className="space-y-0.5">
-              <label className="block text-[11px] font-poppins font-medium text-[#8B5A2B] tracking-[0.2em] uppercase">Service Interest</label>
               <input
                 type="text"
-                className="w-full bg-transparent border-b-2 border-[#8B5A2B]/60 py-1 focus:outline-none focus:border-b-2 focus:border-[#8B5A2B]/80 text-[#5D4037] text-sm font-poppins font-medium placeholder-transparent"
-                placeholder=" "
+                className="w-full bg-transparent border-b-2 border-[#922930]/60 py-1 focus:outline-none focus:border-b-2 focus:border-[#922930]/80 text-[#5D4037] text-sm font-matter font-medium placeholder-[#922930]"
+                placeholder="Service Interest"
               />
             </div>
 
             <div className="pt-4 space-y-0.5">
-              <label className="block text-[11px] font-poppins font-medium text-[#8B5A2B] tracking-[0.2em] uppercase">Message</label>
               <textarea
                 rows={4}
-                className="w-full bg-transparent border-2 border-[#8B5A2B]/60 rounded-sm p-2.5 focus:outline-none focus:border-2 focus:border-[#8B5A2B]/80 resize-none text-[#5D4037] text-sm font-poppins font-medium"
+                className="w-full bg-transparent border-2 border-[#922930]/60 rounded-sm p-2.5 focus:outline-none focus:border-2 focus:border-[#922930]/80 resize-none text-[#5D4037] text-sm font-matter font-medium placeholder-[#922930]"
                 style={{ transform: 'none' }}
-                placeholder=" "
+                placeholder="Message"
               />
             </div>
 
             <div className="pt-1">
               <button
                 type="button"
-                className="bg-[#8B0000] hover:bg-[#6B0000] text-white text-sm font-poppins font-medium py-2.5 px-8 rounded-full transition-all duration-200 hover:transform hover:-translate-y-0.5 active:scale-95 shadow-lg hover:shadow-[#8B0000]/20"
+                className="bg-[#8B0000] hover:bg-[#6B0000] text-white text-sm font-matter font-medium py-2.5 px-8 rounded-full transition-all duration-200 hover:transform hover:-translate-y-0.5 active:scale-95 shadow-lg hover:shadow-[#8B0000]/20"
               >
                 Send
               </button>
@@ -220,36 +232,36 @@ const Contact: React.FC = () => {
       <div className="w-full max-w-6xl mx-auto px-6 flex flex-col h-full py-10">
         
         {/* SECTION 1: CONTACT INFO CARD */}
-        <div className="bg-[#F5F5DC] rounded-2xl p-12 flex-[0.45] flex items-center">
+        <div className="bg-[#FFFAE5] rounded-2xl p-4 flex-[0.45] flex items-center">
           <div className="w-full max-w-4xl mx-auto">
             {/* Email Row */}
-            <div className="contact-row flex items-center space-x-4 sm:space-x-6 pb-4 sm:pb-6 border-b border-[#711604]/20">
+            <div className="contact-row flex items-center space-x-2 sm:space-x-3 pb-2 sm:pb-3 border-b border-[#711604]/40">
               <div className="contact-icon w-10 h-10 sm:w-12 sm:h-12 bg-[#8B5A2B]/10 rounded-full flex items-center justify-center flex-shrink-0 hover:bg-[#8B5A2B]/15 transition-colors duration-200">
                 <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#711604]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
               </div>
               <div className="flex-1 text-left">
-                <h3 className="text-base sm:text-lg font-bebas uppercase text-[#711604] tracking-widest mb-1">EMAIL</h3>
-                <p className="text-xs sm:text-sm font-poppins font-medium text-[#711604]">contact@gaurabnerpagar.com</p>
+                <h3 className="text-lg sm:text-xl font-bebas uppercase text-[#922930] tracking-widest mb-0" style={{ lineHeight: '37px', letterSpacing: '0%', marginBottom: '-8px', fontWeight: '400' }}>EMAIL</h3>
+                <p className="text-xs sm:text-sm font-matter font-medium text-[#922930]">consult@numerologyinsights.com</p>
               </div>
             </div>
             
             {/* WhatsApp Row */}
-            <div className="contact-row flex items-center space-x-4 sm:space-x-6 py-4 sm:py-6 border-b border-[#711604]/20">
+            <div className="contact-row flex items-center space-x-2 sm:space-x-3 py-2 sm:py-3 border-b border-[#711604]/40">
               <div className="contact-icon w-10 h-10 sm:w-12 sm:h-12 bg-[#8B5A2B]/10 rounded-full flex items-center justify-center flex-shrink-0 hover:bg-[#8B5A2B]/15 transition-colors duration-200">
                 <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#711604]" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.149-.67.149-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414-.074-.123-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
                 </svg>
               </div>
               <div className="flex-1 text-left">
-                <h3 className="text-base sm:text-lg font-bebas uppercase text-[#711604] tracking-widest mb-1">WHATSAPP</h3>
-                <p className="text-xs sm:text-sm font-poppins font-medium text-[#711604]">+91 98765 43210</p>
+                <h3 className="text-lg sm:text-xl font-bebas uppercase text-[#922930] tracking-widest mb-0" style={{ lineHeight: '37px', letterSpacing: '0%', marginBottom: '-8px', fontWeight: '400' }}>WHATSAPP</h3>
+                <p className="text-xs sm:text-sm font-matter font-medium text-[#922930]">+91 98XXX XXXXX</p>
               </div>
             </div>
             
             {/* Location Row */}
-            <div className="contact-row flex items-center space-x-4 sm:space-x-6 pt-4 sm:pt-6">
+            <div className="contact-row flex items-center space-x-2 sm:space-x-3 pt-2 sm:pt-3">
               <div className="contact-icon w-10 h-10 sm:w-12 sm:h-12 bg-[#8B5A2B]/10 rounded-full flex items-center justify-center flex-shrink-0 hover:bg-[#8B5A2B]/15 transition-colors duration-200">
                 <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#711604]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -257,8 +269,8 @@ const Contact: React.FC = () => {
                 </svg>
               </div>
               <div className="flex-1 text-left">
-                <h3 className="text-base sm:text-lg font-bebas uppercase text-[#711604] tracking-widest mb-1">LOCATION</h3>
-                <p className="text-xs sm:text-sm font-poppins font-medium text-[#711604]">Available Worldwide via Video Consultation</p>
+                <h3 className="text-lg sm:text-xl font-bebas uppercase text-[#922930] tracking-widest mb-0" style={{ lineHeight: '37px', letterSpacing: '0%', marginBottom: '-8px', fontWeight: '400' }}>LOCATION</h3>
+                <p className="text-xs sm:text-sm font-matter font-medium text-[#922930]">Available Worldwide via Video Consultation</p>
               </div>
             </div>
           </div>
