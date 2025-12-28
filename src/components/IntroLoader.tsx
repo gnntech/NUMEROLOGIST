@@ -34,7 +34,6 @@ const IntroLoader: React.FC<IntroLoaderProps> = ({ isLoading, onComplete }) => {
     };
   }, [isLoading, onComplete]);
 
-  // Smooth easing
   const textEase = [0.53, 2, 0.98, 1] as const;
   const imageEase = [0.53, 2, 0.68, 1] as const;
   const fadeEase = [0.4, 0, 0.1, 1] as const;
