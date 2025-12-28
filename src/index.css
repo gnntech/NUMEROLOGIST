@@ -4,6 +4,18 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Mobile viewport height fix - prevents white line at bottom */
+html, body {
+  background-color: #1a0a05; /* Dark brown matching the site theme */
+}
+
+/* Support for dynamic viewport height on mobile */
+@supports (height: 100dvh) {
+  .min-h-screen {
+    min-height: 100dvh;
+  }
+}
+
 /* Slick Carousel Custom Styles */
 .slick-dots {
   bottom: -50px !important;
@@ -78,16 +90,32 @@
   bottom: -50px !important;
   display: flex !important;
   justify-content: center !important;
+  align-items: center !important;
   gap: 8px !important;
   list-style: none !important;
   padding: 0 !important;
-  margin: 0 !important;
+  margin: 20px 0 0 0 !important;
+  position: relative !important;
 }
 
 .custom-dots li {
   margin: 0 4px !important;
   width: auto !important;
   height: auto !important;
+}
+
+.custom-dots li div {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #922930;
+  opacity: 0.3;
+  transition: all 0.3s ease;
+}
+
+.custom-dots li.slick-active div {
+  opacity: 1;
+  transform: scale(1.2);
 }
 /* Responsive improvements */
 @media (max-width: 768px) {

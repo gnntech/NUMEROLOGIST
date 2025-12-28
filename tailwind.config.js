@@ -17,7 +17,16 @@ module.exports = {
       fontFamily: {
         'bebas': ['Bebas Neue', 'cursive'],
         'matter': ['Matter', 'sans-serif'],
-      }
+      },
+      // Mobile-safe viewport height utilities
+      minHeight: {
+        'screen-dvh': '100dvh',
+        'screen-svh': '100svh',
+      },
+      height: {
+        'screen-dvh': '100dvh',
+        'screen-svh': '100svh',
+      },
     },
   },
   plugins: [],

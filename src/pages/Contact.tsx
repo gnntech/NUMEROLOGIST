@@ -1,154 +1,292 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef } from 'react';
+import Footer from '../components/Footer';
 
 const Contact: React.FC = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
+  const heroRef = useRef<HTMLDivElement>(null);
+  const formSectionRef = useRef<HTMLDivElement>(null);
+  const contactSectionRef = useRef<HTMLDivElement>(null);
+  const mapSectionRef = useRef<HTMLDivElement>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
+  useEffect(() => {
+    document.body.style.opacity = '0';
+    document.body.style.transition = 'opacity 800ms cubic-bezier(0.22, 1, 0.36, 1)';
+    
+    setTimeout(() => {
+      document.body.style.opacity = '1';
+    }, 100);
+
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const element = entry.target as HTMLElement;
+          element.style.opacity = '1';
+          element.style.transform = 'translateY(0)';
+          observer.unobserve(element);
+        }
+      });
+    }, observerOptions);
+
+    const sections = [heroRef.current, formSectionRef.current, contactSectionRef.current, mapSectionRef.current];
+    sections.forEach((section) => {
+      if (section) {
+        section.style.opacity = '0';
+        section.style.transform = 'translateY(16px)';
+        section.style.transition = 'all 700ms cubic-bezier(0.22, 1, 0.36, 1)';
+        observer.observe(section);
+      }
     });
-  };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Handle form submission here
-    alert('Thank you for your message! We\'ll get back to you soon.');
-    setFormData({ name: '', email: '', subject: '', message: '' });
-  };
+    const animateFormInputs = () => {
+      const inputs = document.querySelectorAll('input, textarea');
+      inputs.forEach((input, index) => {
+        const element = input as HTMLElement;
+        element.style.backgroundSize = '0% 100%';
+        element.style.transition = 'background-size 400ms cubic-bezier(0.22, 1, 0.36, 1)';
+        
+        setTimeout(() => {
+          element.style.backgroundSize = '100% 100%';
+        }, 400 + (index * 80));
+      });
+    };
+
+    const formObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateFormInputs();
+          formObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    if (formSectionRef.current) {
+      formObserver.observe(formSectionRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+      formObserver.disconnect();
+    };
+  }, []);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Contact Us</h1>
-          <p className="text-xl text-gray-600">
-            We'd love to hear from you. Send us a message and we'll respond as soon as possible.
-          </p>
-        </div>
+    <>
+      <section
+        ref={heroRef}
+        className="
+          relative w-full
+          h-screen min-h-[700px]
+          bg-[radial-gradient(circle_at_50%_-20%,#F6C16A_0%,#C3602D_40%,#6F2F20_80%,#451a03_100%)]
+          overflow-visible
+          isolate
+          flex items-center justify-center
+        "
+      >
+        <div className="w-full max-w-7xl px-6 h-full flex flex-col lg:flex-row items-center justify-center lg:justify-between relative z-20">
 
-        <div className="grid md:grid-cols-2 gap-12">
-          <div>
-            <h2 className="text-2xl font-semibold text-gray-800 mb-6">Get in Touch</h2>
-            
-            <div className="space-y-6">
-              <div className="flex items-start">
-                <div className="flex-shrink-0">
-                  <div className="w-6 h-6 bg-primary-600 rounded-full flex items-center justify-center">
-                    <span className="text-white text-sm">📍</span>
-                  </div>
-                </div>
-                <div className="ml-4">
-                  <h3 className="text-lg font-medium text-gray-800">Address</h3>
-                  <p className="text-gray-600">123 Business Street<br />City, State 12345</p>
-                </div>
-              </div>
-
-              <div className="flex items-start">
-                <div className="flex-shrink-0">
-                  <div className="w-6 h-6 bg-primary-600 rounded-full flex items-center justify-center">
-                    <span className="text-white text-sm">📞</span>
-                  </div>
-                </div>
-                <div className="ml-4">
-                  <h3 className="text-lg font-medium text-gray-800">Phone</h3>
-                  <p className="text-gray-600">(555) 123-4567</p>
-                </div>
-              </div>
-
-              <div className="flex items-start">
-                <div className="flex-shrink-0">
-                  <div className="w-6 h-6 bg-primary-600 rounded-full flex items-center justify-center">
-                    <span className="text-white text-sm">✉️</span>
-                  </div>
-                </div>
-                <div className="ml-4">
-                  <h3 className="text-lg font-medium text-gray-800">Email</h3>
-                  <p className="text-gray-600">hello@yourwebsite.com</p>
-                </div>
-              </div>
+          {/* LEFT: PHONE */}
+          <div className="relative w-full lg:w-1/2 flex justify-center lg:justify-start lg:pl-10 h-[50%] lg:h-full items-center lg:items-end order-2 lg:order-1 pb-16">
+            <div className="
+                  relative lg:absolute
+                  w-[280px] sm:w-[350px] lg:w-[48vw] lg:max-w-[837px]
+                  transform 
+                  lg:bottom-0 lg:left-[-170px]
+                  lg:origin-bottom
+                  transition-all duration-300
+                  mb-12 lg:mb-0
+                  z-10
+             ">
+              <div
+                className="absolute bg-[#541F12] opacity-70 blur-[90px] rounded-full"
+                style={{
+                  width: '85%',
+                  height: '60%',
+                  top: '25%',
+                  left: '8%',
+                  transform: 'rotate(60deg)',
+                  zIndex: -1,
+                }}
+              />
+              <img
+                src="/phone-mockup.png"
+                alt="Contact Us"
+                className="
+                      w-full h-auto 
+                      rotate-[-6deg] lg:rotate-0
+                      drop-shadow-[0_35px_35px_rgba(0,0,0,0.5)] 
+                      object-contain 
+                      max-h-[60vh] lg:max-h-[85vh]
+                  "
+              />
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-lg p-8">
-            <form onSubmit={handleSubmit}>
-              <div className="mb-6">
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent"
-                />
-              </div>
+          {/* RIGHT: CONTENT */}
+          <div className="w-full lg:w-1/2 flex flex-col justify-center items-center lg:items-start text-center lg:text-left h-[40%] lg:h-full order-1 lg:order-2 lg:pl-12">
+            <h1 className="text-6xl md:text-8xl font-bebas text-[#FFFAE5] tracking-wide mb-6 leading-[0.9] drop-shadow-sm lg:-ml-1">
+              GET IN TOUCH
+            </h1>
 
-              <div className="mb-6">
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent"
-                />
-              </div>
+            <p className="text-base sm:text-lg md:text-xl font-matter text-[#FFFAE5]/90 max-w-[480px] leading-relaxed font-light">
+              We’d love to hear from you. Whether you have a question, a thought to
+              share, or simply want to reach out, we’re here for you.
+            </p>
+          </div>
 
-              <div className="mb-6">
-                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
-                  Subject
-                </label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent"
-                />
-              </div>
+        </div>
+      </section>
 
-              <div className="mb-6">
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={4}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent"
-                ></textarea>
-              </div>
-
-              <button
-                type="submit"
-                className="w-full bg-primary-600 hover:bg-primary-700 text-white py-3 px-4 rounded-lg font-medium transition-colors duration-200"
-              >
-                Send Message
-              </button>
-            </form>
+      <section ref={formSectionRef} className="w-full flex flex-col">
+        <div className="flex flex-col lg:flex-row" style={{ minHeight: 'calc(100vh - 4rem)' }}>
+        {/* Left Column: Dark Section - 50% width */}
+        <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-8 lg:p-12 relative bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/Footer_bg.png)' }}>
+          <div className="max-w-md">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight text-cream">
+              GUIDED BY NUMBERS,<br />GROUNDED IN MEANING
+            </h2>
+            <p className="text-lg text-cream/90 leading-relaxed">
+              Gaurab Nerpagar Numerologics helps you connect with life's deeper rhythms, offering thoughtful guidance that brings clarity, balance, and harmony to your everyday journey.
+            </p>
           </div>
         </div>
+
+        {/* Right Column: Light Beige Section - 50% width */}
+        <div className="w-full lg:w-1/2 bg-[#F5F5DC] flex items-center justify-center">
+          <form className="w-[80%] px-12 py-16 space-y-6 mx-auto">
+            <div className="space-y-0.5">
+              <label className="block text-[11px] font-poppins font-medium text-[#8B5A2B] tracking-[0.2em] uppercase">Full Name</label>
+              <input
+                type="text"
+                className="w-full bg-transparent border-b-2 border-[#8B5A2B]/60 py-1 focus:outline-none focus:border-b-2 focus:border-[#8B5A2B]/80 text-[#5D4037] text-sm font-poppins font-medium placeholder-transparent"
+                placeholder=" "
+              />
+            </div>
+
+            <div className="space-y-0.5">
+              <label className="block text-[11px] font-poppins font-medium text-[#8B5A2B] tracking-[0.2em] uppercase">Email Address</label>
+              <input
+                type="email"
+                className="w-full bg-transparent border-b-2 border-[#8B5A2B]/60 py-1 focus:outline-none focus:border-b-2 focus:border-[#8B5A2B]/80 text-[#5D4037] text-sm font-poppins font-medium placeholder-transparent"
+                placeholder=" "
+              />
+            </div>
+
+            <div className="space-y-0.5">
+              <label className="block text-[11px] font-poppins font-medium text-[#8B5A2B] tracking-[0.2em] uppercase">Phone Number</label>
+              <input
+                type="tel"
+                className="w-full bg-transparent border-b-2 border-[#8B5A2B]/60 py-1 focus:outline-none focus:border-b-2 focus:border-[#8B5A2B]/80 text-[#5D4037] text-sm font-poppins font-medium placeholder-transparent"
+                placeholder=" "
+              />
+            </div>
+
+            <div className="space-y-0.5">
+              <label className="block text-[11px] font-poppins font-medium text-[#8B5A2B] tracking-[0.2em] uppercase">Service Interest</label>
+              <input
+                type="text"
+                className="w-full bg-transparent border-b-2 border-[#8B5A2B]/60 py-1 focus:outline-none focus:border-b-2 focus:border-[#8B5A2B]/80 text-[#5D4037] text-sm font-poppins font-medium placeholder-transparent"
+                placeholder=" "
+              />
+            </div>
+
+            <div className="pt-4 space-y-0.5">
+              <label className="block text-[11px] font-poppins font-medium text-[#8B5A2B] tracking-[0.2em] uppercase">Message</label>
+              <textarea
+                rows={4}
+                className="w-full bg-transparent border-2 border-[#8B5A2B]/60 rounded-sm p-2.5 focus:outline-none focus:border-2 focus:border-[#8B5A2B]/80 resize-none text-[#5D4037] text-sm font-poppins font-medium"
+                style={{ transform: 'none' }}
+                placeholder=" "
+              />
+            </div>
+
+            <div className="pt-1">
+              <button
+                type="button"
+                className="bg-[#8B0000] hover:bg-[#6B0000] text-white text-sm font-poppins font-medium py-2.5 px-8 rounded-full transition-all duration-200 hover:transform hover:-translate-y-0.5 active:scale-95 shadow-lg hover:shadow-[#8B0000]/20"
+              >
+                Send
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </section>
+
+    <section ref={contactSectionRef} className="w-full bg-white flex flex-col" style={{ height: 'calc(100vh - 4rem)' }}>
+      <div className="w-full max-w-6xl mx-auto px-6 flex flex-col h-full py-10">
+        
+        {/* SECTION 1: CONTACT INFO CARD */}
+        <div className="bg-[#F5F5DC] rounded-2xl p-12 flex-[0.45] flex items-center">
+          <div className="w-full max-w-4xl mx-auto">
+            {/* Email Row */}
+            <div className="contact-row flex items-center space-x-4 sm:space-x-6 pb-4 sm:pb-6 border-b border-[#711604]/20">
+              <div className="contact-icon w-10 h-10 sm:w-12 sm:h-12 bg-[#8B5A2B]/10 rounded-full flex items-center justify-center flex-shrink-0 hover:bg-[#8B5A2B]/15 transition-colors duration-200">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#711604]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <div className="flex-1 text-left">
+                <h3 className="text-base sm:text-lg font-bebas uppercase text-[#711604] tracking-widest mb-1">EMAIL</h3>
+                <p className="text-xs sm:text-sm font-poppins font-medium text-[#711604]">contact@gaurabnerpagar.com</p>
+              </div>
+            </div>
+            
+            {/* WhatsApp Row */}
+            <div className="contact-row flex items-center space-x-4 sm:space-x-6 py-4 sm:py-6 border-b border-[#711604]/20">
+              <div className="contact-icon w-10 h-10 sm:w-12 sm:h-12 bg-[#8B5A2B]/10 rounded-full flex items-center justify-center flex-shrink-0 hover:bg-[#8B5A2B]/15 transition-colors duration-200">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#711604]" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.149-.67.149-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414-.074-.123-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                </svg>
+              </div>
+              <div className="flex-1 text-left">
+                <h3 className="text-base sm:text-lg font-bebas uppercase text-[#711604] tracking-widest mb-1">WHATSAPP</h3>
+                <p className="text-xs sm:text-sm font-poppins font-medium text-[#711604]">+91 98765 43210</p>
+              </div>
+            </div>
+            
+            {/* Location Row */}
+            <div className="contact-row flex items-center space-x-4 sm:space-x-6 pt-4 sm:pt-6">
+              <div className="contact-icon w-10 h-10 sm:w-12 sm:h-12 bg-[#8B5A2B]/10 rounded-full flex items-center justify-center flex-shrink-0 hover:bg-[#8B5A2B]/15 transition-colors duration-200">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#711604]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </div>
+              <div className="flex-1 text-left">
+                <h3 className="text-base sm:text-lg font-bebas uppercase text-[#711604] tracking-widest mb-1">LOCATION</h3>
+                <p className="text-xs sm:text-sm font-poppins font-medium text-[#711604]">Available Worldwide via Video Consultation</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* GAP BETWEEN SECTIONS */}
+        <div className="h-8 lg:h-10"></div>
+        
+        {/* SECTION 2: MAP */}
+        <div ref={mapSectionRef} className="rounded-2xl overflow-hidden flex-[0.55] flex items-center">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.6!2d72.8777!3d19.0761!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c6306644edec%3A0xf58055b4bf4d4343!2sMumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1704067200000!5m2!1sen!2sin&maptype=satellite"
+            width="100%"
+            height="100%"
+            style={{ border: 0, pointerEvents: 'auto' }}
+            allowFullScreen
+            loading="lazy"
+            title="Google Maps Location"
+            className="rounded-2xl"
+            referrerPolicy="no-referrer-when-downgrade"
+            allow="clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture; web-share"
+          ></iframe>
+        </div>
+        
+      </div>
+    </section>
+    <Footer></Footer>
+    </>
   );
 };
 

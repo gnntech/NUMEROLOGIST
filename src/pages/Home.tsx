@@ -37,27 +37,27 @@ const Home: React.FC = () => {
       
       {/* Main Home Content */}
       <motion.div 
-       
+        className="overflow-x-hidden"
       >
-        {/* Background with image */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: 'url(/GNN_background.png)' }}
-        >
-          {/* Dark overlay for better text readability */}
-        </div>
+        {/* Hero Section with background */}
+        <div className="relative min-h-screen">
+          {/* Background with image */}
+          <div 
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: 'url(/GNN_background.png)' }}
+          />
 
-        {/* Main content */}
-        <div className="relative z-10 flex items-center min-h-screen py-8 lg:py-0">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          {/* Main content */}
+          <div className="relative z-10 flex items-center min-h-screen pb-10 pt-2 lg:py-0">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+              <div className="grid lg:grid-cols-2 gap-4 lg:gap-12 items-center">
               
-              {/* Left side - Content */}
-              <motion.div 
-                className="text-white space-y-4 lg:space-y-8 order-2 lg:order-1 text-center lg:text-left pt-20 lg:pt-0"
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: isLoading ? 0 : 1, x: isLoading ? -50 : 0 }}
-                transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+                {/* Left side - Content */}
+                <motion.div 
+                  className="text-white space-y-3 lg:space-y-8 order-2 lg:order-1 text-center lg:text-left pt-4 lg:pt-0"
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: isLoading ? 0 : 1, x: isLoading ? -50 : 0 }}
+                  transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
               >
                 {/* Expert badge */}
                 <motion.div 
@@ -75,7 +75,7 @@ const Home: React.FC = () => {
 
                 {/* Main heading */}
                 <div>
-                  <h1 className="font leading-tight tracking-tight font-bebas text-5xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl" style={{ color: '#FFD8C5', letterSpacing: '1px' }}>
+                  <h1 className="font leading-tight tracking-tight font-bebas text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl" style={{ color: '#FFD8C5', letterSpacing: '1px' }}>
                     <motion.span 
                       className="block"
                       initial={{ opacity: 0, y: 20 }}
@@ -124,7 +124,7 @@ const Home: React.FC = () => {
 
                 {/* Mobile Image - Only visible on mobile after Book a call button */}
                 <motion.div 
-                  className="flex justify-center pt-4 lg:hidden"
+                  className="flex justify-center pt-0 lg:hidden"
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 30 : 0 }}
                   transition={{ duration: 0.8, delay: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -132,7 +132,7 @@ const Home: React.FC = () => {
                   <motion.img 
                     src="/GaurabNPP.png" 
                     alt="Gaurab Nerpagar - Numerology Expert" 
-                    className="w-56 sm:w-72 h-auto object-contain"
+                    className="w-55 sm:w-70 h-auto object-contain"
                     whileHover={{ scale: 1.02 }}
                     transition={{ duration: 0.3 }}
                   />
@@ -140,7 +140,7 @@ const Home: React.FC = () => {
 
                 {/* Stats */}
                 <motion.div 
-                  className="flex flex-row items-center justify-center lg:justify-start space-x-4 sm:space-x-8 lg:space-x-12 pt-2 lg:pt-8"
+                  className="flex flex-row items-center justify-center lg:justify-start gap-6 sm:gap-0 sm:space-x-8 lg:space-x-12 pt-4 pb-6 lg:pt-8 lg:pb-0"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 20 : 0 }}
                   transition={{ duration: 0.6, delay: 1.4 }}
@@ -154,16 +154,16 @@ const Home: React.FC = () => {
                       <img 
                         src="/GLOBAL.png" 
                         alt="Global" 
-                        className="w-5 h-5 sm:w-8 sm:h-8 object-contain"
+                        className="w-6 h-6 sm:w-8 sm:h-8 object-contain"
                       />
                     </div>
                     <div className="text-left">
-                      <div className="text-lg sm:text-3xl font-bebas tracking-wide font-bold text-orange-100">GLOBAL</div>
+                      <div className="text-base sm:text-3xl font-bebas tracking-wide font-bold text-orange-100">GLOBAL</div>
                       <div className="text-xs sm:text-base text-orange-200">Consultations</div>
                     </div>
                   </motion.div>
                   
-                  <div className="w-px h-10 sm:h-16 bg-orange-300/50"></div>
+                  <div className="hidden sm:block w-px h-10 sm:h-16 bg-orange-300/50"></div>
                   
                   <motion.div 
                     className="flex items-center space-x-2 sm:space-x-4"
@@ -174,11 +174,11 @@ const Home: React.FC = () => {
                       <img 
                         src="/Star.png" 
                         alt="Star" 
-                        className="w-5 h-5 sm:w-8 sm:h-8 object-contain"
+                        className="w-6 h-6 sm:w-8 sm:h-8 object-contain"
                       />
                     </div>
                     <div className="text-left">
-                      <div className="text-lg sm:text-3xl font-bebas tracking-wide font-bold text-orange-100">10+</div>
+                      <div className="text-base sm:text-3xl font-bebas tracking-wide font-bold text-orange-100">10+</div>
                       <div className="text-xs sm:text-base text-orange-200">Years Experience</div>
                     </div>
                   </motion.div>
@@ -205,6 +205,7 @@ const Home: React.FC = () => {
                 </div>
               </motion.div>
             </div>
+          </div>
           </div>
         </div>
 

@@ -44,7 +44,7 @@ const ServicesCarousel: React.FC = () => {
     const { onClick } = props;
     return (
       <motion.button
-        className="absolute top-1/2 transform -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center bg-white rounded-full shadow-lg border border-gray-200 -left-5 sm:-left-16"
+        className="absolute top-1/2 transform -translate-y-1/2 z-30 w-10 h-10 lg:w-12 lg:h-12 flex items-center justify-center bg-white rounded-full shadow-lg border border-gray-200 -left-5 lg:-left-14"
         onClick={onClick}
         aria-label="Previous service"
         whileHover={{ scale: 1.1, boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)' }}
@@ -54,7 +54,7 @@ const ServicesCarousel: React.FC = () => {
         <img 
           src="/leftarrow.png" 
           alt="Previous" 
-          className="w-4 h-4 sm:w-6 sm:h-6 object-contain"
+          className="w-4 h-4 lg:w-6 lg:h-6 object-contain"
         />
       </motion.button>
     );
@@ -64,7 +64,7 @@ const ServicesCarousel: React.FC = () => {
     const { onClick } = props;
     return (
       <motion.button
-        className="absolute top-1/2 transform -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center bg-white rounded-full shadow-lg border border-gray-200 -right-5 sm:-right-16"
+        className="absolute top-1/2 transform -translate-y-1/2 z-30 w-10 h-10 lg:w-12 lg:h-12 flex items-center justify-center bg-white rounded-full shadow-lg border border-gray-200 -right-5 lg:-right-14"
         onClick={onClick}
         aria-label="Next service"
         whileHover={{ scale: 1.1, boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)' }}
@@ -74,7 +74,7 @@ const ServicesCarousel: React.FC = () => {
         <img 
           src="/rightarrow.png" 
           alt="Next" 
-          className="w-4 h-4 sm:w-6 sm:h-6 object-contain"
+          className="w-4 h-4 lg:w-6 lg:h-6 object-contain"
         />
       </motion.button>
     );
@@ -117,6 +117,8 @@ const ServicesCarousel: React.FC = () => {
           slidesToShow: 1,
           slidesToScroll: 1,
           arrows: false,
+          centerMode: false,
+          dots: true,
         }
       },
       {
@@ -125,6 +127,8 @@ const ServicesCarousel: React.FC = () => {
           slidesToShow: 1,
           slidesToScroll: 1,
           arrows: false,
+          centerMode: false,
+          dots: true,
         }
       }
     ]
@@ -157,7 +161,7 @@ const ServicesCarousel: React.FC = () => {
 
         {/* Services Carousel */}
         <motion.div 
-          className="relative px-4 sm:px-8 lg:px-16 overflow-hidden"
+          className="relative px-4 sm:px-12 lg:px-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -166,9 +170,9 @@ const ServicesCarousel: React.FC = () => {
           <div className="services-carousel-wrapper">
             <Slider {...settings}>
             {services.map((service, index) => (
-              <div key={service.id} className="px-2 sm:px-4">
+              <div key={service.id} className="px-1 sm:px-2">
                 <motion.div 
-                  className="rounded-3xl p-6 sm:p-6 lg:p-8 text-center transition-all duration-300 mx-auto max-w-sm sm:max-w-none"
+                  className="rounded-3xl p-5 sm:p-6 lg:p-8 text-center transition-all duration-300 mx-auto w-full"
                   style={{ 
                     backgroundColor: '#FFFAE5',
                     minHeight: '380px',

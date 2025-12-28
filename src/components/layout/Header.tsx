@@ -26,52 +26,46 @@ const Header: React.FC = () => {
   ];
 
   return (
-    <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-amber-900/95 shadow-lg backdrop-blur-sm' 
-          : 'bg-transparent'
-      }`}
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+        ? 'bg-amber-900/95 shadow-lg backdrop-blur-sm'
+        : 'bg-transparent shadow-[0_24px_40px_-15px_rgba(69,26,3,0.3)]'
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo - Hidden on mobile, we'll use the navigation space */}
           <div className="flex-shrink-0 hidden lg:block">
             <Link to="/" className="text-2xl font-bold text-orange-100 font-matter">
               GNN
             </Link>
           </div>
 
-          {/* Desktop Menu - Centered */}
           <nav className="hidden md:flex space-x-8 mx-auto lg:mx-0">
             {menuItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`px-3 py-2 text-sm font-medium font-matter transition-colors duration-200 ${
-                  location.pathname === item.path
-                    ? 'text-orange-200 border-b-2 border-orange-200'
-                    : 'text-orange-100 hover:text-orange-200'
-                }`}
+                className={`px-3 py-2 text-base font-medium font-matter transition-colors duration-200 ${location.pathname === item.path
+                  ? 'text-orange-200 border-b-2 border-orange-200'
+                  : 'text-orange-100 hover:text-orange-200'
+                  }`}
               >
                 {item.name}
               </Link>
             ))}
           </nav>
 
-          {/* CTA Button */}
           <div className="hidden md:flex">
             <button className="bg-orange-200 hover:bg-orange-100 text-amber-900 px-6 py-2 rounded-full font-medium transition-colors duration-200 flex items-center space-x-2 font-matter">
-              <img 
-                src="/CALL.png" 
-                alt="Call" 
+              <img
+                src="/CALL.png"
+                alt="Call"
                 className="h-4 w-4 object-contain"
               />
               <span>Call Now</span>
             </button>
           </div>
 
-          {/* Mobile menu button */}
           <div className="md:hidden">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -88,7 +82,6 @@ const Header: React.FC = () => {
           </div>
         </div>
 
-        {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 bg-amber-900/95 backdrop-blur-sm border-t border-orange-300/20">
@@ -97,19 +90,18 @@ const Header: React.FC = () => {
                   key={item.path}
                   to={item.path}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`block px-3 py-2 text-base font-medium font-matter transition-colors duration-200 ${
-                    location.pathname === item.path
-                      ? 'text-orange-200 bg-orange-800/50'
-                      : 'text-orange-100 hover:text-orange-200 hover:bg-orange-800/30'
-                  }`}
+                  className={`block px-3 py-2 text-base font-medium font-matter transition-colors duration-200 ${location.pathname === item.path
+                    ? 'text-orange-200 bg-orange-800/50'
+                    : 'text-orange-100 hover:text-orange-200 hover:bg-orange-800/30'
+                    }`}
                 >
                   {item.name}
                 </Link>
               ))}
               <button className="w-full mt-4 bg-orange-200 hover:bg-orange-100 text-amber-900 px-6 py-2 rounded-full font-medium transition-colors duration-200 text-center flex items-center justify-center space-x-2 font-matter">
-                <img 
-                  src="/CALL.png" 
-                  alt="Call" 
+                <img
+                  src="/CALL.png"
+                  alt="Call"
                   className="h-4 w-4 object-contain"
                 />
                 <span>Call Now</span>
