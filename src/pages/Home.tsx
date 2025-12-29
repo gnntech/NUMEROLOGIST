@@ -288,16 +288,13 @@ const Home: React.FC = () => {
 
         {/* Testimonial Section */}
         <motion.div 
-          className="relative z-10 py-16 sm:py-20 bg-cover bg-center bg-no-repeat"
+          className="relative z-10 py-20 sm:py-28 lg:py-32 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: 'url(/Testimonial_bg.png)' }}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
         >
-          {/* Dark overlay for better text readability */}
-          <div className="absolute inset-0 bg-black/20"></div>
-          
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div 
               className="text-center mb-12 sm:mb-16"
@@ -307,7 +304,7 @@ const Home: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <h2 
-                className="text-3xl sm:text-4xl lg:text-5xl font-bold font-bebas tracking-wide mb-8"
+                className="text-4xl sm:text-5xl lg:text-7xl font-extrabold font-bebas tracking-wide mb-8"
                 style={{ color: '#FFFAE5' }}
               >
                 TESTIMONIAL
@@ -373,13 +370,13 @@ const Home: React.FC = () => {
                     transition={{ duration: 0.2 }}
                   >
                     <div 
-                      className="text-2xl sm:text-3xl lg:text-4xl font-bold font-bebas mb-1"
+                      className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-bebas mb-1"
                       style={{ color: '#FFFAE5' }}
                     >
                       500+
                     </div>
                     <div 
-                      className="text-xs sm:text-sm font-matter"
+                      className="text-sm sm:text-base font-semibold font-matter"
                       style={{ color: '#FFFAE5', opacity: 0.9 }}
                     >
                       Clients served
@@ -390,13 +387,13 @@ const Home: React.FC = () => {
                     transition={{ duration: 0.2 }}
                   >
                     <div 
-                      className="text-2xl sm:text-3xl lg:text-4xl font-bold font-bebas mb-1"
+                      className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-bebas mb-1"
                       style={{ color: '#FFFAE5' }}
                     >
                       95%
                     </div>
                     <div 
-                      className="text-xs sm:text-sm font-matter"
+                      className="text-sm sm:text-base font-semibold font-matter"
                       style={{ color: '#FFFAE5', opacity: 0.9 }}
                     >
                       Positive Feedback
@@ -408,7 +405,7 @@ const Home: React.FC = () => {
                   >
                     <div className="flex items-center space-x-1 mb-1">
                       <span 
-                        className="text-2xl sm:text-3xl lg:text-4xl font-bold font-bebas"
+                        className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-bebas"
                         style={{ color: '#FFFAE5' }}
                       >
                         4.8
@@ -416,12 +413,12 @@ const Home: React.FC = () => {
                       <img 
                         src="/Star.png" 
                         alt="Star Rating" 
-                        className="w-4 h-4 sm:w-6 sm:h-6 object-contain"
+                        className="w-5 h-5 sm:w-7 sm:h-7 object-contain"
                         loading="lazy"
                       />
                     </div>
                     <div 
-                      className="text-xs sm:text-sm font-matter"
+                      className="text-sm sm:text-base font-semibold font-matter"
                       style={{ color: '#FFFAE5', opacity: 0.9 }}
                     >
                       Client Ratings
