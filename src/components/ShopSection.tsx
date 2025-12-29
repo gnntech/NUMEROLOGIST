@@ -106,6 +106,7 @@ const ShopSection: React.FC = () => {
                   src={card.image} 
                   alt={card.title}
                   className="w-full h-full object-cover"
+                  loading="lazy"
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.3 }}
                 />

@@ -16,15 +16,15 @@ const IntroLoader: React.FC<IntroLoaderProps> = ({ isLoading, onComplete }) => {
     }
 
     // Timeline - text first, image rises to center fully before fade out
-    // Phase 1: Text rises slowly to center (0 - 2.5s)
-    // Phase 2: Image rises smoothly to center (2.5s - 5.5s) - longer time to complete
-    // Phase 3: Text fades, image stays centered (5.5s - 6.5s)
-    // Phase 4: Complete, fade out (6.5s - 7.5s)
+    // Phase 1: Text rises slowly to center (0 - 1.5s)
+    // Phase 2: Image rises smoothly to center (1.5s - 3s)
+    // Phase 3: Text fades, image stays centered (3s - 3.5s)
+    // Phase 4: Complete, fade out (3.5s - 4s)
 
-    const phase2Timer = setTimeout(() => setPhase(2), 2500);
-    const phase3Timer = setTimeout(() => setPhase(3), 5500);
-    const phase4Timer = setTimeout(() => setPhase(4), 6500);
-    const completeTimer = setTimeout(() => onComplete(), 7500);
+    const phase2Timer = setTimeout(() => setPhase(2), 1500);
+    const phase3Timer = setTimeout(() => setPhase(3), 3000);
+    const phase4Timer = setTimeout(() => setPhase(4), 3500);
+    const completeTimer = setTimeout(() => onComplete(), 4000);
 
     return () => {
       clearTimeout(phase2Timer);
@@ -34,8 +34,8 @@ const IntroLoader: React.FC<IntroLoaderProps> = ({ isLoading, onComplete }) => {
     };
   }, [isLoading, onComplete]);
 
-  const textEase = [0.53, 2, 0.98, 1] as const;
-  const imageEase = [0.53, 2, 0.68, 1] as const;
+  const textEase = [0.25, 0.46, 0.45, 0.94] as const;
+  const imageEase = [0.25, 0.46, 0.45, 0.94] as const;
   const fadeEase = [0.4, 0, 0.1, 1] as const;
 
   if (!isLoading) return null;
@@ -67,8 +67,8 @@ const IntroLoader: React.FC<IntroLoaderProps> = ({ isLoading, onComplete }) => {
             opacity: phase >= 3 ? 0.2 : 1
           }}
           transition={{
-            y: { duration: 2.5, ease: textEase },
-            opacity: { duration: 1, ease: fadeEase }
+            y: { duration: 1.5, ease: textEase },
+            opacity: { duration: 0.5, ease: fadeEase }
           }}
         >
           <h1
@@ -95,8 +95,8 @@ const IntroLoader: React.FC<IntroLoaderProps> = ({ isLoading, onComplete }) => {
               opacity: 1
             }}
             transition={{
-              y: { duration: 3, ease: imageEase },
-              opacity: { duration: 1, ease: fadeEase }
+              y: { duration: 1.5, ease: imageEase },
+              opacity: { duration: 0.5, ease: fadeEase }
             }}
           >
             {/* Desktop image */}

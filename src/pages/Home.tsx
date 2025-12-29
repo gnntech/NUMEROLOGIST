@@ -1,11 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import IntroLoader from '../components/IntroLoader';
-import PromoSection from '../components/PromoSection';
-import ServicesCarousel from '../components/ServicesCarousel';
-import ShopSection from '../components/ShopSection';
-import GetInTouchSection from '../components/GetInTouchSection';
-import Footer from '../components/Footer';
+
+// Lazy load components below the fold
+const PromoSection = lazy(() => import('../components/PromoSection'));
+const ServicesCarousel = lazy(() => import('../components/ServicesCarousel'));
+const ShopSection = lazy(() => import('../components/ShopSection'));
+const GetInTouchSection = lazy(() => import('../components/GetInTouchSection'));
+const Footer = lazy(() => import('../components/Footer'));
+
+// Loading fallback component
+const SectionLoader = () => (
+  <div className="w-full h-64 flex items-center justify-center bg-transparent">
+    <div className="w-8 h-8 border-2 border-orange-200 border-t-transparent rounded-full animate-spin"></div>
+  </div>
+);
 
 const Home: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -41,24 +50,24 @@ const Home: React.FC = () => {
         className="overflow-x-hidden"
       >
         {/* Hero Section with background */}
-        <div className="relative min-h-screen">
+        <div className="relative min-h-screen min-h-[100dvh] overflow-hidden">
           {/* Background with image */}
           <div 
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: 'url(/GNN_background.png)' }}
           />
 
-          {/* Main content */}
-          <div className="relative z-10 flex items-center min-h-screen pb-0 pt-2 lg:py-0">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-              <div className="grid lg:grid-cols-2 gap-4 lg:gap-12 items-center">
-              
-                {/* Left side - Content */}
-                <motion.div 
-                  className="text-white space-y-3 lg:space-y-8 order-2 lg:order-1 text-center lg:text-left pt-4 lg:pt-0"
-                  initial={{ opacity: 0, x: -50 }}
-                  animate={{ opacity: isLoading ? 0 : 1, x: isLoading ? -50 : 0 }}
-                  transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+          {/* Main content - Grid layout with image anchored to bottom */}
+          <div className="relative z-10 min-h-screen min-h-[100dvh] flex flex-col lg:grid lg:grid-cols-2 lg:items-center">
+            {/* Left side - Content */}
+            <motion.div 
+              className="text-white space-y-3 lg:space-y-8 order-2 lg:order-1 text-center lg:text-left pt-4 lg:pt-20 px-4 sm:px-6 lg:px-8 flex flex-col justify-start lg:justify-start lg:flex-1 pb-0 lg:pb-0"
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: isLoading ? 0 : 1, x: isLoading ? -50 : 0 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
+              <div 
+                className="max-w-xl mx-auto lg:mx-0 lg:ml-[8vw] space-y-3 lg:space-y-5 mt-6 lg:mt-0"
               >
                 {/* Expert badge */}
                 <motion.div 
@@ -76,7 +85,14 @@ const Home: React.FC = () => {
 
                 {/* Main heading */}
                 <div>
-                  <h1 className="font leading-tight tracking-tight font-bebas text-5xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl" style={{ color: '#FFD8C5', letterSpacing: '1px' }}>
+                  <h1 
+                    className="font leading-tight tracking-tight font-bebas whitespace-nowrap" 
+                    style={{ 
+                      color: '#FFD8C5', 
+                      letterSpacing: '1px',
+                      fontSize: 'clamp(3rem, 6vw, 7rem)'
+                    }}
+                  >
                     <motion.span 
                       className="block"
                       initial={{ opacity: 0, y: 20 }}
@@ -170,7 +186,7 @@ const Home: React.FC = () => {
 
                 {/* Mobile Image - At the very end on mobile, stick to bottom */}
                 <motion.div 
-                  className="flex justify-center items-end -mb-10 lg:hidden lg:mb-0"
+                  className="flex justify-center items-end flex-1 lg:hidden"
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 30 : 0 }}
                   transition={{ duration: 0.8, delay: 1.4, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -178,7 +194,11 @@ const Home: React.FC = () => {
                   <motion.img 
                     src="/GaurabNPP.png" 
                     alt="Gaurab Nerpagar - Numerology Expert" 
-                    className="w-80 sm:w-96 h-auto object-contain object-bottom mt-4"
+                    className="h-auto object-contain object-bottom"
+                    style={{ 
+                      width: 'clamp(320px, 90vw, 500px)',
+                      maxHeight: '100%'
+                    }}
                     whileHover={{ scale: 1.02 }}
                     transition={{ duration: 0.3 }}
                   />
@@ -229,37 +249,42 @@ const Home: React.FC = () => {
                     </div>
                   </motion.div>
                 </motion.div>
-              </motion.div>
+              </div>
+            </motion.div>
 
-              {/* Right side - Image (Desktop only) */}
-              <motion.div 
-                className="relative flex-1 order-1 lg:order-2 hidden lg:block"
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: isLoading ? 0 : 1, x: isLoading ? 50 : 0 }}
-                transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-              >
-                <div className="relative w-full max-w-4xl mx-auto lg:mx-0 lg:transform lg:translate-x-[-50px] lg:translate-y-[40px]">
-                  {/* Gaurab's Image - Desktop */}
-                  <motion.img 
-                    src="/GaurabNPP.png" 
-                    alt="Gaurab Nerpagar - Numerology Expert" 
-                    className="w-full h-auto object-contain max-w-sm sm:max-w-md md:max-w-lg lg:max-w-none mx-auto lg:max-h-[1000px] lg:min-w-[750px]"
-                    style={{ maxHeight: '770px' }}
-                    whileHover={{ scale: 1.0 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                </div>
-              </motion.div>
-            </div>
-          </div>
+            {/* Right side - Image anchored to bottom */}
+            <motion.div 
+              className="order-1 lg:order-2 hidden lg:flex items-end justify-center self-end"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 50 : 0 }}
+              transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
+              {/* Gaurab's Image - Desktop - anchored to bottom, larger presence */}
+              <motion.img 
+                src="/GaurabNPP.png" 
+                alt="Gaurab Nerpagar - Numerology Expert" 
+                className="object-contain object-bottom"
+                style={{ 
+                  height: 'clamp(500px, 85vh, 90vh)',
+                  width: 'auto',
+                  maxWidth: 'clamp(400px, 45vw, 700px)'
+                }}
+                whileHover={{ scale: 1.0 }}
+                transition={{ duration: 0.3 }}
+              />
+            </motion.div>
           </div>
         </div>
 
         {/* Promo Section */}
-        <PromoSection />
+        {/* <Suspense fallback={<SectionLoader />}>
+          <PromoSection />
+        </Suspense> */}
 
         {/* Services Section */}
-        <ServicesCarousel />
+        <Suspense fallback={<SectionLoader />}>
+          <ServicesCarousel />
+        </Suspense>
 
         {/* Testimonial Section */}
         <motion.div 
@@ -392,6 +417,7 @@ const Home: React.FC = () => {
                         src="/Star.png" 
                         alt="Star Rating" 
                         className="w-4 h-4 sm:w-6 sm:h-6 object-contain"
+                        loading="lazy"
                       />
                     </div>
                     <div 
@@ -413,13 +439,19 @@ const Home: React.FC = () => {
         </motion.div>
 
         {/* Shop Section */}
-        <ShopSection />
+        <Suspense fallback={<SectionLoader />}>
+          <ShopSection />
+        </Suspense>
 
         {/* Get In Touch Section */}
-        <GetInTouchSection />
+        <Suspense fallback={<SectionLoader />}>
+          <GetInTouchSection />
+        </Suspense>
 
         {/* Footer */}
-        <Footer />
+        <Suspense fallback={<SectionLoader />}>
+          <Footer />
+        </Suspense>
       </motion.div>
     </>
   );

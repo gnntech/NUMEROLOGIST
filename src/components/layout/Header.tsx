@@ -34,7 +34,8 @@ const Header: React.FC = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex-shrink-0 hidden lg:block">
+          {/* Logo - visible on all screens */}
+          <div className="flex-shrink-0">
             <Link to="/" className="text-2xl font-bold text-orange-100 font-matter">
               GNN
             </Link>
@@ -66,6 +67,7 @@ const Header: React.FC = () => {
             </button>
           </div>
 
+          {/* Mobile hamburger menu - on the right */}
           <div className="md:hidden">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
