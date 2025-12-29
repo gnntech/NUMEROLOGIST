@@ -72,12 +72,12 @@ const IntroLoader: React.FC<IntroLoaderProps> = ({ isLoading, onComplete }) => {
           }}
         >
           <h1
-            className="font-bebas tracking-[0.12em] select-none text-center px-4"
+            className="font-bebas font-extrabold tracking-[0.12em] select-none text-center px-4"
             style={{
-              fontSize: 'clamp(2.5rem, 12vw, 14rem)',
+              fontSize: 'clamp(3.5rem, 12vw, 14rem)',
               color: '#FFD8C5',
               textShadow: '0 4px 80px rgba(255, 216, 197, 0.4)',
-              fontWeight: 400,
+              fontWeight: 700,
               lineHeight: 1
             }}
           >

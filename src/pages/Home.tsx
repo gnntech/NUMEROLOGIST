@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import IntroLoader from '../components/IntroLoader';
+import PromoSection from '../components/PromoSection';
 import ServicesCarousel from '../components/ServicesCarousel';
 import ShopSection from '../components/ShopSection';
 import GetInTouchSection from '../components/GetInTouchSection';
@@ -48,7 +49,7 @@ const Home: React.FC = () => {
           />
 
           {/* Main content */}
-          <div className="relative z-10 flex items-center min-h-screen pb-10 pt-2 lg:py-0">
+          <div className="relative z-10 flex items-center min-h-screen pb-0 pt-2 lg:py-0">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
               <div className="grid lg:grid-cols-2 gap-4 lg:gap-12 items-center">
               
@@ -75,7 +76,7 @@ const Home: React.FC = () => {
 
                 {/* Main heading */}
                 <div>
-                  <h1 className="font leading-tight tracking-tight font-bebas text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl" style={{ color: '#FFD8C5', letterSpacing: '1px' }}>
+                  <h1 className="font leading-tight tracking-tight font-bebas text-5xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl" style={{ color: '#FFD8C5', letterSpacing: '1px' }}>
                     <motion.span 
                       className="block"
                       initial={{ opacity: 0, y: 20 }}
@@ -106,14 +107,59 @@ const Home: React.FC = () => {
                   understand your destiny, and navigate life's journey with clarity and purpose.
                 </motion.p>
 
-                {/* CTA Button */}
-                <motion.div
+                {/* Stats - Mobile: before button, Desktop: after button */}
+                <motion.div 
+                  className="flex lg:hidden flex-row items-center justify-center gap-8 mt-4 pt-3"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 20 : 0 }}
                   transition={{ duration: 0.6, delay: 1.0 }}
                 >
+                  <motion.div 
+                    className="flex items-center space-x-3"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <div className="w-10 h-10 flex items-center justify-center">
+                      <img 
+                        src="/GLOBAL.png" 
+                        alt="Global" 
+                        className="w-8 h-8 object-contain"
+                      />
+                    </div>
+                    <div className="text-left">
+                      <div className="text-xl font-bebas tracking-wide font-bold text-orange-100">GLOBAL</div>
+                      <div className="text-sm text-orange-200">Consultations</div>
+                    </div>
+                  </motion.div>
+                  
+                  <motion.div 
+                    className="flex items-center space-x-3"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <div className="w-10 h-10 flex items-center justify-center">
+                      <img 
+                        src="/Star.png" 
+                        alt="Star" 
+                        className="w-8 h-8 object-contain"
+                      />
+                    </div>
+                    <div className="text-left">
+                      <div className="text-xl font-bebas tracking-wide font-bold text-orange-100">10+</div>
+                      <div className="text-sm text-orange-200">Years Experience</div>
+                    </div>
+                  </motion.div>
+                </motion.div>
+
+                {/* CTA Button */}
+                <motion.div
+                  className="mt-10 lg:mt-0"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 20 : 0 }}
+                  transition={{ duration: 0.6, delay: 1.2 }}
+                >
                   <motion.button 
-                    className="bg-orange-200 hover:bg-orange-100 text-amber-900 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg transition-all duration-300 shadow-lg font-matter"
+                    className="mt-5 bg-orange-200 hover:bg-orange-100 text-amber-900 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg transition-all duration-300 shadow-lg font-matter"
                     whileHover={{ scale: 1.05, boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)' }}
                     whileTap={{ scale: 0.95 }}
                     transition={{ duration: 0.2 }}
@@ -122,64 +168,64 @@ const Home: React.FC = () => {
                   </motion.button>
                 </motion.div>
 
-                {/* Mobile Image - Only visible on mobile after Book a call button */}
+                {/* Mobile Image - At the very end on mobile, stick to bottom */}
                 <motion.div 
-                  className="flex justify-center pt-0 lg:hidden"
+                  className="flex justify-center items-end -mb-10 lg:hidden lg:mb-0"
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 30 : 0 }}
-                  transition={{ duration: 0.8, delay: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  transition={{ duration: 0.8, delay: 1.4, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
                   <motion.img 
                     src="/GaurabNPP.png" 
                     alt="Gaurab Nerpagar - Numerology Expert" 
-                    className="w-55 sm:w-70 h-auto object-contain"
+                    className="w-80 sm:w-96 h-auto object-contain object-bottom mt-4"
                     whileHover={{ scale: 1.02 }}
                     transition={{ duration: 0.3 }}
                   />
                 </motion.div>
 
-                {/* Stats */}
+                {/* Stats - Desktop only */}
                 <motion.div 
-                  className="flex flex-row items-center justify-center lg:justify-start gap-6 sm:gap-0 sm:space-x-8 lg:space-x-12 pt-4 pb-6 lg:pt-8 lg:pb-0"
+                  className="hidden lg:flex flex-row items-center justify-start space-x-12 pt-8"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 20 : 0 }}
                   transition={{ duration: 0.6, delay: 1.4 }}
                 >
                   <motion.div 
-                    className="flex items-center space-x-2 sm:space-x-4"
+                    className="flex items-center space-x-4"
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <div className="w-8 h-8 sm:w-12 sm:h-12 flex items-center justify-center">
+                    <div className="w-12 h-12 flex items-center justify-center">
                       <img 
                         src="/GLOBAL.png" 
                         alt="Global" 
-                        className="w-6 h-6 sm:w-8 sm:h-8 object-contain"
+                        className="w-8 h-8 object-contain"
                       />
                     </div>
                     <div className="text-left">
-                      <div className="text-base sm:text-3xl font-bebas tracking-wide font-bold text-orange-100">GLOBAL</div>
-                      <div className="text-xs sm:text-base text-orange-200">Consultations</div>
+                      <div className="text-3xl font-bebas tracking-wide font-bold text-orange-100">GLOBAL</div>
+                      <div className="text-base text-orange-200">Consultations</div>
                     </div>
                   </motion.div>
                   
-                  <div className="hidden sm:block w-px h-10 sm:h-16 bg-orange-300/50"></div>
+                  <div className="w-px h-16 bg-orange-300/50"></div>
                   
                   <motion.div 
-                    className="flex items-center space-x-2 sm:space-x-4"
+                    className="flex items-center space-x-4"
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <div className="w-8 h-8 sm:w-12 sm:h-12 flex items-center justify-center">
+                    <div className="w-12 h-12 flex items-center justify-center">
                       <img 
                         src="/Star.png" 
                         alt="Star" 
-                        className="w-6 h-6 sm:w-8 sm:h-8 object-contain"
+                        className="w-8 h-8 object-contain"
                       />
                     </div>
                     <div className="text-left">
-                      <div className="text-base sm:text-3xl font-bebas tracking-wide font-bold text-orange-100">10+</div>
-                      <div className="text-xs sm:text-base text-orange-200">Years Experience</div>
+                      <div className="text-3xl font-bebas tracking-wide font-bold text-orange-100">10+</div>
+                      <div className="text-base text-orange-200">Years Experience</div>
                     </div>
                   </motion.div>
                 </motion.div>
@@ -199,7 +245,7 @@ const Home: React.FC = () => {
                     alt="Gaurab Nerpagar - Numerology Expert" 
                     className="w-full h-auto object-contain max-w-sm sm:max-w-md md:max-w-lg lg:max-w-none mx-auto lg:max-h-[1000px] lg:min-w-[750px]"
                     style={{ maxHeight: '770px' }}
-                    whileHover={{ scale: 1.02 }}
+                    whileHover={{ scale: 1.0 }}
                     transition={{ duration: 0.3 }}
                   />
                 </div>
@@ -208,6 +254,9 @@ const Home: React.FC = () => {
           </div>
           </div>
         </div>
+
+        {/* Promo Section */}
+        <PromoSection />
 
         {/* Services Section */}
         <ServicesCarousel />

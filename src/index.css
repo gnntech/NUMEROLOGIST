@@ -193,6 +193,20 @@ select:focus {
   outline-offset: 2px;
 }
 
+/* Marquee animation for PromoSection */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+}
+
 /* Smooth animations for reduced motion users */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -202,4 +216,35 @@ select:focus {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+  
+  .animate-marquee {
+    animation: none;
+  }
+}
+
+
+/* Promo Carousel Styles */
+.promo-carousel-wrapper .slick-prev,
+.promo-carousel-wrapper .slick-next {
+  z-index: 10;
+  width: 48px;
+  height: 48px;
+}
+
+.promo-carousel-wrapper .slick-prev {
+  left: 20px;
+}
+
+.promo-carousel-wrapper .slick-next {
+  right: 20px;
+}
+
+.promo-carousel-wrapper .slick-dots {
+  bottom: 20px !important;
+  position: absolute !important;
+}
+
+.promo-carousel-wrapper .slick-dots li.slick-active div {
+  background-color: white !important;
+  opacity: 1 !important;
 }
