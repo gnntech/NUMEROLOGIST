@@ -1,105 +1,35 @@
-import React, { useEffect, useRef } from 'react';
-import Footer from '../components/Footer';
+import React, { useEffect, useRef } from 'react'; import Footer from '../components/Footer'; const Contact: React.FC = () => {
+  const heroRef = useRef<HTMLDivElement>(null); const formSectionRef = useRef<HTMLDivElement>(null); const contactSectionRef = useRef<HTMLDivElement>(null); const mapSectionRef = useRef<HTMLDivElement>(null); useEffect(() => { document.body.style.opacity = '0'; document.body.style.transition = 'opacity 800ms cubic-bezier(0.22, 1, 0.36, 1)'; setTimeout(() => { document.body.style.opacity = '1'; }, 100); const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }; const observer = new IntersectionObserver((entries) => { entries.forEach((entry) => { if (entry.isIntersecting) { const element = entry.target as HTMLElement; element.style.opacity = '1'; element.style.transform = 'translateY(0)'; observer.unobserve(element); } }); }, observerOptions); const sections = [heroRef.current, formSectionRef.current, contactSectionRef.current, mapSectionRef.current]; sections.forEach((section) => { if (section) { section.style.opacity = '0'; section.style.transform = 'translateY(16px)'; section.style.transition = 'all 700ms cubic-bezier(0.22, 1, 0.36, 1)'; observer.observe(section); } }); const animateFormInputs = () => { const inputs = document.querySelectorAll('input, textarea'); inputs.forEach((input, index) => { const element = input as HTMLElement; element.style.backgroundSize = '0% 100%'; element.style.transition = 'background-size 400ms cubic-bezier(0.22, 1, 0.36, 1)'; setTimeout(() => { element.style.backgroundSize = '100% 100%'; }, 400 + (index * 80)); }); }; const formObserver = new IntersectionObserver((entries) => { entries.forEach((entry) => { if (entry.isIntersecting) { animateFormInputs(); formObserver.unobserve(entry.target); } }); }, { threshold: 0.1 }); if (formSectionRef.current) { formObserver.observe(formSectionRef.current); } return () => { observer.disconnect(); formObserver.disconnect(); }; }, []); return (
 
-const Contact: React.FC = () => {
-  const heroRef = useRef<HTMLDivElement>(null);
-  const formSectionRef = useRef<HTMLDivElement>(null);
-  const contactSectionRef = useRef<HTMLDivElement>(null);
-  const mapSectionRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    document.body.style.opacity = '0';
-    document.body.style.transition = 'opacity 800ms cubic-bezier(0.22, 1, 0.36, 1)';
-    
-    setTimeout(() => {
-      document.body.style.opacity = '1';
-    }, 100);
-
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const element = entry.target as HTMLElement;
-          element.style.opacity = '1';
-          element.style.transform = 'translateY(0)';
-          observer.unobserve(element);
-        }
-      });
-    }, observerOptions);
-
-    const sections = [heroRef.current, formSectionRef.current, contactSectionRef.current, mapSectionRef.current];
-    sections.forEach((section) => {
-      if (section) {
-        section.style.opacity = '0';
-        section.style.transform = 'translateY(16px)';
-        section.style.transition = 'all 700ms cubic-bezier(0.22, 1, 0.36, 1)';
-        observer.observe(section);
-      }
-    });
-
-    const animateFormInputs = () => {
-      const inputs = document.querySelectorAll('input, textarea');
-      inputs.forEach((input, index) => {
-        const element = input as HTMLElement;
-        element.style.backgroundSize = '0% 100%';
-        element.style.transition = 'background-size 400ms cubic-bezier(0.22, 1, 0.36, 1)';
-        
-        setTimeout(() => {
-          element.style.backgroundSize = '100% 100%';
-        }, 400 + (index * 80));
-      });
-    };
-
-    const formObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          animateFormInputs();
-          formObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-
-    if (formSectionRef.current) {
-      formObserver.observe(formSectionRef.current);
-    }
-
-    return () => {
-      observer.disconnect();
-      formObserver.disconnect();
-    };
-  }, []);
-
-  return (
     <>
+
       <section
         ref={heroRef}
         className="
-          relative w-full
-          h-screen min-h-[700px]
-          bg-[radial-gradient(circle_at_50%_-20%,#F6C16A_0%,#C3602D_40%,#6F2F20_80%,#451a03_100%)]
-          overflow-visible
-          isolate
-          flex items-center justify-center
-        "
+    relative w-full
+    h-[100svh]
+    lg:h-[100vh]
+    bg-[radial-gradient(circle_at_50%_-20%,#F6C16A_0%,#C3602D_40%,#6F2F20_80%,#451a03_100%)]
+    overflow-hidden isolate
+  "
       >
-        <div className="w-full max-w-7xl px-6 h-full flex flex-col lg:flex-row items-center justify-center lg:justify-between relative z-20">
 
-          {/* LEFT: PHONE */}
-          <div className="relative w-full lg:w-1/2 flex justify-center lg:justify-start lg:pl-10 h-[50%] lg:h-full items-center lg:items-end order-2 lg:order-1 pb-16">
-            <div className="
-                  relative lg:absolute
-                  w-[280px] sm:w-[350px] lg:w-[48vw] lg:max-w-[837px]
-                  transform 
-                  lg:bottom-0 lg:left-[-170px]
-                  lg:origin-bottom
-                  transition-all duration-300
-                  mb-12 lg:mb-0
-                  z-10
-             ">
+        <div className="relative w-full max-w-7xl mx-auto h-full px-6 flex flex-col lg:flex-row">
+
+          <div
+            className="
+        pointer-events-none
+        absolute bottom-0 left-1/2 -translate-x-1/2
+        lg:static lg:translate-x-0
+        lg:flex lg:items-end
+        w-full lg:w-1/2
+        z-10
+        order-2 lg:order-1
+      "
+          >
+            <div className="relative w-[280px] sm:w-[300px] lg:w-[45vw] lg:max-w-[760px] mx-auto lg:mr-auto lg:-ml-24">
+
+
               <div
                 className="absolute bg-[#541F12] opacity-70 blur-[90px] rounded-full"
                 style={{
@@ -111,27 +41,37 @@ const Contact: React.FC = () => {
                   zIndex: -1,
                 }}
               />
+
               <img
                 src="/phone-mockup.png"
                 alt="Contact Us"
                 className="
-                      w-full h-auto 
-                      rotate-[-6deg] lg:rotate-0
-                      drop-shadow-[0_35px_35px_rgba(0,0,0,0.5)] 
-                      object-contain 
-                      max-h-[60vh] lg:max-h-[85vh]
-                  "
+            w-full h-auto object-contain
+            max-h-[52vh] sm:max-h-[50vh] lg:max-h-[68vh]
+            drop-shadow-[0_15px_15px_rgba(0,0,0,0.15)]
+            brightness-110 contrast-110
+          "
               />
             </div>
           </div>
 
-          {/* RIGHT: CONTENT */}
-          <div className="w-full lg:w-1/2 flex flex-col justify-center items-center lg:items-start text-center lg:text-left h-[40%] lg:h-full order-1 lg:order-2 lg:pl-12">
-            <h1 className="text-6xl md:text-8xl font-bebas text-[#FFFAE5] tracking-wide mb-6 leading-[0.9] drop-shadow-sm lg:-ml-1">
+          <div
+            className="
+        z-20
+        flex flex-col justify-start lg:justify-center
+        items-center lg:items-start
+        text-center lg:text-left
+        w-full lg:w-1/2
+        pt-44 lg:pt-0
+        lg:pl-12
+        order-1 lg:order-2
+      "
+          >
+            <h1 className="text-6xl sm:text-7xl md:text-8xl font-bebas text-[#FFFAE5] leading-[0.9] mb-4">
               GET IN TOUCH
             </h1>
 
-            <p className="text-base sm:text-lg md:text-xl font-matter text-[#FFFAE5]/90 max-w-[480px] leading-relaxed font-light">
+            <p className="text-sm sm:text-lg md:text-xl font-matter text-[#FFFAE5]/90 max-w-[480px] leading-relaxed">
               We’d love to hear from you. Whether you have a question, a thought to
               share, or simply want to reach out, we’re here for you.
             </p>
@@ -140,166 +80,307 @@ const Contact: React.FC = () => {
         </div>
       </section>
 
+
+
       <section ref={formSectionRef} className="w-full flex flex-col">
+
         <div className="flex flex-col lg:flex-row" style={{ minHeight: 'calc(100vh - 4rem)' }}>
-        {/* Left Column: Dark Section - 50% width */}
-        <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-8 lg:p-12 relative bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/Footer_bg.png)' }}>
-          <div className="max-w-md">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bebas mb-6 leading-tight" style={{ color: '#FFFAE5' }}>
-              GUIDED BY NUMBERS,<br />GROUNDED IN MEANING
-            </h2>
-       <p
-  className="font-poppins font-normal text-left"
-  style={{
-    color: '#FFFAE5',
-    fontSize: '18px',        
-    lineHeight: '1.6',
-    width: '420px',            
-    maxWidth: '420px',
-    whiteSpace: 'normal',
-    wordBreak: 'keep-all',
-    overflowWrap: 'normal',
-  }}
->
-  Gaurab Nerpagar Numerologics helps you connect with life’s deeper rhythms,
-  offering thoughtful guidance that brings clarity, balance, and harmony to
-  your everyday journey.
-</p>
 
 
+          <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-8 lg:p-12 relative bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/Footer_bg.png)' }}>
 
-          </div>
-        </div>
+            <div className="w-full max-w-md">
 
-        {/* Right Column: Light Beige Section - 50% width */}
-        <div className="w-full lg:w-1/2 bg-[#FFFAE5] flex items-center justify-center">
-          <form className="w-[80%] px-12 py-16 space-y-8 mx-auto">
-            <div className="space-y-0.5">
-              <input
-                type="text"
-                className="w-full bg-transparent border-b-2 border-[#922930]/60 py-1 focus:outline-none focus:border-b-2 focus:border-[#922930]/80 text-[#5D4037] text-sm font-matter font-medium placeholder-[#922930]"
-                placeholder="Full Name"
-              />
-            </div>
+              <h2 className="text-5xl md:text-5xl lg:text-6xl font-bebas mb-6 leading-[0.9] text-center lg:text-left" style={{ color: '#FFFAE5' }}>
 
-            <div className="space-y-0.5">
-              <input
-                type="email"
-                className="w-full bg-transparent border-b-2 border-[#922930]/60 py-1 focus:outline-none focus:border-b-2 focus:border-[#922930]/80 text-[#5D4037] text-sm font-matter font-medium placeholder-[#922930]"
-                placeholder="Email Address"
-              />
-            </div>
+                GUIDED BY NUMBERS,<br />GROUNDED IN MEANING
 
-            <div className="space-y-0.5">
-              <input
-                type="tel"
-                className="w-full bg-transparent border-b-2 border-[#922930]/60 py-1 focus:outline-none focus:border-b-2 focus:border-[#922930]/80 text-[#5D4037] text-sm font-matter font-medium placeholder-[#922930]"
-                placeholder="Phone Number"
-              />
-            </div>
+              </h2>
 
-            <div className="space-y-0.5">
-              <input
-                type="text"
-                className="w-full bg-transparent border-b-2 border-[#922930]/60 py-1 focus:outline-none focus:border-b-2 focus:border-[#922930]/80 text-[#5D4037] text-sm font-matter font-medium placeholder-[#922930]"
-                placeholder="Service Interest"
-              />
-            </div>
+              <p
 
-            <div className="pt-4 space-y-0.5">
-              <textarea
-                rows={4}
-                className="w-full bg-transparent border-2 border-[#922930]/60 rounded-sm p-2.5 focus:outline-none focus:border-2 focus:border-[#922930]/80 resize-none text-[#5D4037] text-sm font-matter font-medium placeholder-[#922930]"
-                style={{ transform: 'none' }}
-                placeholder="Message"
-              />
-            </div>
+                className="font-poppins font-normal text-center lg:text-left mx-auto lg:mx-0 text-base lg:text-lg"
 
-            <div className="pt-1">
-              <button
-                type="button"
-                className="bg-[#8B0000] hover:bg-[#6B0000] text-white text-sm font-matter font-medium py-2.5 px-8 rounded-full transition-all duration-200 hover:transform hover:-translate-y-0.5 active:scale-95 shadow-lg hover:shadow-[#8B0000]/20"
+                style={{
+
+                  color: '#FFFAE5',
+
+                  lineHeight: '1.6',
+
+                  width: '100%',
+
+                  maxWidth: '420px',
+
+                  whiteSpace: 'normal',
+
+                  wordBreak: 'keep-all',
+
+                  overflowWrap: 'normal',
+
+                }}
+
               >
-                Send
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </section>
 
-    <section ref={contactSectionRef} className="w-full bg-white flex flex-col" style={{ height: 'calc(100vh - 4rem)' }}>
-      <div className="w-full max-w-6xl mx-auto px-6 flex flex-col h-full py-10">
-        
-        {/* SECTION 1: CONTACT INFO CARD */}
-        <div className="bg-[#FFFAE5] rounded-2xl p-4 flex-[0.45] flex items-center">
-          <div className="w-full max-w-4xl mx-auto">
-            {/* Email Row */}
-            <div className="contact-row flex items-center space-x-2 sm:space-x-3 pb-2 sm:pb-3 border-b border-[#711604]/40">
-              <div className="contact-icon w-10 h-10 sm:w-12 sm:h-12 bg-[#8B5A2B]/10 rounded-full flex items-center justify-center flex-shrink-0 hover:bg-[#8B5A2B]/15 transition-colors duration-200">
-                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#711604]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <div className="flex-1 text-left">
-                <h3 className="text-lg sm:text-xl font-bebas uppercase text-[#922930] tracking-widest mb-0" style={{ lineHeight: '37px', letterSpacing: '0%', marginBottom: '-8px', fontWeight: '400' }}>EMAIL</h3>
-                <p className="text-xs sm:text-sm font-matter font-medium text-[#922930]">consult@numerologyinsights.com</p>
-              </div>
+                Gaurab Nerpagar Numerologics helps you connect with life’s deeper rhythms,
+
+                offering thoughtful guidance that brings clarity, balance, and harmony to
+
+                your everyday journey.
+
+              </p>
+
+
+
+
+
+
+
             </div>
-            
-            {/* WhatsApp Row */}
-            <div className="contact-row flex items-center space-x-2 sm:space-x-3 py-2 sm:py-3 border-b border-[#711604]/40">
-              <div className="contact-icon w-10 h-10 sm:w-12 sm:h-12 bg-[#8B5A2B]/10 rounded-full flex items-center justify-center flex-shrink-0 hover:bg-[#8B5A2B]/15 transition-colors duration-200">
-                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#711604]" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.149-.67.149-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414-.074-.123-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-                </svg>
-              </div>
-              <div className="flex-1 text-left">
-                <h3 className="text-lg sm:text-xl font-bebas uppercase text-[#922930] tracking-widest mb-0" style={{ lineHeight: '37px', letterSpacing: '0%', marginBottom: '-8px', fontWeight: '400' }}>WHATSAPP</h3>
-                <p className="text-xs sm:text-sm font-matter font-medium text-[#922930]">+91 98XXX XXXXX</p>
-              </div>
-            </div>
-            
-            {/* Location Row */}
-            <div className="contact-row flex items-center space-x-2 sm:space-x-3 pt-2 sm:pt-3">
-              <div className="contact-icon w-10 h-10 sm:w-12 sm:h-12 bg-[#8B5A2B]/10 rounded-full flex items-center justify-center flex-shrink-0 hover:bg-[#8B5A2B]/15 transition-colors duration-200">
-                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#711604]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </div>
-              <div className="flex-1 text-left">
-                <h3 className="text-lg sm:text-xl font-bebas uppercase text-[#922930] tracking-widest mb-0" style={{ lineHeight: '37px', letterSpacing: '0%', marginBottom: '-8px', fontWeight: '400' }}>LOCATION</h3>
-                <p className="text-xs sm:text-sm font-matter font-medium text-[#922930]">Available Worldwide via Video Consultation</p>
-              </div>
-            </div>
+
           </div>
+
+
+
+          <div className="w-full lg:w-1/2 bg-[#FFFAE5] flex items-center justify-center">
+
+            <form className="w-[80%] px-12 py-16 space-y-8 mx-auto">
+
+              <div className="space-y-0.5">
+
+                <input
+
+                  type="text"
+
+                  className="w-full bg-transparent border-b-2 border-[#922930]/60 py-1 focus:outline-none focus:border-b-2 focus:border-[#922930]/80 text-[#5D4037] text-sm font-matter font-medium placeholder-[#922930]"
+
+                  placeholder="Full Name"
+
+                />
+
+              </div>
+
+
+
+              <div className="space-y-0.5">
+
+                <input
+
+                  type="email"
+
+                  className="w-full bg-transparent border-b-2 border-[#922930]/60 py-1 focus:outline-none focus:border-b-2 focus:border-[#922930]/80 text-[#5D4037] text-sm font-matter font-medium placeholder-[#922930]"
+
+                  placeholder="Email Address"
+
+                />
+
+              </div>
+
+
+
+              <div className="space-y-0.5">
+
+                <input
+
+                  type="tel"
+
+                  className="w-full bg-transparent border-b-2 border-[#922930]/60 py-1 focus:outline-none focus:border-b-2 focus:border-[#922930]/80 text-[#5D4037] text-sm font-matter font-medium placeholder-[#922930]"
+
+                  placeholder="Phone Number"
+
+                />
+
+              </div>
+
+
+
+              <div className="space-y-0.5">
+
+                <input
+
+                  type="text"
+
+                  className="w-full bg-transparent border-b-2 border-[#922930]/60 py-1 focus:outline-none focus:border-b-2 focus:border-[#922930]/80 text-[#5D4037] text-sm font-matter font-medium placeholder-[#922930]"
+
+                  placeholder="Service Interest"
+
+                />
+
+              </div>
+
+
+
+              <div className="pt-4 space-y-0.5">
+
+                <textarea
+
+                  rows={4}
+
+                  className="w-full bg-transparent border-2 border-[#922930]/60 rounded-sm p-2.5 focus:outline-none focus:border-2 focus:border-[#922930]/80 resize-none text-[#5D4037] text-sm font-matter font-medium placeholder-[#922930]"
+
+                  style={{ transform: 'none' }}
+
+                  placeholder="Message"
+
+                />
+
+              </div>
+
+
+
+              <div className="pt-1">
+
+                <button
+
+                  type="button"
+
+                  className="bg-[#8B0000] hover:bg-[#6B0000] text-white text-sm font-matter font-medium py-2.5 px-8 rounded-full transition-all duration-200 hover:transform hover:-translate-y-0.5 active:scale-95 shadow-lg hover:shadow-[#8B0000]/20"
+
+                >
+
+                  Send
+
+                </button>
+
+              </div>
+
+            </form>
+
+          </div>
+
         </div>
-        
-        {/* GAP BETWEEN SECTIONS */}
-        <div className="h-8 lg:h-10"></div>
-        
-        {/* SECTION 2: MAP */}
-        <div ref={mapSectionRef} className="rounded-2xl overflow-hidden flex-[0.55] flex items-center">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.6!2d72.8777!3d19.0761!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c6306644edec%3A0xf58055b4bf4d4343!2sMumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1704067200000!5m2!1sen!2sin&maptype=satellite"
-            width="100%"
-            height="100%"
-            style={{ border: 0, pointerEvents: 'auto' }}
-            allowFullScreen
-            loading="lazy"
-            title="Google Maps Location"
-            className="rounded-2xl"
-            referrerPolicy="no-referrer-when-downgrade"
-            allow="clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture; web-share"
-          ></iframe>
+
+      </section>
+
+
+
+      <section ref={contactSectionRef} className="w-full bg-white flex flex-col h-[calc(100vh-4rem)] lg:h-[115vh]">
+
+        <div className="w-full max-w-6xl mx-auto px-6 flex flex-col h-full py-10">
+
+
+
+          <div className="bg-[#FFFAE5] rounded-2xl p-4 flex-[0.45] lg:flex-[0.4] flex items-center">
+
+            <div className="w-full max-w-4xl mx-auto">
+
+              <div className="contact-row flex items-center space-x-2 sm:space-x-3 pb-2 sm:pb-3 border-b border-[#711604]/40">
+
+                <a href="mailto:consult@numerologyinsights.com" className="contact-icon w-10 h-10 sm:w-12 sm:h-12 bg-[#8B5A2B]/10 rounded-full flex items-center justify-center flex-shrink-0 hover:bg-[#8B5A2B]/15 transition-colors duration-200 cursor-pointer">
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#711604]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </a>
+
+                <div className="flex-1 text-left">
+
+                  <a href="mailto:consult@numerologyinsights.com" className="block w-full">
+                    <h3 className="text-sm sm:text-base font-matter font-semibold uppercase text-[#922930] tracking-widest mb-0 cursor-pointer hover:text-[#711604] transition-colors duration-200" style={{ lineHeight: '30px', letterSpacing: '-0.01em', marginBottom: '-8px' }}>EMAIL</h3>
+                  </a>
+
+                  <a href="mailto:consult@numerologyinsights.com" className="text-xs sm:text-sm font-matter font-medium text-[#922930] hover:text-[#711604] transition-colors duration-200 cursor-pointer underline-offset-2 hover:underline">consult@numerologyinsights.com</a>
+
+                </div>
+
+              </div>
+
+
+
+              <div className="contact-row flex items-center space-x-2 sm:space-x-3 py-2 sm:py-3 border-b border-[#711604]/40">
+
+                <a href="tel:+91980000000" className="contact-icon w-10 h-10 sm:w-12 sm:h-12 bg-[#8B5A2B]/10 rounded-full flex items-center justify-center flex-shrink-0 hover:bg-[#8B5A2B]/15 transition-colors duration-200 cursor-pointer">
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#711604]" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.149-.67.149-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414-.074-.123-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                  </svg>
+                </a>
+
+                <div className="flex-1 text-left">
+
+                  <a href="tel:+91980000000" className="block w-full">
+                    <h3 className="text-sm sm:text-base font-matter font-semibold uppercase text-[#922930] tracking-widest mb-0 cursor-pointer hover:text-[#711604] transition-colors duration-200" style={{ lineHeight: '30px', letterSpacing: '-0.01em', marginBottom: '-8px' }}>WHATSAPP</h3>
+                  </a>
+
+                  <a href="tel:+91980000000" className="text-xs sm:text-sm font-matter font-medium text-[#922930] hover:text-[#711604] transition-colors duration-200 cursor-pointer underline-offset-2 hover:underline">+91 98XXX XXXXX</a>
+
+                </div>
+
+              </div>
+
+
+
+              <div className="contact-row flex items-center space-x-2 sm:space-x-3 pt-2 sm:pt-3">
+
+                <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" className="contact-icon w-10 h-10 sm:w-12 sm:h-12 bg-[#8B5A2B]/10 rounded-full flex items-center justify-center flex-shrink-0 hover:bg-[#8B5A2B]/15 transition-colors duration-200 cursor-pointer">
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#711604]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </a>
+
+                <div className="flex-1 text-left">
+
+                  <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" className="block w-full">
+                    <h3 className="text-sm sm:text-base font-matter font-semibold uppercase text-[#922930] tracking-widest mb-0 cursor-pointer hover:text-[#711604] transition-colors duration-200" style={{ lineHeight: '30px', letterSpacing: '-0.01em', marginBottom: '-8px' }}>LOCATION</h3>
+                  </a>
+
+                  <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" className="text-xs sm:text-sm font-matter font-medium text-[#922930] hover:text-[#711604] transition-colors duration-200 cursor-pointer underline-offset-2 hover:underline">Available Worldwide via Video Consultation</a>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+
+          <div className="h-8 lg:h-10"></div>
+
+
+
+          <div ref={mapSectionRef} className="rounded-2xl overflow-hidden flex-[0.55] lg:flex-[0.6] flex items-center">
+
+            <iframe
+
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.6!2d72.8777!3d19.0761!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c6306644edec%3A0xf58055b4bf4d4343!2sMumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1704067200000!5m2!1sen!2sin&t=k"
+
+              width="100%"
+
+              height="100%"
+
+              style={{ border: 0, pointerEvents: 'auto' }}
+
+              allowFullScreen
+
+              loading="lazy"
+
+              title="Google Maps Location"
+
+              className="rounded-2xl"
+
+              referrerPolicy="no-referrer-when-downgrade"
+
+              allow="clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture; web-share"
+
+            ></iframe>
+
+          </div>
+
+
+
         </div>
-        
-      </div>
-    </section>
-    <Footer></Footer>
+
+      </section>
+      <Footer></Footer>
+
+
+
     </>
+
   );
+
 };
+
+
 
 export default Contact;
