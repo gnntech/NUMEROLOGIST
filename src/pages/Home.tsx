@@ -18,8 +18,6 @@ const SectionLoader = () => (
 
 const Home: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
-
-  // Reset loading state on every page refresh/mount
   useEffect(() => {
     setIsLoading(true);
   }, []);
