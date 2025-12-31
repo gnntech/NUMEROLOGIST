@@ -11,11 +11,13 @@ import Consultations from './pages/Consultations';
 import Store from './pages/Store';
 import Contact from './pages/Contact';
 
+
 function App() {
   return (
     <Router>
       <Layout>
         <Routes>
+          
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
@@ -25,6 +27,7 @@ function App() {
           <Route path="/consultations" element={<Consultations />} />
           <Route path="/store" element={<Store />} />
           <Route path="/contact" element={<Contact />} />
+          
         </Routes>
       </Layout>
     </Router>

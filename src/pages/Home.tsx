@@ -277,9 +277,9 @@ const Home: React.FC = () => {
         </div>
 
         {/* Promo Section */}
-        {/* <Suspense fallback={<SectionLoader />}>
+        <Suspense fallback={<SectionLoader />}>
           <PromoSection />
-        </Suspense> */}
+        </Suspense>
 
         {/* Services Section */}
         <Suspense fallback={<SectionLoader />}>
