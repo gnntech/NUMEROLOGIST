@@ -151,7 +151,7 @@ const GetInTouchSection: React.FC = () => {
                   </motion.select>
                 </div>
 
-                {/* Message */}
+                {/* Messages */}
                 <div className="pt-1 sm:pt-2">
                   <motion.textarea
                     name="message"
