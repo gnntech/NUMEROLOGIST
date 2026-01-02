@@ -5,6 +5,7 @@ import IntroLoader from '../components/IntroLoader';
 // Lazy load components below the fold
 const PromoSection = lazy(() => import('../components/PromoSection'));
 const ServicesCarousel = lazy(() => import('../components/ServicesCarousel'));
+const PromoMarquee = lazy(() => import('../components/PromoMarquee'));
 const ShopSection = lazy(() => import('../components/ShopSection'));
 const GetInTouchSection = lazy(() => import('../components/GetInTouchSection'));
 const Footer = lazy(() => import('../components/Footer'));
@@ -273,10 +274,12 @@ const Home: React.FC = () => {
             </motion.div>
           </div>
         </div>
-
-        {/* Promo Section */}
-        <Suspense fallback={<SectionLoader />}>
+         <Suspense fallback={<SectionLoader />}>
           <PromoSection />
+        </Suspense>
+
+        <Suspense fallback={<SectionLoader />}>
+          <PromoMarquee />
         </Suspense>
 
         {/* Services Section */}
