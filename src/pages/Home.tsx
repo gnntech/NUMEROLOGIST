@@ -53,7 +53,7 @@ const Home: React.FC = () => {
           {/* Background with image */}
           <div 
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: 'url(/GNN_background.png)' }}
+            style={{ backgroundImage: 'url(/GNN_background_grey_2.png)' }}
           />
 
           {/* Main content - Grid layout with image anchored to bottom */}
@@ -70,8 +70,9 @@ const Home: React.FC = () => {
               >
                 {/* Expert badge */}
                 <motion.div 
-                  className="inline-flex font-matter items-center px-4 sm:px-6 py-2 sm:py-3 bg-white/20 backdrop-blur-sm rounded-full border border-white/30"
-                  whileHover={{ scale: 1.05, backgroundColor: 'rgba(255, 255, 255, 0.25)' }}
+                  className="inline-flex font-matter items-center px-4 sm:px-6 py-2 sm:py-3 rounded-full"
+                  style={{ backgroundColor: 'rgba(139, 90, 60, 0.85)' }}
+                  whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.2 }}
                 >
                   <img 
@@ -79,21 +80,20 @@ const Home: React.FC = () => {
                     alt="Numerology Expert" 
                     className="w-5 h-5 sm:w-6 sm:h-6 mr-2 object-contain"
                   />
-                  <span className="text-orange-100 font-medium font-matter text-sm sm:text-base">Numerology Expert</span>
+                  <span className="font-medium font-matter text-sm sm:text-base text-white">Numerology Expert</span>
                 </motion.div>
 
                 {/* Main heading */}
                 <div>
                   <h1 
-                    className="font leading-tight tracking-tight font-bebas whitespace-nowrap" 
+                    className="font leading-none tracking-tight font-bebas whitespace-nowrap" 
                     style={{ 
-                      color: '#FFD8C5', 
                       letterSpacing: '1px',
                       fontSize: 'clamp(3rem, 6vw, 7rem)'
                     }}
                   >
                     <motion.span 
-                      className="block"
+                      className="block text-white"
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 20 : 0 }}
                       transition={{ duration: 0.6, delay: 0.4 }}
@@ -101,19 +101,20 @@ const Home: React.FC = () => {
                       GAURAB NERPAGAR
                     </motion.span>
                     <motion.span 
-                      className="block"
+                      className="block text-white"
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 20 : 0 }}
                       transition={{ duration: 0.6, delay: 0.6 }}
                     >
-                      NUMEROLOGICS
+                      Numerologics
                     </motion.span>
                   </h1>
                 </div>
 
                 {/* Description */}
                 <motion.p 
-                  className="text-base sm:text-lg lg:text-xl text-orange-100 leading-relaxed max-w-lg mx-auto lg:mx-0"
+                  className="text-base sm:text-lg lg:text-xl leading-relaxed max-w-lg mx-auto lg:mx-0"
+                  style={{ color: '#FFFFFF' }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 20 : 0 }}
                   transition={{ duration: 0.6, delay: 0.8 }}
@@ -122,12 +123,30 @@ const Home: React.FC = () => {
                   understand your destiny, and navigate life's journey with clarity and purpose.
                 </motion.p>
 
-                {/* Stats - Mobile: before button, Desktop: after button */}
+                {/* CTA Button */}
+                <motion.div
+                  className="pt-2"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 20 : 0 }}
+                  transition={{ duration: 0.6, delay: 1.0 }}
+                >
+                  <motion.button 
+                    className="px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg transition-all duration-300 shadow-lg font-matter"
+                    style={{ backgroundColor: '#FE7028', color: '#FFFFFF' }}
+                    whileHover={{ scale: 1.05, boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.3)' }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    Book a call
+                  </motion.button>
+                </motion.div>
+
+                {/* Stats - Mobile */}
                 <motion.div 
                   className="flex lg:hidden flex-row items-center justify-center gap-8 mt-4 pt-3"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 20 : 0 }}
-                  transition={{ duration: 0.6, delay: 1.0 }}
+                  transition={{ duration: 0.6, delay: 1.2 }}
                 >
                   <motion.div 
                     className="flex items-center space-x-3"
@@ -142,8 +161,8 @@ const Home: React.FC = () => {
                       />
                     </div>
                     <div className="text-left">
-                      <div className="text-xl font-bebas tracking-wide font-bold text-orange-100">GLOBAL</div>
-                      <div className="text-sm text-orange-200">Consultations</div>
+                      <div className="text-xl font-bebas tracking-wide font-bold" style={{ color: '#FFFFFF' }}>GLOBAL</div>
+                      <div className="text-sm" style={{ color: '#FFFFFF' }}>Consultations</div>
                     </div>
                   </motion.div>
                   
@@ -160,47 +179,10 @@ const Home: React.FC = () => {
                       />
                     </div>
                     <div className="text-left">
-                      <div className="text-xl font-bebas tracking-wide font-bold text-orange-100">10+</div>
-                      <div className="text-sm text-orange-200">Years Experience</div>
+                      <div className="text-xl font-bebas tracking-wide font-bold" style={{ color: '#FFFFFF' }}>10+</div>
+                      <div className="text-sm" style={{ color: '#FFFFFF' }}>Years Experience</div>
                     </div>
                   </motion.div>
-                </motion.div>
-
-                {/* CTA Button */}
-                <motion.div
-                  className="mt-10 lg:mt-0"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 20 : 0 }}
-                  transition={{ duration: 0.6, delay: 1.2 }}
-                >
-                  <motion.button 
-                    className="mt-5 bg-orange-200 hover:bg-orange-100 text-amber-900 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg transition-all duration-300 shadow-lg font-matter"
-                    whileHover={{ scale: 1.05, boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)' }}
-                    whileTap={{ scale: 0.95 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    Book a call
-                  </motion.button>
-                </motion.div>
-
-                {/* Mobile Image - At the very end on mobile, stick to bottom */}
-                <motion.div 
-                  className="flex justify-center items-end flex-1 lg:hidden"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 30 : 0 }}
-                  transition={{ duration: 0.8, delay: 1.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-                >
-                  <motion.img 
-                    src="/GaurabNPP.png" 
-                    alt="Gaurab Nerpagar - Numerology Expert" 
-                    className="h-auto object-contain object-bottom"
-                    style={{ 
-                      width: 'clamp(320px, 90vw, 500px)',
-                      maxHeight: '100%'
-                    }}
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.3 }}
-                  />
                 </motion.div>
 
                 {/* Stats - Desktop only */}
@@ -223,12 +205,12 @@ const Home: React.FC = () => {
                       />
                     </div>
                     <div className="text-left">
-                      <div className="text-3xl font-bebas tracking-wide font-bold text-orange-100">GLOBAL</div>
-                      <div className="text-base text-orange-200">Consultations</div>
+                      <div className="text-3xl font-bebas tracking-wide font-bold" style={{ color: '#FFFFFF' }}>GLOBAL</div>
+                      <div className="text-base" style={{ color: '#FFFFFF' }}>Consultations</div>
                     </div>
                   </motion.div>
                   
-                  <div className="w-px h-16 bg-orange-300/50"></div>
+                  <div className="w-px h-16" style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)' }}></div>
                   
                   <motion.div 
                     className="flex items-center space-x-4"
@@ -243,12 +225,32 @@ const Home: React.FC = () => {
                       />
                     </div>
                     <div className="text-left">
-                      <div className="text-3xl font-bebas tracking-wide font-bold text-orange-100">10+</div>
-                      <div className="text-base text-orange-200">Years Experience</div>
+                      <div className="text-3xl font-bebas tracking-wide font-bold" style={{ color: '#FFFFFF' }}>10+</div>
+                      <div className="text-base" style={{ color: '#FFFFFF' }}>Years Experience</div>
                     </div>
                   </motion.div>
                 </motion.div>
               </div>
+            </motion.div>
+
+            {/* Mobile Image - At the very end on mobile, stick to bottom */}
+            <motion.div 
+              className="flex justify-center items-end flex-1 lg:hidden order-3"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 30 : 0 }}
+              transition={{ duration: 0.8, delay: 1.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
+              <motion.img 
+                src="/GaurabNPP.png" 
+                alt="Gaurab Nerpagar - Numerology Expert" 
+                className="h-auto object-contain object-bottom"
+                style={{ 
+                  width: 'clamp(320px, 90vw, 500px)',
+                  maxHeight: '100%'
+                }}
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              />
             </motion.div>
 
             {/* Right side - Image anchored to bottom */}
@@ -273,6 +275,8 @@ const Home: React.FC = () => {
               />
             </motion.div>
           </div>
+
+          
         </div>
          <Suspense fallback={<SectionLoader />}>
           <PromoSection />
@@ -332,10 +336,10 @@ const Home: React.FC = () => {
                 >
                   {/* Card content overlay */}
                   <div className="relative z-10">
-                    <div className="text-4xl sm:text-6xl font-bold leading-none mb-3 sm:mb-4" style={{ color: '#922930' }}>"</div>
+                    <div className="text-4xl sm:text-6xl font-bold leading-none mb-3 sm:mb-4" style={{ color: '#2E2D2F' }}>"</div>
                     <blockquote 
                       className="text-base sm:text-lg mb-4 sm:mb-6 leading-relaxed font-matter"
-                      style={{ color: '#922930' }}
+                      style={{ color: '#2E2D2F' }}
                     >
                       Through my Life Path and Destiny reading, I gained a deep understanding of my life purpose 
                       and where I'm truly headed. The insights brought me clarity, confidence, and a sense of 
@@ -344,13 +348,13 @@ const Home: React.FC = () => {
                     <div className="mt-4 sm:mt-6">
                       <div 
                         className="font-semibold text-base sm:text-lg font-matter"
-                        style={{ color: '#922930' }}
+                        style={{ color: '#2E2D2F' }}
                       >
                         Sneha Iyer
                       </div>
                       <div 
                         className="font-matter text-sm sm:text-base"
-                        style={{ color: '#922930', opacity: 0.8 }}
+                        style={{ color: '#2E2D2F', opacity: 0.8 }}
                       >
                         Mumbai
                       </div>

@@ -6,7 +6,7 @@
 
 /* Mobile viewport height fix - prevents white line at bottom */
 html, body {
-  background-color: #1a0a05; /* Dark brown matching the site theme */
+  background-color: #2E2D2F; /* Dark grey matching the site theme */
 }
 
 /* Support for dynamic viewport height on mobile */
@@ -35,14 +35,14 @@ html, body {
 }
 
 .slick-dots li div {
-  background-color: #922930;
+  background-color: #FE7028;
   opacity: 0.5;
   transition: opacity 0.3s ease;
 }
 
 .slick-dots li.slick-active div {
   opacity: 1 !important;
-  background-color: #922930;
+  background-color: #FE7028;
 }
 
 .slick-prev:before,
@@ -108,7 +108,7 @@ html, body {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background-color: #922930;
+  background-color: #FE7028;
   opacity: 0.3;
   transition: all 0.3s ease;
 }
@@ -169,16 +169,16 @@ button, a, input, select, textarea {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #2E2D2F;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #922930;
+  background: #FE7028;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #7a1f26;
+  background: #e5631f;
 }
 
 /* Focus states for accessibility */
@@ -186,7 +186,7 @@ button:focus,
 input:focus,
 textarea:focus,
 select:focus {
-  outline: 2px solid #922930;
+  outline: 2px solid #FE7028;
   outline-offset: 2px;
 }
 

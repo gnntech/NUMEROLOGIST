@@ -22,9 +22,9 @@ const Admin: React.FC = () => {
 
   if (!isLoggedIn) {
     return (
-      <div className="min-h-screen bg-amber-900 flex items-center justify-center px-4">
+      <div className="min-h-screen flex items-center justify-center px-4" style={{ backgroundColor: '#2E2D2F' }}>
         <div className="bg-white rounded-2xl p-8 w-full max-w-md shadow-2xl">
-          <h1 className="text-2xl font-bold text-amber-900 mb-6 text-center font-bebas tracking-wide">
+          <h1 className="text-2xl font-bold mb-6 text-center font-bebas tracking-wide" style={{ color: '#FE7028' }}>
             Admin Login
           </h1>
           <form onSubmit={handleLogin} className="space-y-4">
@@ -33,19 +33,22 @@ const Admin: React.FC = () => {
               placeholder="Username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 font-matter"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 font-matter"
+              style={{ color: '#2E2D2F' }}
             />
             <input
               type="password"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 font-matter"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 font-matter"
+              style={{ color: '#2E2D2F' }}
             />
             {error && <p className="text-red-500 text-sm text-center">{error}</p>}
             <button
               type="submit"
-              className="w-full bg-amber-900 hover:bg-amber-800 text-white py-3 rounded-lg font-medium transition-colors font-matter"
+              className="w-full text-white py-3 rounded-lg font-medium transition-colors font-matter hover:opacity-90"
+              style={{ backgroundColor: '#FE7028' }}
             >
               Login
             </button>
@@ -63,11 +66,11 @@ const Admin: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-amber-900 pt-24 pb-12">
+    <div className="min-h-screen pt-24 pb-12" style={{ backgroundColor: '#2E2D2F' }}>
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-orange-100 font-bebas tracking-wide">
+          <h1 className="text-3xl font-bold text-white font-bebas tracking-wide">
             Admin Dashboard
           </h1>
           <button
@@ -86,9 +89,12 @@ const Admin: React.FC = () => {
               onClick={() => setActiveTab(tab.id)}
               className={`px-6 py-3 rounded-lg font-matter text-sm whitespace-nowrap transition-all ${
                 activeTab === tab.id
-                  ? 'bg-orange-200 text-amber-900 font-semibold'
-                  : 'bg-white/10 text-orange-100 hover:bg-white/20'
+                  ? 'text-white font-semibold'
+                  : 'text-white/70 hover:bg-white/10'
               }`}
+              style={{
+                backgroundColor: activeTab === tab.id ? '#FE7028' : 'rgba(255,255,255,0.05)'
+              }}
             >
               {tab.label}
             </button>
@@ -96,7 +102,7 @@ const Admin: React.FC = () => {
         </div>
 
         {/* Content */}
-        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-orange-200/30">
+        <div className="rounded-2xl p-6 border" style={{ backgroundColor: '#3A3939', borderColor: 'rgba(255,255,255,0.1)' }}>
           {activeTab === 'promo' && <PromoManager />}
           {activeTab === 'testimonials' && <TestimonialManager />}
           {activeTab === 'products' && <ProductManager />}
@@ -152,7 +158,7 @@ const PromoManager: React.FC = () => {
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl font-bold text-orange-100 font-bebas">Promo Cards</h2>
+        <h2 className="text-xl font-bold text-white font-bebas">Promo Cards</h2>
         <button
           onClick={handleAdd}
           className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-matter text-sm"
@@ -163,14 +169,14 @@ const PromoManager: React.FC = () => {
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         {data.promoCards.map((card) => (
-          <div key={card.id} className="bg-white/10 rounded-xl p-4 border border-orange-200/20">
+          <div key={card.id} className="rounded-xl p-4 border" style={{ backgroundColor: '#2E2D2F', borderColor: 'rgba(255,255,255,0.1)' }}>
             <div className="grid grid-cols-2 gap-2 mb-4">
               <div>
-                <p className="text-orange-100/60 text-xs mb-1">Desktop</p>
+                <p className="text-white/60 text-xs mb-1">Desktop</p>
                 <img src={card.image} alt={card.title} className="w-full h-24 object-cover rounded-lg" />
               </div>
               <div>
-                <p className="text-orange-100/60 text-xs mb-1">Mobile</p>
+                <p className="text-white/60 text-xs mb-1">Mobile</p>
                 <img src={card.mobileImage} alt={card.title} className="w-full h-24 object-cover rounded-lg" />
               </div>
             </div>
@@ -181,32 +187,34 @@ const PromoManager: React.FC = () => {
                   type="text"
                   value={editingCard.title}
                   onChange={(e) => setEditingCard({ ...editingCard, title: e.target.value })}
-                  className="w-full px-3 py-2 rounded-lg bg-white/20 text-orange-100 border border-orange-200/30 font-matter text-sm"
+                  className="w-full px-3 py-2 rounded-lg text-white border font-matter text-sm"
+                  style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
                   placeholder="Title"
                 />
                 <textarea
                   value={editingCard.description}
                   onChange={(e) => setEditingCard({ ...editingCard, description: e.target.value })}
-                  className="w-full px-3 py-2 rounded-lg bg-white/20 text-orange-100 border border-orange-200/30 font-matter text-sm"
+                  className="w-full px-3 py-2 rounded-lg text-white border font-matter text-sm"
+                  style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
                   placeholder="Description"
                   rows={2}
                 />
                 <div>
-                  <p className="text-orange-100/60 text-xs mb-1">Desktop Image</p>
+                  <p className="text-white/60 text-xs mb-1">Desktop Image</p>
                   <input
                     type="file"
                     accept="image/*"
                     onChange={(e) => handleImageUpload(e, editingCard, 'desktop')}
-                    className="w-full text-orange-100 text-sm"
+                    className="w-full text-white text-sm"
                   />
                 </div>
                 <div>
-                  <p className="text-orange-100/60 text-xs mb-1">Mobile Image</p>
+                  <p className="text-white/60 text-xs mb-1">Mobile Image</p>
                   <input
                     type="file"
                     accept="image/*"
                     onChange={(e) => handleImageUpload(e, editingCard, 'mobile')}
-                    className="w-full text-orange-100 text-sm"
+                    className="w-full text-white text-sm"
                   />
                 </div>
                 <div className="flex space-x-2">
@@ -226,12 +234,13 @@ const PromoManager: React.FC = () => {
               </div>
             ) : (
               <div>
-                <h3 className="text-orange-100 font-semibold mb-1">{card.title}</h3>
-                <p className="text-orange-100/70 text-sm mb-4">{card.description}</p>
+                <h3 className="text-white font-semibold mb-1">{card.title}</h3>
+                <p className="text-white/70 text-sm mb-4">{card.description}</p>
                 <div className="flex space-x-2">
                   <button
                     onClick={() => setEditingCard(card)}
-                    className="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg text-sm"
+                    className="flex-1 text-white py-2 rounded-lg text-sm"
+                    style={{ backgroundColor: '#FE7028' }}
                   >
                     Edit
                   </button>
@@ -281,7 +290,7 @@ const TestimonialManager: React.FC = () => {
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl font-bold text-orange-100 font-bebas">Testimonials</h2>
+        <h2 className="text-xl font-bold text-white font-bebas">Testimonials</h2>
         <button onClick={handleAdd} className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-matter text-sm">
           + Add Testimonial
         </button>
@@ -289,7 +298,7 @@ const TestimonialManager: React.FC = () => {
 
       <div className="space-y-4">
         {data.testimonials.map((item) => (
-          <div key={item.id} className="bg-white/10 rounded-xl p-4 border border-orange-200/20">
+          <div key={item.id} className="rounded-xl p-4 border" style={{ backgroundColor: '#2E2D2F', borderColor: 'rgba(255,255,255,0.1)' }}>
             {editingItem?.id === item.id ? (
               <div className="space-y-3">
                 <div className="grid grid-cols-2 gap-3">
@@ -297,21 +306,24 @@ const TestimonialManager: React.FC = () => {
                     type="text"
                     value={editingItem.name}
                     onChange={(e) => setEditingItem({ ...editingItem, name: e.target.value })}
-                    className="px-3 py-2 rounded-lg bg-white/20 text-orange-100 border border-orange-200/30 font-matter text-sm"
+                    className="px-3 py-2 rounded-lg text-white border font-matter text-sm"
+                    style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
                     placeholder="Name"
                   />
                   <input
                     type="text"
                     value={editingItem.location}
                     onChange={(e) => setEditingItem({ ...editingItem, location: e.target.value })}
-                    className="px-3 py-2 rounded-lg bg-white/20 text-orange-100 border border-orange-200/30 font-matter text-sm"
+                    className="px-3 py-2 rounded-lg text-white border font-matter text-sm"
+                    style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
                     placeholder="Location"
                   />
                 </div>
                 <textarea
                   value={editingItem.quote}
                   onChange={(e) => setEditingItem({ ...editingItem, quote: e.target.value })}
-                  className="w-full px-3 py-2 rounded-lg bg-white/20 text-orange-100 border border-orange-200/30 font-matter text-sm"
+                  className="w-full px-3 py-2 rounded-lg text-white border font-matter text-sm"
+                  style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
                   rows={3}
                 />
                 <div className="flex space-x-2">
@@ -323,15 +335,15 @@ const TestimonialManager: React.FC = () => {
               <div>
                 <div className="flex justify-between items-start mb-2">
                   <div>
-                    <h3 className="text-orange-100 font-semibold">{item.name}</h3>
-                    <p className="text-orange-100/60 text-sm">{item.location}</p>
+                    <h3 className="text-white font-semibold">{item.name}</h3>
+                    <p className="text-white/60 text-sm">{item.location}</p>
                   </div>
                   <div className="flex space-x-2">
-                    <button onClick={() => setEditingItem(item)} className="bg-blue-500 text-white px-3 py-1 rounded text-sm">Edit</button>
+                    <button onClick={() => setEditingItem(item)} className="text-white px-3 py-1 rounded text-sm" style={{ backgroundColor: '#FE7028' }}>Edit</button>
                     <button onClick={() => handleDelete(item.id)} className="bg-red-500 text-white px-3 py-1 rounded text-sm">Delete</button>
                   </div>
                 </div>
-                <p className="text-orange-100/80 text-sm italic">"{item.quote}"</p>
+                <p className="text-white/80 text-sm italic">"{item.quote}"</p>
               </div>
             )}
           </div>
@@ -382,7 +394,7 @@ const ProductManager: React.FC = () => {
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl font-bold text-orange-100 font-bebas">Products</h2>
+        <h2 className="text-xl font-bold text-white font-bebas">Products</h2>
         <button onClick={handleAdd} className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-matter text-sm">
           + Add Product
         </button>
@@ -390,7 +402,7 @@ const ProductManager: React.FC = () => {
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         {data.products.map((item) => (
-          <div key={item.id} className="bg-white/10 rounded-xl p-4 border border-orange-200/20">
+          <div key={item.id} className="rounded-xl p-4 border" style={{ backgroundColor: '#2E2D2F', borderColor: 'rgba(255,255,255,0.1)' }}>
             <img src={item.image} alt={item.name} className="w-full h-40 object-cover rounded-lg mb-4" />
             
             {editingItem?.id === item.id ? (
@@ -399,23 +411,26 @@ const ProductManager: React.FC = () => {
                   type="text"
                   value={editingItem.name}
                   onChange={(e) => setEditingItem({ ...editingItem, name: e.target.value })}
-                  className="w-full px-3 py-2 rounded-lg bg-white/20 text-orange-100 border border-orange-200/30 font-matter text-sm"
+                  className="w-full px-3 py-2 rounded-lg text-white border font-matter text-sm"
+                  style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
                   placeholder="Name"
                 />
                 <input
                   type="text"
                   value={editingItem.price}
                   onChange={(e) => setEditingItem({ ...editingItem, price: e.target.value })}
-                  className="w-full px-3 py-2 rounded-lg bg-white/20 text-orange-100 border border-orange-200/30 font-matter text-sm"
+                  className="w-full px-3 py-2 rounded-lg text-white border font-matter text-sm"
+                  style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
                   placeholder="Price"
                 />
                 <textarea
                   value={editingItem.description}
                   onChange={(e) => setEditingItem({ ...editingItem, description: e.target.value })}
-                  className="w-full px-3 py-2 rounded-lg bg-white/20 text-orange-100 border border-orange-200/30 font-matter text-sm"
+                  className="w-full px-3 py-2 rounded-lg text-white border font-matter text-sm"
+                  style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
                   rows={2}
                 />
-                <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, editingItem)} className="w-full text-orange-100 text-sm" />
+                <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, editingItem)} className="w-full text-white text-sm" />
                 <div className="flex space-x-2">
                   <button onClick={() => handleUpdate(editingItem)} className="flex-1 bg-green-500 text-white py-2 rounded-lg text-sm">Save</button>
                   <button onClick={() => setEditingItem(null)} className="flex-1 bg-gray-500 text-white py-2 rounded-lg text-sm">Cancel</button>
@@ -423,11 +438,11 @@ const ProductManager: React.FC = () => {
               </div>
             ) : (
               <div>
-                <h3 className="text-orange-100 font-semibold">{item.name}</h3>
-                <p className="text-orange-200 font-bold mb-1">{item.price}</p>
-                <p className="text-orange-100/70 text-sm mb-4">{item.description}</p>
+                <h3 className="text-white font-semibold">{item.name}</h3>
+                <p className="font-bold mb-1" style={{ color: '#FE7028' }}>{item.price}</p>
+                <p className="text-white/70 text-sm mb-4">{item.description}</p>
                 <div className="flex space-x-2">
-                  <button onClick={() => setEditingItem(item)} className="flex-1 bg-blue-500 text-white py-2 rounded-lg text-sm">Edit</button>
+                  <button onClick={() => setEditingItem(item)} className="flex-1 text-white py-2 rounded-lg text-sm" style={{ backgroundColor: '#FE7028' }}>Edit</button>
                   <button onClick={() => handleDelete(item.id)} className="flex-1 bg-red-500 text-white py-2 rounded-lg text-sm">Delete</button>
                 </div>
               </div>
@@ -451,22 +466,24 @@ const SettingsManager: React.FC = () => {
 
   return (
     <div>
-      <h2 className="text-xl font-bold text-orange-100 font-bebas mb-6">Settings</h2>
+      <h2 className="text-xl font-bold text-white font-bebas mb-6">Settings</h2>
       
       <div className="space-y-6">
         <div>
-          <label className="block text-orange-100 mb-2 font-matter">Marquee Text</label>
+          <label className="block text-white mb-2 font-matter">Marquee Text</label>
           <input
             type="text"
             value={marquee}
             onChange={(e) => setMarquee(e.target.value)}
-            className="w-full px-4 py-3 rounded-lg bg-white/20 text-orange-100 border border-orange-200/30 font-matter"
+            className="w-full px-4 py-3 rounded-lg text-white border font-matter"
+            style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
           />
         </div>
         
         <button
           onClick={handleSave}
-          className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-matter"
+          className="text-white px-6 py-3 rounded-lg font-matter hover:opacity-90"
+          style={{ backgroundColor: '#FE7028' }}
         >
           Save Settings
         </button>

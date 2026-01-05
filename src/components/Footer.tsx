@@ -4,8 +4,8 @@ import { motion } from 'framer-motion';
 const Footer: React.FC = () => {
   return (
     <motion.footer 
-      className="relative bg-cover bg-center bg-no-repeat text-white"
-      style={{ backgroundImage: 'url(/Footer_bg.png)' }}
+      className="relative text-white"
+      style={{ backgroundColor: '#1E1E20' }}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, margin: "-100px" }}
@@ -24,19 +24,19 @@ const Footer: React.FC = () => {
             
             {/* Column 1 - Brand Information */}
             <div className="space-y-4">
-              <h3 className="text-2xl font-bold font-bebas tracking-wide uppercase text-cream">
+              <h3 className="text-2xl font-bold font-bebas tracking-wide uppercase" style={{ color: '#FE7028' }}>
                 GAURAB NERPAGAR NUMEROLOGICS
               </h3>
               
-              <p className="text-cream/90 leading-relaxed font-matter text-base">
-                Ayunext Solutions delivers business-focused technology and financial services to help companies grow, streamline operations, and secure their financial future. Our mission is to combine innovation with practical solutions that drive measurable results for our clients.
+              <p className="text-white/80 leading-relaxed font-matter text-base">
+                Unlock the ancient wisdom of numerology to reveal your true potential, understand your destiny, and navigate life's journey with clarity and purpose.
               </p>
               
               {/* Social Icons */}
               <div className="flex space-x-6 pt-2">
                 <a 
                   href="#" 
-                  className="text-cream/80 hover:text-cream transition-colors duration-300 transform hover:scale-110"
+                  className="text-white/70 hover:text-[#FE7028] transition-colors duration-300 transform hover:scale-110"
                   aria-label="LinkedIn"
                 >
                   <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -46,7 +46,7 @@ const Footer: React.FC = () => {
                 
                 <a 
                   href="#" 
-                  className="text-cream/80 hover:text-cream transition-colors duration-300 transform hover:scale-110"
+                  className="text-white/70 hover:text-[#FE7028] transition-colors duration-300 transform hover:scale-110"
                   aria-label="Instagram"
                 >
                   <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -56,7 +56,7 @@ const Footer: React.FC = () => {
                 
                 <a 
                   href="#" 
-                  className="text-cream/80 hover:text-cream transition-colors duration-300 transform hover:scale-110"
+                  className="text-white/70 hover:text-[#FE7028] transition-colors duration-300 transform hover:scale-110"
                   aria-label="Facebook"
                 >
                   <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -66,7 +66,7 @@ const Footer: React.FC = () => {
                 
                 <a 
                   href="#" 
-                  className="text-cream/80 hover:text-cream transition-colors duration-300 transform hover:scale-110"
+                  className="text-white/70 hover:text-[#FE7028] transition-colors duration-300 transform hover:scale-110"
                   aria-label="X (Twitter)"
                 >
                   <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -78,39 +78,24 @@ const Footer: React.FC = () => {
 
             {/* Column 2 - Quick Links */}
             <div className="space-y-4">
-              <h3 className="text-2xl font-bold font-bebas tracking-wide uppercase text-cream">
+              <h3 className="text-2xl font-bold font-bebas tracking-wide uppercase" style={{ color: '#FE7028' }}>
                 QUICK LINKS
               </h3>
               
               <nav className="space-y-3">
-                <a 
-                  href="#" 
-                  className="block text-cream/90 hover:text-cream hover:underline transition-all duration-300 font-matter text-base"
-                >
+                <a href="/" className="block text-white/80 hover:text-[#FE7028] transition-all duration-300 font-matter text-base">
                   Home
                 </a>
-                <a 
-                  href="#" 
-                  className="block text-cream/90 hover:text-cream hover:underline transition-all duration-300 font-matter text-base"
-                >
+                <a href="/about" className="block text-white/80 hover:text-[#FE7028] transition-all duration-300 font-matter text-base">
                   About Us
                 </a>
-                <a 
-                  href="#" 
-                  className="block text-cream/90 hover:text-cream hover:underline transition-all duration-300 font-matter text-base"
-                >
+                <a href="/services" className="block text-white/80 hover:text-[#FE7028] transition-all duration-300 font-matter text-base">
                   Services
                 </a>
-                <a 
-                  href="#" 
-                  className="block text-cream/90 hover:text-cream hover:underline transition-all duration-300 font-matter text-base"
-                >
-                  Insights / Blog
+                <a href="/testimonials" className="block text-white/80 hover:text-[#FE7028] transition-all duration-300 font-matter text-base">
+                  Testimonials
                 </a>
-                <a 
-                  href="#" 
-                  className="block text-cream/90 hover:text-cream hover:underline transition-all duration-300 font-matter text-base"
-                >
+                <a href="/contact" className="block text-white/80 hover:text-[#FE7028] transition-all duration-300 font-matter text-base">
                   Contact Us
                 </a>
               </nav>
@@ -118,40 +103,25 @@ const Footer: React.FC = () => {
 
             {/* Column 3 - Services */}
             <div className="space-y-4">
-              <h3 className="text-2xl font-bold font-bebas tracking-wide uppercase text-cream">
+              <h3 className="text-2xl font-bold font-bebas tracking-wide uppercase" style={{ color: '#FE7028' }}>
                 SERVICES
               </h3>
               
               <nav className="space-y-3">
-                <a 
-                  href="#" 
-                  className="block text-cream/90 hover:text-cream hover:underline transition-all duration-300 font-matter text-base"
-                >
-                  Software Development
+                <a href="#" className="block text-white/80 hover:text-[#FE7028] transition-all duration-300 font-matter text-base">
+                  Life Path Reading
                 </a>
-                <a 
-                  href="#" 
-                  className="block text-cream/90 hover:text-cream hover:underline transition-all duration-300 font-matter text-base"
-                >
-                  Cross-Platform Apps
+                <a href="#" className="block text-white/80 hover:text-[#FE7028] transition-all duration-300 font-matter text-base">
+                  Numerology Report
                 </a>
-                <a 
-                  href="#" 
-                  className="block text-cream/90 hover:text-cream hover:underline transition-all duration-300 font-matter text-base"
-                >
-                  Digital Marketing
+                <a href="#" className="block text-white/80 hover:text-[#FE7028] transition-all duration-300 font-matter text-base">
+                  Career Guidance
                 </a>
-                <a 
-                  href="#" 
-                  className="block text-cream/90 hover:text-cream hover:underline transition-all duration-300 font-matter text-base"
-                >
-                  Financial Consulting
+                <a href="#" className="block text-white/80 hover:text-[#FE7028] transition-all duration-300 font-matter text-base">
+                  Personal Consultation
                 </a>
-                <a 
-                  href="#" 
-                  className="block text-cream/90 hover:text-cream hover:underline transition-all duration-300 font-matter text-base"
-                >
-                  Cloud Solutions
+                <a href="#" className="block text-white/80 hover:text-[#FE7028] transition-all duration-300 font-matter text-base">
+                  Wellness Items
                 </a>
               </nav>
             </div>
@@ -160,7 +130,7 @@ const Footer: React.FC = () => {
       </div>
 
       {/* Divider & Copyright */}
-      <div className="relative z-10 border-t border-cream/20">
+      <div className="relative z-10 border-t border-white/20">
         <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-4">
           <motion.div 
             className="text-center"
@@ -169,7 +139,7 @@ const Footer: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <p className="text-cream/80 font-matter">
+            <p className="text-white/60 font-matter">
               © Copyright 2025 GNN. All Rights Reserved
             </p>
           </motion.div>

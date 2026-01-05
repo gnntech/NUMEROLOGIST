@@ -52,7 +52,7 @@ const IntroLoader: React.FC<IntroLoaderProps> = ({ isLoading, onComplete }) => {
         {/* GNN Background */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url(/GNN_background.png)' }}
+          style={{ backgroundImage: 'url(/GNN_background_grey_2.png)' }}
         />
 
         {/* Subtle dark overlay */}
@@ -75,8 +75,8 @@ const IntroLoader: React.FC<IntroLoaderProps> = ({ isLoading, onComplete }) => {
             className="font-bebas font-extrabold tracking-[0.12em] select-none text-center px-4"
             style={{
               fontSize: 'clamp(3.5rem, 12vw, 14rem)',
-              color: '#FFD8C5',
-              textShadow: '0 4px 80px rgba(255, 216, 197, 0.4)',
+              color: '#FFFFFF',
+              textShadow: '0 4px 80px rgba(255, 255, 255, 0.3)',
               fontWeight: 700,
               lineHeight: 1
             }}

@@ -100,11 +100,10 @@ const ServicesCarousel: React.FC = () => {
   };
 
   return (
-    <div className="bg-white py-12 sm:py-16 lg:py-20">
+    <div className="py-12 sm:py-16 lg:py-20" style={{ backgroundColor: '#2E2D2F' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 
-          className="text-3xl sm:text-4xl lg:text-5xl font-bold font-bebas tracking-wide text-center mb-8 sm:mb-12"
-          style={{ color: '#922930' }}
+          className="text-3xl sm:text-4xl lg:text-5xl font-bold font-bebas tracking-wide text-center mb-8 sm:mb-12 text-white"
         >
           OUR SERVICES
         </h2>
@@ -115,7 +114,7 @@ const ServicesCarousel: React.FC = () => {
               <div key={service.id} className="px-2 sm:px-3">
                 <div 
                   className="rounded-3xl p-6 sm:p-8 text-center h-[420px] sm:h-[400px] flex flex-col"
-                  style={{ backgroundColor: '#FFFAE5' }}
+                  style={{ backgroundColor: '#3A3939' }}
                 >
                   {/* Image */}
                   <div className="h-32 sm:h-36 flex items-center justify-center mb-4">
@@ -138,8 +137,7 @@ const ServicesCarousel: React.FC = () => {
                   {/* Description */}
                   <div className="flex-1 overflow-hidden">
                     <p 
-                      className="text-sm sm:text-base leading-relaxed font-matter"
-                      style={{ color: '#922930' }}
+                      className="text-sm sm:text-base leading-relaxed font-matter text-white"
                     >
                       {service.description}
                     </p>

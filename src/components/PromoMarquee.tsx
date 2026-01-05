@@ -8,14 +8,16 @@ const PromoMarquee = () => {
   return (
     <>
       {/* Marquee */}
-      <div className="h-20 w-full bg-gradient-to-r from-[#FF8A00] to-[#FFB347] overflow-hidden flex items-center">
+      <div className="h-16 w-full overflow-hidden flex items-center" style={{ backgroundColor: '#2E2D2F' }}>
         <div className="flex animate-marquee whitespace-nowrap">
           {[...Array(12)].map((_, i) => (
             <button
               key={i}
               onClick={() => setOpen(true)}
-              className="mx-8 text-sm font-semibold text-[#1A0D05] hover:underline cursor-pointer"
+              className="mx-8 text-sm font-semibold hover:underline cursor-pointer flex items-center gap-2"
+              style={{ color: '#FE7028' }}
             >
+              <span style={{ color: '#FE7028' }}>✦</span>
               {data.marqueeText}
             </button>
           ))}
@@ -32,7 +34,8 @@ const PromoMarquee = () => {
             </p>
 
             <button
-              className="w-full bg-[#FF8A00] text-white py-2 rounded-lg font-semibold"
+              className="w-full py-2 rounded-lg font-semibold text-white"
+              style={{ backgroundColor: '#FE7028' }}
             >
               Proceed to Booking
             </button>
