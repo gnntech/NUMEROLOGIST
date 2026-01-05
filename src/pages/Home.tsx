@@ -434,7 +434,7 @@ const Home: React.FC = () => {
 
               {/* Right side - Decorative space or additional content */}
               <div className="relative hidden lg:block">
-                {/* This space can be used for decorative elements or additional content */}
+                
               </div>
             </div>
           </div>
