@@ -63,10 +63,7 @@ const ServiceCard: React.FC<{ service: Service }> = ({ service }) => {
           {service.description}
         </p>
       </div>
-
-      {/* Bottom section with arrow and badge */}
       <div className="flex items-end justify-between mt-auto">
-        {/* Arrow Button - Bottom Left */}
         <div className="pb-7 pl-0">
           <button
             className="w-9 h-9 rounded-lg flex items-center justify-center transition-transform hover:scale-105"
