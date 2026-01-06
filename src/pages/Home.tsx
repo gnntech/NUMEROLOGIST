@@ -4,7 +4,7 @@ import IntroLoader from '../components/IntroLoader';
 
 // Lazy load components below the fold
 const PromoSection = lazy(() => import('../components/PromoSection'));
-const ServicesCarousel = lazy(() => import('../components/ServicesCarousel'));
+const OurServicesSection = lazy(() => import('../components/OurServicesSection'));
 const PromoMarquee = lazy(() => import('../components/PromoMarquee'));
 const ShopSection = lazy(() => import('../components/ShopSection'));
 const GetInTouchSection = lazy(() => import('../components/GetInTouchSection'));
@@ -288,7 +288,7 @@ const Home: React.FC = () => {
 
         {/* Services Section */}
         <Suspense fallback={<SectionLoader />}>
-          <ServicesCarousel />
+          <OurServicesSection />
         </Suspense>
 
         {/* Testimonial Section */}
