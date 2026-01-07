@@ -115,7 +115,6 @@ const TestimonialSection: React.FC = () => {
       style={{ backgroundImage: 'url(/Testimonial_bg.png)' }}
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Main White Card Container */}
         <div className="bg-white rounded-2xl p-5 sm:p-8 lg:p-10 shadow-xl">
           {/* Top Section - Title, Description & Video */}
           <div className="grid lg:grid-cols-[1fr_auto] gap-4 mb-4">
