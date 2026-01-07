@@ -6,6 +6,7 @@ import IntroLoader from '../components/IntroLoader';
 const PromoSection = lazy(() => import('../components/PromoSection'));
 const OurServicesSection = lazy(() => import('../components/OurServicesSection'));
 const PromoMarquee = lazy(() => import('../components/PromoMarquee'));
+const TestimonialSection = lazy(() => import('../components/TestimonialSection'));
 const ShopSection = lazy(() => import('../components/ShopSection'));
 const GetInTouchSection = lazy(() => import('../components/GetInTouchSection'));
 const Footer = lazy(() => import('../components/Footer'));
@@ -292,153 +293,9 @@ const Home: React.FC = () => {
         </Suspense>
 
         {/* Testimonial Section */}
-        <motion.div 
-          className="relative z-10 py-20 sm:py-28 lg:py-32 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url(/Testimonial_bg.png)' }}
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div 
-              className="text-center mb-12 sm:mb-16"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <h2 
-                className="text-4xl sm:text-5xl lg:text-7xl font-extrabold font-bebas tracking-wide mb-8"
-                style={{ color: '#FFFAE5' }}
-              >
-                TESTIMONIAL
-              </h2>
-            </motion.div>
-
-            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-              {/* Left side - Testimonial Card */}
-              <motion.div 
-                className="relative"
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-              >
-                <motion.div 
-                  className="bg-cover bg-center bg-no-repeat rounded-2xl p-6 sm:p-8 shadow-2xl mb-6 sm:mb-8"
-                  style={{ 
-                    backgroundImage: 'url(/Testimonial_card.png)',
-                    minHeight: '280px'
-                  }}
-                  whileHover={{ scale: 1.02, boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {/* Card content overlay */}
-                  <div className="relative z-10">
-                    <div className="text-4xl sm:text-6xl font-bold leading-none mb-3 sm:mb-4" style={{ color: '#2E2D2F' }}>"</div>
-                    <blockquote 
-                      className="text-base sm:text-lg mb-4 sm:mb-6 leading-relaxed font-matter"
-                      style={{ color: '#2E2D2F' }}
-                    >
-                      Through my Life Path and Destiny reading, I gained a deep understanding of my life purpose 
-                      and where I'm truly headed. The insights brought me clarity, confidence, and a sense of 
-                      direction that helped me grow and feel more fulfilled.
-                    </blockquote>
-                    <div className="mt-4 sm:mt-6">
-                      <div 
-                        className="font-semibold text-base sm:text-lg font-matter"
-                        style={{ color: '#2E2D2F' }}
-                      >
-                        Sneha Iyer
-                      </div>
-                      <div 
-                        className="font-matter text-sm sm:text-base"
-                        style={{ color: '#2E2D2F', opacity: 0.8 }}
-                      >
-                        Mumbai
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* Stats directly under the card */}
-                <motion.div 
-                  className="grid grid-cols-3 gap-4 sm:gap-6 text-left"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.6 }}
-                >
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <div 
-                      className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-bebas mb-1"
-                      style={{ color: '#FFFAE5' }}
-                    >
-                      500+
-                    </div>
-                    <div 
-                      className="text-sm sm:text-base font-semibold font-matter"
-                      style={{ color: '#FFFAE5', opacity: 0.9 }}
-                    >
-                      Clients served
-                    </div>
-                  </motion.div>
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <div 
-                      className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-bebas mb-1"
-                      style={{ color: '#FFFAE5' }}
-                    >
-                      95%
-                    </div>
-                    <div 
-                      className="text-sm sm:text-base font-semibold font-matter"
-                      style={{ color: '#FFFAE5', opacity: 0.9 }}
-                    >
-                      Positive Feedback
-                    </div>
-                  </motion.div>
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <div className="flex items-center space-x-1 mb-1">
-                      <span 
-                        className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-bebas"
-                        style={{ color: '#FFFAE5' }}
-                      >
-                        4.8
-                      </span>
-                      <img 
-                        src="/Star.png" 
-                        alt="Star Rating" 
-                        className="w-5 h-5 sm:w-7 sm:h-7 object-contain"
-                        loading="lazy"
-                      />
-                    </div>
-                    <div 
-                      className="text-sm sm:text-base font-semibold font-matter"
-                      style={{ color: '#FFFAE5', opacity: 0.9 }}
-                    >
-                      Client Ratings
-                    </div>
-                  </motion.div>
-                </motion.div>
-              </motion.div>
-
-              {/* Right side - Decorative space or additional content */}
-              <div className="relative hidden lg:block">
-                
-              </div>
-            </div>
-          </div>
-        </motion.div>
+        <Suspense fallback={<SectionLoader />}>
+          <TestimonialSection />
+        </Suspense>
 
         {/* Shop Section */}
         <Suspense fallback={<SectionLoader />}>
