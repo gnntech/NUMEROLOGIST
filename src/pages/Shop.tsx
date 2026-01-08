@@ -223,7 +223,7 @@ const Shop: React.FC = () => {
         <div className="relative z-10 min-h-[50vh] lg:min-h-screen flex flex-col lg:flex-row lg:items-center">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-20 lg:pt-20">
             <div className="grid lg:grid-cols-2 gap-4 lg:gap-8 items-center">
-              {/* Left - Empty space for background image on desktop */}
+             
               <div className="hidden lg:block">
               </div>
               
