@@ -273,7 +273,7 @@ const Package: React.FC = () => {
                   />
                 </motion.div>
 
-                {/* Package Name */}
+               
                 <h3 className="font-matter font-semibold text-xl sm:text-2xl text-center text-[#2F2F2F] mb-2">
                   {pkg.name}
                 </h3>
