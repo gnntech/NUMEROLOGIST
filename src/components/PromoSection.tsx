@@ -13,11 +13,28 @@ const ChevronRight = ({ size = 22 }: { size?: number }) => (
   </svg>
 );
 
+const images = [
+  {
+    src: "/numerology-report.jpeg",
+    mobileSrc: "/mobile-numerology-report.jpg",
+    alt: "Personal Numerology Report",
+  },
+  {
+    src: "/lucky-jewellery.jpeg",
+    mobileSrc: "/mobile-lucky-jewellery.jpg",
+    alt: "Lucky Number Jewellery",
+  },
+  {
+    src: "/career-analysis.jpeg",
+    mobileSrc: "/mobile-career-analysis.jpg",
+    alt: "Career Number Analysis",
+  },
+];
+
 const PromoSlider: React.FC = () => {
   const { data } = useAdmin();
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Reset index if cards change
   useEffect(() => {
     if (currentIndex >= data.promoCards.length) {
       setCurrentIndex(0);
@@ -46,12 +63,12 @@ const PromoSlider: React.FC = () => {
         className="flex h-full transition-transform duration-700 ease-in-out"
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
       >
-        {data.promoCards.map((card) => (
-          <picture key={card.id} className="block h-full w-full flex-shrink-0">
-            <source media="(max-width: 640px)" srcSet={card.mobileImage} />
+        {images.map((img, index) => (
+          <picture key={index} className="block h-full w-full flex-shrink-0">
+            <source media="(max-width: 640px)" srcSet={img.mobileSrc} />
             <img
-              src={card.image}
-              alt={card.title}
+              src={img.src}
+              alt={img.alt}
               className="h-full w-full object-cover"
             />
           </picture>
@@ -61,10 +78,10 @@ const PromoSlider: React.FC = () => {
       <button
         onClick={() =>
           setCurrentIndex(
-            currentIndex === 0 ? data.promoCards.length - 1 : currentIndex - 1
+            currentIndex === 0 ? images.length - 1 : currentIndex - 1
           )
         }
-        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white p-3 rounded-full shadow-lg z-10"
+        className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/50 p-2 rounded-full text-white"
       >
         <ChevronLeft size={22} />
       </button>
@@ -72,10 +89,10 @@ const PromoSlider: React.FC = () => {
       <button
         onClick={() =>
           setCurrentIndex(
-            currentIndex === data.promoCards.length - 1 ? 0 : currentIndex + 1
+            currentIndex === images.length - 1 ? 0 : currentIndex + 1
           )
         }
-        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white p-3 rounded-full shadow-lg z-10"
+        className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/50 p-2 rounded-full text-white"
       >
         <ChevronRight size={22} />
       </button>
