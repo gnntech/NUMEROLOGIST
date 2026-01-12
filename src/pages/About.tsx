@@ -143,7 +143,7 @@ const About: React.FC = () => {
         </div>
       </motion.section>
 
-      {/* PATHS OF INSIGHT SECTION (Original structure preserved) */}
+      
       
 
       {/* OUR EXPERTISE SECTION (FINAL VERSION - NO GAPS) */}
