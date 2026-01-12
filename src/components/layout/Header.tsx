@@ -18,10 +18,8 @@ const Header: React.FC = () => {
   const menuItems = [
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
-    { name: 'Services', path: '/services' },
     { name: 'Package', path: '/package' },
     { name: 'Shop', path: '/shop' },
-    { name: 'Testimonials', path: '/testimonials' },
     { name: 'Contact Us', path: '/contact' },
   ];
 

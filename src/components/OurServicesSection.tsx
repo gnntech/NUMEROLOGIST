@@ -76,11 +76,11 @@ const ServiceCard: React.FC<{ service: Service }> = ({ service }) => {
             />
           </button>
         </div>
-        <div className="w-32 h-32 sm:w-40 sm:h-42 flex-shrink-0 -mr-1 -mb-1">
+        <div className="w-32 h-32 sm:w-40 sm:h-42 flex-shrink-0 -mr-1 -mb-1 overflow-hidden">
           <img
             src={service.badge}
             alt={`${service.title} badge`}
-            className="w-full h-full object-contain object-right-bottom"
+            className="w-full h-full object-contain object-right-bottom transition-transform duration-300 hover:scale-105"
           />
         </div>
       </div>

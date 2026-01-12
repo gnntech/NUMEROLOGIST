@@ -117,11 +117,11 @@ const ServicesCarousel: React.FC = () => {
                   style={{ backgroundColor: '#3A3939' }}
                 >
                   {/* Image */}
-                  <div className="h-32 sm:h-36 flex items-center justify-center mb-4">
+                  <div className="h-32 sm:h-36 flex items-center justify-center mb-4 overflow-hidden">
                     <img 
                       src={service.image} 
                       alt={`Service ${service.id}`}
-                      className="max-h-full max-w-[140px] sm:max-w-[160px] object-contain"
+                      className="max-h-full max-w-[140px] sm:max-w-[160px] object-contain transition-transform duration-300 hover:scale-110"
                     />
                   </div>
 

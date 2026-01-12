@@ -19,8 +19,8 @@ const PromoMarquee = () => {
             <button
               key={index}
               onClick={() => setOpen(true)}
-              className="mx-8 text-sm font-semibold flex items-center gap-2 hover:underline cursor-pointer"
-              style={{ color: "#000000" }}
+              className="mx-8 text-sm font-semibold flex items-center gap-2 cursor-pointer"
+              style={{ color: "#FFFFFF" }}
               type="button"
             >
               <span aria-hidden="true">✦</span>
@@ -37,7 +37,7 @@ const PromoMarquee = () => {
             <h2 className="mb-2 text-xl font-bold">Book Now</h2>
 
             <p className="mb-4 text-sm text-gray-600">
-              Get 25% OFF on your numerology report ✨
+              Get 25% OFF on your numerology report 
             </p>
 
             <button
