@@ -36,45 +36,59 @@ const About: React.FC = () => {
         <div className="relative min-h-screen overflow-hidden">
           {/* Background */}
           <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: "url(/bg_about.png)" }}
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: "url(/About_bg.png)" }}
           />
           <div className="absolute inset-0 bg-black/40" />
 
           <div className="relative z-10 min-h-screen flex flex-col lg:grid lg:grid-cols-2 px-4 sm:px-6 lg:px-12">
+            {/* 1. DESKTOP IMAGE (Now placed first in code for left alignment) */}
+            <div className="hidden lg:flex relative h-[100vh] items-end justify-center">
+              <img
+                src="/GaurabNPP.png"
+                alt="Gaurab Nerpagar - Numerology Expert"
+                className="object-contain object-bottom"
+                style={{
+                  height: "clamp(500px, 85vh, 90vh)",
+                  width: "auto",
+                  maxWidth: "clamp(400px, 45vw, 700px)",
+                }}
+              />
+            </div>
+
+            {/* 2. TEXT CONTENT (Now on the right on desktop) */}
             <motion.div
               className="text-white space-y-4 max-w-xl mx-auto lg:mx-0 self-center pt-20 lg:pt-0"
-              initial={{ opacity: 0, x: 40 }}
+              initial={{ opacity: 0, x: -40 }} // Changed x to -40 so it slides IN from the center/left
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="font-bebas text-[clamp(2rem,6vw,5rem)] leading-tight">
-                GAURAB NERPAGAR
-              </h1>
-              <p className="font-matter text-base sm:text-xl">
+              <div className="mb-6">
+                <h1 className="font-bebas text-[clamp(2.5rem,7vw,5.5rem)] leading-[0.9] tracking-tight">
+                  GAURAB NERPAGAR
+                </h1>
+                <p className="font-bebas text-[clamp(1.5rem,4vw,3rem)] text-white/90 mt-1">
+                  NUMEROLOGY GUIDE
+                </p>
+              </div>
+
+              <p className="font-matter text-base lg:text-xl">
                 I’m a numerology practitioner dedicated to helping individuals
                 find clarity, balance, and deeper understanding through the
                 language of numbers. My approach blends intuitive insight with
                 thoughtful guidance, making each experience meaningful and easy
-                to connect with.
+                to connect with. Through personalized readings and conscious
+                offerings, I aim to create a calm, supportive space where
+                clarity unfolds naturally and purpose feels within reach.
               </p>
             </motion.div>
 
-            {/* MOBILE IMAGE */}
+            {/* 3. MOBILE IMAGE (Kept at bottom for mobile view) */}
             <div className="relative w-full flex justify-center items-end mt-auto h-[50vh] sm:h-[60vh] lg:hidden">
               <img
                 src="/GaurabNPP.png"
                 alt="Gaurab Nerpagar"
                 className="object-contain w-full max-w-[280px] sm:max-w-[360px]"
-              />
-            </div>
-
-            {/* DESKTOP IMAGE */}
-            <div className="hidden lg:flex relative h-[100vh] items-end justify-center">
-              <img
-                src="/GaurabNPP.png"
-                alt="Gaurab Nerpagar"
-                className="absolute bottom-0 object-contain max-h-[90vh] max-w-[600px]"
               />
             </div>
           </div>
@@ -83,55 +97,86 @@ const About: React.FC = () => {
 
       {/* ABOUT CARDS SECTION */}
       <motion.section
-        className="relative flex items-center overflow-hidden py-24 bg-white"
+        className="relative flex items-center overflow-hidden py-16 lg:py-24 bg-white"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
       >
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-12">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-6xl mx-auto">
             <div className="text-center mb-10">
-              <h1 className="font-bebas text-[clamp(3rem,5vw,4rem)] text-[#FE7028] tracking-tight">
-               Our premium services
-              </h1>
+              <h2 className="font-bebas text-[clamp(2rem,5vw,3rem)] text-[#FE7028] tracking-wide">
+                OUR PREMIUM SERVICES
+              </h2>
             </div>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              <div className="rounded-2xl bg-gradient-to-br from-[#A9A8AD] via-[#D7D6DB] to-[#A9A8AD] p-6 flex flex-col gap-4 text-[#5A5A5A] min-h-[320px] sm:min-h-[360px]">
+
+            {/* Grid: 1 column on mobile, 2 on tablet, 3 on desktop */}
+            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-center">
+              {/* CARD 1 */}
+              <div
+                className="relative w-full max-w-[436.77px] min-h-[380px] sm:min-h-[444px] rounded-2xl overflow-hidden shadow-xl bg-cover bg-center p-6 sm:p-10 flex flex-col items-start justify-start gap-4 text-[#5A5A5A]"
+                style={{
+                  backgroundImage: "url(/About_cards.png)",
+                  aspectRatio: "436.77 / 444",
+                }}
+              >
                 <img
                   src="/A-Icon1o.png"
                   alt="Belief"
-                  className="w-16 h-16 mx-auto"
+                  className="w-12 h-12 sm:w-16 sm:h-16"
                 />
-                <h3 className="font-bebas text-3xl text-center">BELIEF</h3>
-                <p className="font-matter text-sm">
+                <h3 className="font-bebas text-3xl sm:text-4xl text-left">
+                  BELIEF
+                </h3>
+                <p className="font-matter text-base sm:text-lg text-left leading-relaxed">
                   I believe that numbers are more than calculations — they are
                   subtle guides that reflect our inner patterns, strengths, and
                   life cycles. When understood with awareness, they offer
                   clarity rather than limitation..
                 </p>
               </div>
-              <div className="rounded-2xl bg-gradient-to-br from-[#A9A8AD] via-[#D7D6DB] to-[#A9A8AD] p-6 flex flex-col gap-4 text-[#5A5A5A] min-h-[320px] sm:min-h-[360px]">
+
+              {/* CARD 2 */}
+              <div
+                className="relative w-full max-w-[436.77px] min-h-[380px] sm:min-h-[444px] rounded-2xl overflow-hidden shadow-xl bg-cover bg-center p-6 sm:p-10 flex flex-col items-start justify-start gap-4 text-[#5A5A5A]"
+                style={{
+                  backgroundImage: "url(/About_cards.png)",
+                  aspectRatio: "436.77 / 444",
+                }}
+              >
                 <img
                   src="/A-Icon2o.png"
                   alt="Guidance"
-                  className="w-16 h-16 mx-auto"
+                  className="w-12 h-12 sm:w-16 sm:h-16"
                 />
-                <h3 className="font-bebas text-3xl text-center">GUIDANCE</h3>
-                <p className="font-matter text-sm">
+                <h3 className="font-bebas text-3xl sm:text-4xl text-left">
+                  GUIDANCE
+                </h3>
+                <p className="font-matter text-base sm:text-lg text-left leading-relaxed">
                   My approach is grounded, positive, and empowering. I focus on
                   insight rather than prediction, helping clients feel supported
                   instead of overwhelmed. My work is guided by balance,
                   intention, and conscious awareness.
                 </p>
               </div>
-              <div className="rounded-2xl bg-gradient-to-br from-[#A9A8AD] via-[#D7D6DB] to-[#A9A8AD] p-6 flex flex-col gap-4 text-[#5A5A5A] min-h-[320px] sm:min-h-[360px]">
+
+              {/* CARD 3 */}
+              <div
+                className="relative w-full max-w-[436.77px] min-h-[380px] sm:min-h-[444px] rounded-2xl overflow-hidden shadow-xl bg-cover bg-center p-6 sm:p-10 flex flex-col items-start justify-start gap-4 text-[#5A5A5A]"
+                style={{
+                  backgroundImage: "url(/About_cards.png)",
+                  aspectRatio: "436.77 / 444",
+                }}
+              >
                 <img
                   src="/A-Icon3o.png"
                   alt="Approach"
-                  className="w-16 h-16 mx-auto"
+                  className="w-12 h-12 sm:w-16 sm:h-16"
                 />
-                <h3 className="font-bebas text-3xl text-center">APPROACH</h3>
-                <p className="font-matter text-sm">
+                <h3 className="font-bebas text-3xl sm:text-4xl text-left">
+                  APPROACH
+                </h3>
+                <p className="font-matter text-base sm:text-lg text-left leading-relaxed">
                   Each individual’s journey is unique. I take time to understand
                   personal experiences, challenges, & goals to provide guidance
                   that feels relevant, respectful, & aligned with one’s natural
@@ -142,9 +187,6 @@ const About: React.FC = () => {
           </div>
         </div>
       </motion.section>
-
-      
-      
 
       {/* OUR EXPERTISE SECTION (FINAL VERSION - NO GAPS) */}
       <section className="relative min-h-[600px] lg:min-h-[660px] w-full bg-[#FE7028] px-4 sm:px-6 lg:px-12 z-20 overflow-hidden flex items-start lg:items-center">
@@ -173,7 +215,7 @@ const About: React.FC = () => {
                         onClick={() => setOpenExpertise(isOpen ? null : index)}
                         className="w-full flex justify-between items-center text-left"
                       >
-                        <span className="font-matter font-bold text-xl lg:text-2xl tracking-tight uppercase">
+                        <span className="font-bebas text-xl lg:text-2xl tracking-tight uppercase">
                           {item.title}
                         </span>
                         <span className="text-2xl font-light">
@@ -212,70 +254,122 @@ const About: React.FC = () => {
         </div>
       </section>
       {/* GALLERY – Desktop Sizes Restored, Mobile Optimized */}
-      <section className="w-full bg-white py-16">
+      <section className="w-full bg-white py-10 lg:py-12">
         <div className="w-full px-4 lg:px-12">
-          <h2 className="text-center text-4xl font-bebas text-[#FE7028] tracking-widest mb-12 uppercase">
+          <h2 className="text-center text-5xl lg:text-6xl font-bebas text-[#FE7028] mb-8 uppercase">
             Gallery
           </h2>
 
-          <div className="flex flex-col lg:flex-row justify-start items-center lg:items-start gap-4 w-full">
+          <div className="flex flex-col lg:flex-row justify-center items-center lg:items-start gap-3 w-full">
             {/* Column 1: Images 1 & 4 */}
-            <div className="flex flex-col gap-4 shrink-0 items-center">
-              {/* Image 1: Exact Desktop Size */}
-              <div className="w-full max-w-[393px] h-[423px] rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+            <div className="flex flex-col gap-3 shrink-0 items-center">
+              {/* Image 1 */}
+              <div className="relative w-full max-w-[300px] h-[320px] rounded-2xl overflow-hidden shadow-lg border border-gray-100 group">
                 <img
                   src="./image57.png"
                   className="w-full h-full object-cover"
                   alt="img1"
                 />
+                {/* BOTTOM TEXT OVERLAY */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-4">
+                  <h3 className="font-bebas text-xl text-white leading-[0.8] tracking-wide mb-0 pb-0">
+                    MAIN TITLE
+                  </h3>
+                  <p className="font-matter font-thin text-xs text-white mt-0 uppercase opacity-90">
+                    12 Jan,2026
+                  </p>
+                </div>
               </div>
-              {/* Image 4: Exact Desktop Size */}
-              <div className="w-full max-w-[393px] h-[411px] rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+
+              {/* Image 4 */}
+              <div className="relative w-full max-w-[300px] h-[310px] rounded-2xl overflow-hidden shadow-lg border border-gray-100 group">
                 <img
                   src="./image58.png"
                   className="w-full h-full object-cover"
                   alt="img4"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-4">
+                  <h3 className="font-bebas text-xl text-white leading-none tracking-wide">
+                    MAIN TITLE
+                  </h3>
+                  <p className="font-matter font-thin text-xs text-white mt-0 uppercase opacity-90">
+                    13 Jan,2026
+                  </p>
+                </div>
               </div>
             </div>
 
             {/* Column 2: Images 2 & 5 */}
-            <div className="flex flex-col gap-4 shrink-0 items-center">
-              {/* Image 2: Hidden on mobile, Exact Desktop Size */}
-              <div className="hidden lg:block w-[696px] h-[222px] rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+            <div className="flex flex-col gap-3 shrink-0 items-center">
+              {/* Image 2 (Hidden on mobile) */}
+              <div className="relative hidden lg:block w-[530px] h-[170px] rounded-2xl overflow-hidden shadow-lg border border-gray-100 group">
                 <img
                   src="./image59.png"
                   className="w-full h-full object-cover"
                   alt="img2"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-4">
+                  <h3 className="font-bebas text-xl text-white leading-none tracking-wide">
+                    MAIN TITLE
+                  </h3>
+                  <p className="font-matter font-thin text-xs text-white mt-0 uppercase opacity-90">
+                    14 Jan,2026
+                  </p>
+                </div>
               </div>
-              {/* Image 5: Mobile Size matches Column 1 | Desktop Size is 696px */}
-              <div className="w-full max-w-[393px] h-[423px] lg:max-w-none lg:w-[696px] lg:h-[602px] rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+
+              {/* Image 5 */}
+              <div className="relative w-full max-w-[300px] h-[320px] lg:max-w-none lg:w-[530px] lg:h-[460px] rounded-2xl overflow-hidden shadow-lg border border-gray-100 group">
                 <img
                   src="./image60.png"
                   className="w-full h-full object-cover"
                   alt="img5"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-4">
+                  <h3 className="font-bebas text-xl text-white leading-none tracking-wide">
+                    MAIN TITLE
+                  </h3>
+                  <p className="font-matter font-thin text-xs text-white mt-0 uppercase opacity-90">
+                    15 Jan,2026
+                  </p>
+                </div>
               </div>
             </div>
 
             {/* Column 3: Images 3 & 6 */}
-            <div className="flex flex-col gap-4 shrink-0 items-center">
-              {/* Image 3: Mobile Size matches Column 1 | Desktop Size is 284px */}
-              <div className="w-full max-w-[393px] h-[423px] lg:max-w-none lg:w-[284px] lg:h-[222px] rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+            <div className="flex flex-col gap-3 shrink-0 items-center">
+              {/* Image 3 */}
+              <div className="relative w-full max-w-[300px] h-[320px] lg:max-w-none lg:w-[220px] lg:h-[170px] rounded-2xl overflow-hidden shadow-lg border border-gray-100 group">
                 <img
                   src="./image62.png"
                   className="w-full h-full object-cover"
                   alt="img3"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-4">
+                  <h3 className="font-bebas text-xl text-white leading-none tracking-wide">
+                    MAIN TITLE
+                  </h3>
+                  <p className="font-matter font-thin text-xs text-white mt-0 uppercase opacity-90">
+                    17 Jan,2026
+                  </p>
+                </div>
               </div>
-              {/* Image 6: Hidden on mobile, Exact Desktop Size */}
-              <div className="hidden lg:block w-[284px] h-[602px] rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+
+              {/* Image 6 (Hidden on mobile) */}
+              <div className="relative hidden lg:block w-[220px] h-[460px] rounded-2xl overflow-hidden shadow-lg border border-gray-100 group">
                 <img
                   src="./image61.png"
                   className="w-full h-full object-cover"
                   alt="img6"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-4">
+                  <h3 className="font-bebas text-xl text-white leading-none tracking-wide">
+                    MAIN TITLE
+                  </h3>
+                  <p className="font-matter font-thin text-xs text-white mt-0 uppercase opacity-90">
+                    18 Jan,2026
+                  </p>
+                </div>
               </div>
             </div>
           </div>
