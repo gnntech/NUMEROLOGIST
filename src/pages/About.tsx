@@ -375,7 +375,6 @@ const About: React.FC = () => {
           </div>
         </div>
       </section>
-      {/* WHITE SPACER */}
       <div className="w-full h-16 bg-white"></div>
 
       <Footer />
