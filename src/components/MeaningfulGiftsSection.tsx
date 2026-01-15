@@ -28,8 +28,6 @@ const MeaningfulGiftsSection: React.FC = () => {
                     background: 'radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.3) 100%)'
                 }}
             />
-
-            {/* Ornaments */}
             <img
                 src="ornament_left.png"
                 alt="Left Ornament"
