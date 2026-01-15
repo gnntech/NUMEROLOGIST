@@ -2,32 +2,26 @@ import React from 'react';
 
 const MeaningfulGiftsSection: React.FC = () => {
     return (
-        <section className="relative w-full h-[620px] sm:h-[640px] lg:h-[735px] overflow-hidden">
+        <section className="relative w-full h-[700px] sm:h-[640px] lg:h-[735px] overflow-hidden">
 
-
-
+            {/* Background layers */}
             <div className="absolute inset-0 w-full h-full">
-
                 <div
-                    className="absolute top-0 left-0 w-full h-[80%] lg:h-[70%]"
-
+                    className="absolute top-0 left-0 w-full h-[85%] lg:h-[70%]"
                     style={{
                         background: 'linear-gradient(to bottom, #616060 0%, #222222 100%)'
                     }}
                 />
 
-
                 <div
-                    className="absolute bottom-0 left-0 w-full h-[20%] lg:h-[30%] 
-             [clip-path:inset(0_0_30px_0)] 
-             lg:[clip-path:none]"
+                    className="absolute bottom-0 left-0 w-full h-[17%] lg:h-[30%]"
                     style={{
                         background: 'radial-gradient(circle at center, #FFDA6C 20%, #FE7028 100%)'
                     }}
                 />
-
             </div>
 
+            {/* Soft vignette */}
             <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
@@ -35,9 +29,9 @@ const MeaningfulGiftsSection: React.FC = () => {
                 }}
             />
 
-
+            {/* Ornaments */}
             <img
-                src="/ornament_left.png"
+                src="ornament_left.png"
                 alt="Left Ornament"
                 className="absolute top-0 left-0 w-[180px] lg:w-[300px] pointer-events-none"
                 style={{
@@ -47,9 +41,8 @@ const MeaningfulGiftsSection: React.FC = () => {
                 }}
             />
 
-
             <img
-                src="/ornament_right_refined.png"
+                src="ornament_right_refined.png"
                 alt="Right Ornament"
                 className="absolute top-0 right-0 w-[180px] lg:w-[300px] pointer-events-none"
                 style={{
@@ -59,22 +52,32 @@ const MeaningfulGiftsSection: React.FC = () => {
                 }}
             />
 
+            {/* ========= HALF CIRCLE IMAGE (FINAL FIX) ========= */}
 
+            {/* Mobile: clipped container so diameter sits exactly at section end */}
+            <div className="absolute bottom-0 left-0 w-full h-[250px] overflow-hidden pointer-events-none lg:hidden z-10">
+                <img
+                    src="/product_half_circle_mobile.png"
+                    alt="Numerology Gifts Collection"
+                    className="absolute left-1/2 -translate-x-1/2 bottom-0 w-[120%]"
+                    style={{ maxWidth: '1000px' }}
+                />
+            </div>
+
+            {/* Desktop: original behavior preserved */}
             <img
                 src="/product_half_circle.png"
                 alt="Numerology Gifts Collection"
-                className="absolute left-1/2 -translate-x-1/2 pointer-events-none -bottom-44 sm:-bottom-10 lg:bottom-auto lg:top-[57%]"
+                className="hidden lg:block absolute left-1/2 -translate-x-1/2 top-[57%] pointer-events-none"
                 style={{
                     width: '90%',
                     maxWidth: '1000px',
-                    zIndex: 15,
-                    display: 'block'
+                    zIndex: 15
                 }}
             />
 
-
+            {/* Content */}
             <div className="relative z-20 flex flex-col items-center justify-start pt-6 lg:pt-14 px-4 text-center h-full">
-
 
                 <h1
                     className="font-bebas text-4xl sm:text-5xl lg:text-7xl tracking-wide sm:tracking-wider mb-5"
@@ -101,32 +104,27 @@ const MeaningfulGiftsSection: React.FC = () => {
                 </button>
 
                 <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:justify-center sm:gap-6 w-full max-w-5xl mx-auto px-2">
-                    <div className="flex items-center gap-2 sm:gap-3 px-4 sm:px-8 py-3 rounded-full border border-white/30 bg-white/10 backdrop-blur-sm transition-all duration-300 hover:bg-white/20 cursor-pointer group">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-white group-hover:scale-110 transition-transform">
-                            <path d="M6 3h12l4 6-10 13L2 9l4-6z" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                        <span className="font-matter text-xs sm:text-base text-[#F5F1EA]">Jewelry & Wearables</span>
+                    <div className="flex items-center gap-2 sm:gap-3 px-4 sm:px-8 py-3 rounded-full border border-white/30 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition">
+                        <span className="font-matter text-xs sm:text-base text-[#F5F1EA]">
+                            Jewelry & Wearables
+                        </span>
                     </div>
 
-                    <div className="flex items-center gap-2 sm:gap-3 px-4 sm:px-8 py-3 rounded-full border border-white/30 bg-white/10 backdrop-blur-sm transition-all duration-300 hover:bg-white/20 cursor-pointer group">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-white group-hover:scale-110 transition-transform">
-                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" strokeLinecap="round" strokeLinejoin="round" />
-                            <polyline points="9 22 9 12 15 12 15 22" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                        <span className="font-matter text-xs sm:text-base text-[#F5F1EA]">Sacred Home Essentials</span>
+                    <div className="flex items-center gap-2 sm:gap-3 px-4 sm:px-8 py-3 rounded-full border border-white/30 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition">
+                        <span className="font-matter text-xs sm:text-base text-[#F5F1EA]">
+                            Sacred Home Essentials
+                        </span>
                     </div>
 
                     <div className="col-span-2 flex justify-center sm:col-span-auto">
-                        <div className="flex items-center gap-2 sm:gap-3 px-4 sm:px-8 py-3 rounded-full border border-white/30 bg-white/10 backdrop-blur-sm transition-all duration-300 hover:bg-white/20 cursor-pointer group">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-white group-hover:scale-110 transition-transform">
-                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                            <span className="font-matter text-xs sm:text-base text-[#F5F1EA]">Wellness Items</span>
+                        <div className="flex items-center justify-center gap-2 sm:gap-3 px-4 sm:px-8 py-3 rounded-full border border-white/30 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition w-[48%] sm:w-auto min-h-[60px] sm:min-h-0">
+                            <span className="font-matter text-xs sm:text-base text-[#F5F1EA]">
+                                Wellness Items
+                            </span>
                         </div>
                     </div>
                 </div>
+
             </div>
         </section>
     );

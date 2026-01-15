@@ -376,7 +376,6 @@ const About: React.FC = () => {
         </div>
       </section>
       <div className="w-full h-16 bg-white"></div>
-
       <Footer />
     </div>
   );
