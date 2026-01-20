@@ -97,7 +97,6 @@ const Contact: React.FC = () => {
 
   return (
     <>
-      {/* Form Section */}
       <section ref={formSectionRef} className="w-full flex flex-col pt-16 lg:pt-20">
         <div className="flex flex-col lg:flex-row" style={{ minHeight: 'calc(100vh - 5rem)' }}>
           {/* Left Side - Background Image */}
