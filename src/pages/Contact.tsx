@@ -1,7 +1,31 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import emailjs from '@emailjs/browser';
 import Footer from '../components/Footer';
 
 const Contact: React.FC = () => {
+  const form = useRef<HTMLFormElement>(null);
+  const [loading, setLoading] = useState(false);
+
+  const sendEmail = (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    if (form.current) {
+      // NOTE: Replace these with your actual Service ID, Template ID, and Public Key from EmailJS
+      emailjs.sendForm('service_4uqfwwq', 'template_yeei5pj', form.current, 'OodusXXLW3pgf2OKX')
+        .then((result) => {
+          console.log(result.text);
+          alert("Message sent successfully!");
+          setLoading(false);
+          if (form.current) form.current.reset();
+        }, (error) => {
+          console.log(error.text);
+          alert("Failed to send message. Please check console.");
+          setLoading(false);
+        });
+    }
+  };
+
   const formSectionRef = useRef<HTMLDivElement>(null);
   const contactSectionRef = useRef<HTMLDivElement>(null);
   const mapSectionRef = useRef<HTMLDivElement>(null);
@@ -9,7 +33,7 @@ const Contact: React.FC = () => {
   useEffect(() => {
     document.body.style.opacity = '0';
     document.body.style.transition = 'opacity 800ms cubic-bezier(0.22, 1, 0.36, 1)';
-    
+
     setTimeout(() => {
       document.body.style.opacity = '1';
     }, 100);
@@ -113,10 +137,11 @@ const Contact: React.FC = () => {
 
           {/* Right Side - Form */}
           <div className="w-full lg:w-1/2 bg-[#FFFAE5] flex items-center justify-center">
-            <form className="w-[80%] px-12 py-16 space-y-8 mx-auto">
+            <form ref={form} onSubmit={sendEmail} className="w-[80%] px-12 py-16 space-y-8 mx-auto">
               <div className="space-y-0.5">
                 <input
                   type="text"
+                  name="user_name"
                   className="w-full bg-transparent border-b-2 border-[#1E1E1E]/60 py-1 focus:outline-none focus:border-b-2 focus:border-[#1E1E1E]/80 text-[#1E1E1E] text-sm font-matter font-medium placeholder-[#1E1E1E]"
                   placeholder="Full Name"
                 />
@@ -125,6 +150,7 @@ const Contact: React.FC = () => {
               <div className="space-y-0.5">
                 <input
                   type="email"
+                  name="user_email"
                   className="w-full bg-transparent border-b-2 border-[#1E1E1E]/60 py-1 focus:outline-none focus:border-b-2 focus:border-[#1E1E1E]/80 text-[#1E1E1E] text-sm font-matter font-medium placeholder-[#1E1E1E]"
                   placeholder="Email Address"
                 />
@@ -133,6 +159,7 @@ const Contact: React.FC = () => {
               <div className="space-y-0.5">
                 <input
                   type="tel"
+                  name="contact_number"
                   className="w-full bg-transparent border-b-2 border-[#1E1E1E]/60 py-1 focus:outline-none focus:border-b-2 focus:border-[#1E1E1E]/80 text-[#1E1E1E] text-sm font-matter font-medium placeholder-[#1E1E1E]"
                   placeholder="Phone Number"
                 />
@@ -141,6 +168,7 @@ const Contact: React.FC = () => {
               <div className="space-y-0.5">
                 <input
                   type="text"
+                  name="service_interest"
                   className="w-full bg-transparent border-b-2 border-[#1E1E1E]/60 py-1 focus:outline-none focus:border-b-2 focus:border-[#1E1E1E]/80 text-[#1E1E1E] text-sm font-matter font-medium placeholder-[#1E1E1E]"
                   placeholder="Service Interest"
                 />
@@ -149,6 +177,7 @@ const Contact: React.FC = () => {
               <div className="pt-4 space-y-0.5">
                 <textarea
                   rows={4}
+                  name="message"
                   className="w-full bg-transparent border-2 border-[#1E1E1E]/60 rounded-sm p-2.5 focus:outline-none focus:border-2 focus:border-[#1E1E1E]/80 resize-none text-[#1E1E1E] text-sm font-matter font-medium placeholder-[#1E1E1E]"
                   style={{ transform: 'none' }}
                   placeholder="Message"
@@ -157,10 +186,11 @@ const Contact: React.FC = () => {
 
               <div className="pt-1">
                 <button
-                  type="button"
-                  className="bg-[#1E1E1E] hover:bg-[#000000] text-white text-sm font-matter font-medium py-2.5 px-8 rounded-full transition-all duration-200 hover:transform hover:-translate-y-0.5 active:scale-95 shadow-lg hover:shadow-[#1E1E1E]/20"
+                  type="submit"
+                  disabled={loading}
+                  className="bg-[#1E1E1E] hover:bg-[#000000] text-white text-sm font-matter font-medium py-2.5 px-8 rounded-full transition-all duration-200 hover:transform hover:-translate-y-0.5 active:scale-95 shadow-lg hover:shadow-[#1E1E1E]/20 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Send
+                  {loading ? 'Sending...' : 'Send'}
                 </button>
               </div>
             </form>
