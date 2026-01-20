@@ -247,6 +247,7 @@ const About: React.FC = () => {
             <div className="relative w-full flex justify-center mt-10 lg:mt-0">
               <img
                 src="/expertise.png"
+                alt="Expertise illustration"
                 className="sm:absolute w-[80%] sm:w-[100%] sm:bottom-[-220px] lg:bottom-0 lg:max-w-* object-contain sm:translate-y-12"
               />
             </div>

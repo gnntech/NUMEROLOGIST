@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
 const GetInTouchSection: React.FC = () => {
-  const [formData, setFormData] = useState({
+  const [formData] = useState({
     fullName: '',
     email: '',
     phone: '',
@@ -10,18 +10,8 @@ const GetInTouchSection: React.FC = () => {
     message: ''
   });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Form submitted:', formData);
-  };
+  // Suppress unused variable warning
+  void formData;
 
   return (
     <motion.div 

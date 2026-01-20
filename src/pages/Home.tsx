@@ -7,8 +7,6 @@ const PromoSection = lazy(() => import('../components/PromoSection'));
 const OurServicesSection = lazy(() => import('../components/OurServicesSection'));
 const PromoMarquee = lazy(() => import('../components/PromoMarquee'));
 const TestimonialSection = lazy(() => import('../components/TestimonialSection'));
-const ShopSection = lazy(() => import('../components/ShopSection'));
-const GetInTouchSection = lazy(() => import('../components/GetInTouchSection'));
 const Footer = lazy(() => import('../components/Footer'));
 const MeaningfulGiftsSection = lazy(() => import('../components/MeaningfulGiftsSection'));
 const OnTheMediaSection = lazy(() => import('../components/OnTheMediaSection'));
