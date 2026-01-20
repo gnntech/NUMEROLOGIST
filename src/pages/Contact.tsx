@@ -11,7 +11,7 @@ const Contact: React.FC = () => {
     setLoading(true);
 
     if (form.current) {
-      // NOTE: Replace these with your actual Service ID, Template ID, and Public Key from EmailJS
+      
       emailjs.sendForm('service_4uqfwwq', 'template_yeei5pj', form.current, 'OodusXXLW3pgf2OKX')
         .then((result) => {
           console.log(result.text);
