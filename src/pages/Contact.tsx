@@ -59,8 +59,6 @@ const Contact: React.FC = () => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
 
-    // Clear error immediately when user starts typing if logic is simple,
-    // or re-validate if you want strict real-time feedback
     if (touched[name]) {
       const error = validateField(name, value);
       setErrors(prev => ({ ...prev, [name]: error }));
