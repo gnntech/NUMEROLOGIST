@@ -9,7 +9,6 @@ const PromoMarquee = () => {
 
   return (
     <>
-      {/* Marquee */}
       <div
         className="h-16 w-full overflow-hidden flex items-center"
         style={{ backgroundColor: "#FE7028" }}
