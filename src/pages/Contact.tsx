@@ -1,26 +1,128 @@
 import React, { useEffect, useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
 import Footer from '../components/Footer';
+import { ChevronDown } from 'lucide-react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+interface FormData {
+  user_name: string;
+  user_email: string;
+  contact_number: string;
+  service_interest: string;
+  message: string;
+}
+
+interface FormErrors {
+  user_name?: string;
+  user_email?: string;
+  contact_number?: string;
+  message?: string;
+}
 
 const Contact: React.FC = () => {
   const form = useRef<HTMLFormElement>(null);
   const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState<FormData>({
+    user_name: '',
+    user_email: '',
+    contact_number: '',
+    service_interest: '',
+    message: ''
+  });
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+
+  const validateField = (name: string, value: string): string | undefined => {
+    switch (name) {
+      case 'user_name':
+        if (!value.trim()) return 'Full Name is required';
+        return undefined;
+      case 'user_email':
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!value.trim()) return 'Email Address is required';
+        if (!emailRegex.test(value)) return 'Please enter a valid Email Address';
+        return undefined;
+      case 'contact_number':
+        if (!value.trim()) return 'Phone Number is required';
+        if (!/^\d+$/.test(value.replace(/[\s-]/g, ''))) return 'Please enter a valid Phone Number';
+        return undefined;
+      case 'message':
+        if (!value.trim()) return 'Message is required';
+        return undefined;
+      default:
+        return undefined;
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+
+    // Clear error immediately when user starts typing if logic is simple,
+    // or re-validate if you want strict real-time feedback
+    if (touched[name]) {
+      const error = validateField(name, value);
+      setErrors(prev => ({ ...prev, [name]: error }));
+    }
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setTouched(prev => ({ ...prev, [name]: true }));
+    const error = validateField(name, value);
+    setErrors(prev => ({ ...prev, [name]: error }));
+  };
 
   const sendEmail = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validate all fields
+    const newErrors: FormErrors = {};
+    let isValid = true;
+
+    Object.keys(formData).forEach(key => {
+      if (key === 'service_interest') return; // Optional
+      const error = validateField(key, formData[key as keyof FormData]);
+      if (error) {
+        newErrors[key as keyof FormErrors] = error;
+        isValid = false;
+      }
+    });
+
+    setErrors(newErrors);
+    setTouched({
+      user_name: true,
+      user_email: true,
+      contact_number: true,
+      message: true
+    });
+
+    if (!isValid) {
+      toast.error("Please fix the errors in the form");
+      return;
+    }
+
     setLoading(true);
 
     if (form.current) {
-      
       emailjs.sendForm('service_4uqfwwq', 'template_yeei5pj', form.current, 'OodusXXLW3pgf2OKX')
         .then((result) => {
           console.log(result.text);
-          alert("Message sent successfully!");
+          toast.success("Message sent successfully!");
           setLoading(false);
+          setFormData({
+            user_name: '',
+            user_email: '',
+            contact_number: '',
+            service_interest: '',
+            message: ''
+          });
+          setTouched({});
           if (form.current) form.current.reset();
         }, (error) => {
           console.log(error.text);
-          alert("Failed to send message. Please check console.");
+          toast.error("Failed to send message. Please check console.");
           setLoading(false);
         });
     }
@@ -97,6 +199,19 @@ const Contact: React.FC = () => {
 
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {/* Form Section */}
       <section ref={formSectionRef} className="w-full flex flex-col pt-16 lg:pt-20">
         <div className="flex flex-col lg:flex-row" style={{ minHeight: 'calc(100vh - 5rem)' }}>
           {/* Left Side - Background Image */}
@@ -141,46 +256,73 @@ const Contact: React.FC = () => {
                 <input
                   type="text"
                   name="user_name"
-                  className="w-full bg-transparent border-b-2 border-[#1E1E1E]/60 py-1 focus:outline-none focus:border-b-2 focus:border-[#1E1E1E]/80 text-[#1E1E1E] text-sm font-matter font-medium placeholder-[#1E1E1E]"
+                  value={formData.user_name}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  className={`w-full bg-transparent border-b-2 ${errors.user_name ? 'border-red-500' : 'border-[#1E1E1E]/60'} py-1 focus:outline-none focus:border-b-2 ${errors.user_name ? 'focus:border-red-500' : 'focus:border-[#1E1E1E]/80'} text-[#1E1E1E] text-sm font-matter font-medium placeholder-[#1E1E1E] transition-colors`}
                   placeholder="Full Name"
                 />
+                {errors.user_name && <span className="text-red-500 text-xs font-medium block mt-1">{errors.user_name}</span>}
               </div>
 
               <div className="space-y-0.5">
                 <input
                   type="email"
                   name="user_email"
-                  className="w-full bg-transparent border-b-2 border-[#1E1E1E]/60 py-1 focus:outline-none focus:border-b-2 focus:border-[#1E1E1E]/80 text-[#1E1E1E] text-sm font-matter font-medium placeholder-[#1E1E1E]"
+                  value={formData.user_email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  className={`w-full bg-transparent border-b-2 ${errors.user_email ? 'border-red-500' : 'border-[#1E1E1E]/60'} py-1 focus:outline-none focus:border-b-2 ${errors.user_email ? 'focus:border-red-500' : 'focus:border-[#1E1E1E]/80'} text-[#1E1E1E] text-sm font-matter font-medium placeholder-[#1E1E1E] transition-colors`}
                   placeholder="Email Address"
                 />
+                {errors.user_email && <span className="text-red-500 text-xs font-medium block mt-1">{errors.user_email}</span>}
               </div>
 
               <div className="space-y-0.5">
                 <input
                   type="tel"
                   name="contact_number"
-                  className="w-full bg-transparent border-b-2 border-[#1E1E1E]/60 py-1 focus:outline-none focus:border-b-2 focus:border-[#1E1E1E]/80 text-[#1E1E1E] text-sm font-matter font-medium placeholder-[#1E1E1E]"
+                  value={formData.contact_number}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  className={`w-full bg-transparent border-b-2 ${errors.contact_number ? 'border-red-500' : 'border-[#1E1E1E]/60'} py-1 focus:outline-none focus:border-b-2 ${errors.contact_number ? 'focus:border-red-500' : 'focus:border-[#1E1E1E]/80'} text-[#1E1E1E] text-sm font-matter font-medium placeholder-[#1E1E1E] transition-colors`}
                   placeholder="Phone Number"
                 />
+                {errors.contact_number && <span className="text-red-500 text-xs font-medium block mt-1">{errors.contact_number}</span>}
               </div>
 
-              <div className="space-y-0.5">
-                <input
-                  type="text"
+              <div className="space-y-0.5 relative">
+                <select
                   name="service_interest"
-                  className="w-full bg-transparent border-b-2 border-[#1E1E1E]/60 py-1 focus:outline-none focus:border-b-2 focus:border-[#1E1E1E]/80 text-[#1E1E1E] text-sm font-matter font-medium placeholder-[#1E1E1E]"
-                  placeholder="Service Interest"
-                />
+                  value={formData.service_interest}
+                  onChange={handleChange}
+                  className="w-full bg-transparent border-b-2 border-[#1E1E1E]/60 py-1 focus:outline-none focus:border-b-2 focus:border-[#1E1E1E]/80 text-[#1E1E1E] text-sm font-matter font-medium placeholder-[#1E1E1E] appearance-none cursor-pointer"
+                >
+                  <option value="" disabled>Select Service Interest</option>
+                  <option value="Numerology">Numerology</option>
+                  <option value="Wealth Astrology">Wealth Astrology</option>
+                  <option value="Life Guidance">Life Guidance</option>
+                  <option value="Career Guidance">Career Guidance</option>
+                  <option value="Astrology">Astrology</option>
+                </select>
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none">
+                  <ChevronDown className="w-4 h-4 text-[#1E1E1E]/60" />
+                </div>
               </div>
+
 
               <div className="pt-4 space-y-0.5">
                 <textarea
                   rows={4}
                   name="message"
-                  className="w-full bg-transparent border-2 border-[#1E1E1E]/60 rounded-sm p-2.5 focus:outline-none focus:border-2 focus:border-[#1E1E1E]/80 resize-none text-[#1E1E1E] text-sm font-matter font-medium placeholder-[#1E1E1E]"
+                  value={formData.message}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  className={`w-full bg-transparent border-2 ${errors.message ? 'border-red-500' : 'border-[#1E1E1E]/60'} rounded-sm p-2.5 focus:outline-none focus:border-2 ${errors.message ? 'focus:border-red-500' : 'focus:border-[#1E1E1E]/80'} resize-none text-[#1E1E1E] text-sm font-matter font-medium placeholder-[#1E1E1E] transition-colors`}
                   style={{ transform: 'none' }}
                   placeholder="Message"
                 />
+                {errors.message && <span className="text-red-500 text-xs font-medium block mt-1">{errors.message}</span>}
               </div>
 
               <div className="pt-1">
