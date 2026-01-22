@@ -36,7 +36,7 @@
 
 ### 2. Frontend (React + TypeScript)
 
-**AdminContext Enhanced:**
+
 - ✅ Added `Package` and `PackageInclude` interfaces
 - ✅ Added `updatePackages()` function
 - ✅ Enhanced `Testimonial` interface with video support
