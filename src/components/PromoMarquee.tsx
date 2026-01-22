@@ -23,7 +23,6 @@ const PromoMarquee = () => {
               style={{ color: "#FFFFFF" }}
               type="button"
             >
-              <span aria-hidden="true">✦</span>
               {marqueeText}
             </button>
           ))}
@@ -37,7 +36,7 @@ const PromoMarquee = () => {
             <h2 className="mb-2 text-xl font-bold">Book Now</h2>
 
             <p className="mb-4 text-sm text-gray-600">
-              Get 25% OFF on your numerology report 
+              Get 25% OFF on your numerology report
             </p>
 
             <button
