@@ -5,7 +5,7 @@ const PromoMarquee = () => {
   const [open, setOpen] = useState(false);
   const { data } = useAdmin();
 
-  const marqueeText = data?.marqueeText ?? "Special Offer ✦ Book Now";
+  const marqueeText = data?.marqueeText ?? "Book Now & Get 25% OFF";
 
   return (
     <>

@@ -1,102 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Footer from '../components/Footer';
+import { useAdmin } from '../context/AdminContext';
 
-interface Product {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-  amazonLink: string;
-  inStock: boolean;
-}
-
-const products: Product[] = [
-  {
-    id: 1,
-    name: 'Tiger Eye Bracelet',
-    description: 'Strength, focus, and confident energy.',
-    price: 900,
-    image: '/Card1.png',
-    amazonLink: 'https://amazon.in',
-    inStock: true,
-  },
-  {
-    id: 2,
-    name: 'Howlite Bracelet',
-    description: 'Promotes calm, balance, and clarity.',
-    price: 900,
-    image: '/Card2.png',
-    amazonLink: 'https://amazon.in',
-    inStock: false,
-  },
-  {
-    id: 3,
-    name: 'Moonstone Bracelet',
-    description: 'Soft, calming energy with a gentle glow.',
-    price: 1200,
-    image: '/Card3.png',
-    amazonLink: 'https://amazon.in',
-    inStock: true,
-  },
-  {
-    id: 4,
-    name: 'Green Jade Bracelet',
-    description: 'A symbol of peace and balance.',
-    price: 900,
-    image: '/Card9.png',
-    amazonLink: 'https://amazon.in',
-    inStock: true,
-  },
-  {
-    id: 5,
-    name: 'Seven Chakra Bracelet',
-    description: 'Balanced stones for overall harmony.',
-    price: 1000,
-    image: '/Card6.png',
-    amazonLink: 'https://amazon.in',
-    inStock: true,
-  },
-  {
-    id: 6,
-    name: 'Amazonite Bracelet',
-    description: 'Soothing tones with a refreshing feel.',
-    price: 900,
-    image: '/Card5.png',
-    amazonLink: 'https://amazon.in',
-    inStock: false,
-  },
-  {
-    id: 7,
-    name: 'Sulemani Haquik Bracelet',
-    description: 'Traditionally worn for grounding energy.',
-    price: 1000,
-    image: '/Card7.png',
-    amazonLink: 'https://amazon.in',
-    inStock: false,
-  },
-  {
-    id: 8,
-    name: 'Turquoise Bracelet',
-    description: 'Protective energy with timeless appeal.',
-    price: 900,
-    image: '/Card8.png',
-    amazonLink: 'https://amazon.in',
-    inStock: true,
-  },
-  {
-    id: 9,
-    name: 'Bloodstone Bracelet',
-    description: 'Grounding energy with a bold, earthy presence.',
-    price: 900,
-    image: '/Card9.png',
-    amazonLink: 'https://amazon.in',
-    inStock: true,
-  },
-];
-
-const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
+const ProductCard: React.FC<{ product: any }> = ({ product }) => {
   const [isLiked, setIsLiked] = React.useState(false);
 
   return (
@@ -150,13 +57,13 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         
         <div className="mt-auto">
           <p className="text-3xl font-bold text-gray-900 mb-4 font-matter">
-            ₹{product.price}
+            {product.price}
           </p>
           
           {/* Two Buttons */}
           <div className="flex gap-3">
             <motion.a
-              href={product.amazonLink}
+              href={product.amazonLink || 'https://amazon.in'}
               target="_blank"
               rel="noopener noreferrer"
               className={`flex-1 py-3 rounded-full font-semibold text-center flex items-center justify-center gap-2 font-matter ${
@@ -201,6 +108,9 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
 };
 
 const Shop: React.FC = () => {
+  const { data } = useAdmin();
+  const products = data?.products || [];
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}

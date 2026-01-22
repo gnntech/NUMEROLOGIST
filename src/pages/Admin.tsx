@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useAdmin, PromoCard, Testimonial, Product } from '../context/AdminContext';
+import { useAdmin, PromoCard, Testimonial, Product, Package, PackageInclude } from '../context/AdminContext';
 
-type TabType = 'promo' | 'testimonials' | 'products' | 'settings';
+type TabType = 'promo' | 'testimonials' | 'products' | 'packages' | 'settings';
 
 const Admin: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -62,6 +62,7 @@ const Admin: React.FC = () => {
     { id: 'promo', label: 'Promo Cards' },
     { id: 'testimonials', label: 'Testimonials' },
     { id: 'products', label: 'Products' },
+    { id: 'packages', label: 'Packages' },
     { id: 'settings', label: 'Settings' },
   ];
 
@@ -106,6 +107,7 @@ const Admin: React.FC = () => {
           {activeTab === 'promo' && <PromoManager />}
           {activeTab === 'testimonials' && <TestimonialManager />}
           {activeTab === 'products' && <ProductManager />}
+          {activeTab === 'packages' && <PackageManager />}
           {activeTab === 'settings' && <SettingsManager />}
         </div>
       </div>
@@ -119,6 +121,7 @@ const PromoManager: React.FC = () => {
   const [editingCard, setEditingCard] = useState<PromoCard | null>(null);
 
   const handleAdd = () => {
+    if (!data) return;
     const newCard: PromoCard = {
       id: Date.now().toString(),
       title: 'New Card',
@@ -130,11 +133,13 @@ const PromoManager: React.FC = () => {
   };
 
   const handleUpdate = (card: PromoCard) => {
+    if (!data) return;
     updatePromoCards(data.promoCards.map(c => c.id === card.id ? card : c));
     setEditingCard(null);
   };
 
   const handleDelete = (id: string) => {
+    if (!data) return;
     if (window.confirm('Are you sure you want to delete this card?')) {
       updatePromoCards(data.promoCards.filter(c => c.id !== id));
     }
@@ -168,7 +173,7 @@ const PromoManager: React.FC = () => {
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {data.promoCards.map((card) => (
+        {data?.promoCards.map((card) => (
           <div key={card.id} className="rounded-xl p-4 border" style={{ backgroundColor: '#2E2D2F', borderColor: 'rgba(255,255,255,0.1)' }}>
             <div className="grid grid-cols-2 gap-2 mb-4">
               <div>
@@ -266,24 +271,43 @@ const TestimonialManager: React.FC = () => {
   const [editingItem, setEditingItem] = useState<Testimonial | null>(null);
 
   const handleAdd = () => {
+    if (!data) return;
     const newItem: Testimonial = {
       id: Date.now().toString(),
       name: 'New Client',
       location: 'City',
       quote: 'Testimonial quote...',
       rating: 5,
+      isVideoTestimonial: false,
     };
     updateTestimonials([...data.testimonials, newItem]);
   };
 
   const handleUpdate = (item: Testimonial) => {
+    if (!data) return;
     updateTestimonials(data.testimonials.map(t => t.id === item.id ? item : t));
     setEditingItem(null);
   };
 
   const handleDelete = (id: string) => {
+    if (!data) return;
     if (window.confirm('Delete this testimonial?')) {
       updateTestimonials(data.testimonials.filter(t => t.id !== id));
+    }
+  };
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, item: Testimonial, type: 'video' | 'avatar') => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (type === 'video') {
+          handleUpdate({ ...item, video: reader.result as string });
+        } else {
+          handleUpdate({ ...item, avatar: reader.result as string });
+        }
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -297,7 +321,7 @@ const TestimonialManager: React.FC = () => {
       </div>
 
       <div className="space-y-4">
-        {data.testimonials.map((item) => (
+        {data?.testimonials.map((item) => (
           <div key={item.id} className="rounded-xl p-4 border" style={{ backgroundColor: '#2E2D2F', borderColor: 'rgba(255,255,255,0.1)' }}>
             {editingItem?.id === item.id ? (
               <div className="space-y-3">
@@ -316,16 +340,53 @@ const TestimonialManager: React.FC = () => {
                     onChange={(e) => setEditingItem({ ...editingItem, location: e.target.value })}
                     className="px-3 py-2 rounded-lg text-white border font-matter text-sm"
                     style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
-                    placeholder="Location"
+                    placeholder="Location/Role"
                   />
                 </div>
-                <textarea
-                  value={editingItem.quote}
-                  onChange={(e) => setEditingItem({ ...editingItem, quote: e.target.value })}
-                  className="w-full px-3 py-2 rounded-lg text-white border font-matter text-sm"
-                  style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
-                  rows={3}
-                />
+                <div className="flex items-center gap-3">
+                  <label className="flex items-center text-white text-sm">
+                    <input
+                      type="checkbox"
+                      checked={editingItem.isVideoTestimonial}
+                      onChange={(e) => setEditingItem({ ...editingItem, isVideoTestimonial: e.target.checked })}
+                      className="mr-2"
+                    />
+                    Video Testimonial
+                  </label>
+                </div>
+                {editingItem.isVideoTestimonial ? (
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <p className="text-white/60 text-xs mb-1">Video File</p>
+                      <input
+                        type="file"
+                        accept="video/*"
+                        onChange={(e) => handleImageUpload(e, editingItem, 'video')}
+                        className="w-full text-white text-sm"
+                      />
+                      {editingItem.video && <p className="text-white/60 text-xs mt-1">Current: {editingItem.video.substring(0, 30)}...</p>}
+                    </div>
+                    <div>
+                      <p className="text-white/60 text-xs mb-1">Avatar Image</p>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleImageUpload(e, editingItem, 'avatar')}
+                        className="w-full text-white text-sm"
+                      />
+                      {editingItem.avatar && <img src={editingItem.avatar} alt="avatar" className="w-12 h-12 rounded-full mt-1" />}
+                    </div>
+                  </div>
+                ) : (
+                  <textarea
+                    value={editingItem.quote || ''}
+                    onChange={(e) => setEditingItem({ ...editingItem, quote: e.target.value })}
+                    className="w-full px-3 py-2 rounded-lg text-white border font-matter text-sm"
+                    style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
+                    placeholder="Testimonial quote"
+                    rows={3}
+                  />
+                )}
                 <div className="flex space-x-2">
                   <button onClick={() => handleUpdate(editingItem)} className="flex-1 bg-green-500 text-white py-2 rounded-lg text-sm">Save</button>
                   <button onClick={() => setEditingItem(null)} className="flex-1 bg-gray-500 text-white py-2 rounded-lg text-sm">Cancel</button>
@@ -337,13 +398,21 @@ const TestimonialManager: React.FC = () => {
                   <div>
                     <h3 className="text-white font-semibold">{item.name}</h3>
                     <p className="text-white/60 text-sm">{item.location}</p>
+                    {item.isVideoTestimonial && <span className="text-xs px-2 py-1 rounded mt-1 inline-block" style={{ backgroundColor: '#FE7028', color: 'white' }}>Video</span>}
                   </div>
                   <div className="flex space-x-2">
                     <button onClick={() => setEditingItem(item)} className="text-white px-3 py-1 rounded text-sm" style={{ backgroundColor: '#FE7028' }}>Edit</button>
                     <button onClick={() => handleDelete(item.id)} className="bg-red-500 text-white px-3 py-1 rounded text-sm">Delete</button>
                   </div>
                 </div>
-                <p className="text-white/80 text-sm italic">"{item.quote}"</p>
+                {item.isVideoTestimonial ? (
+                  <div className="flex items-center gap-3 mt-2">
+                    {item.avatar && <img src={item.avatar} alt={item.name} className="w-12 h-12 rounded-full" />}
+                    {item.video && <p className="text-white/70 text-xs">Video: {item.video.substring(0, 40)}...</p>}
+                  </div>
+                ) : (
+                  <p className="text-white/80 text-sm italic">"{item.quote}"</p>
+                )}
               </div>
             )}
           </div>
@@ -359,22 +428,27 @@ const ProductManager: React.FC = () => {
   const [editingItem, setEditingItem] = useState<Product | null>(null);
 
   const handleAdd = () => {
+    if (!data) return;
     const newItem: Product = {
       id: Date.now().toString(),
       name: 'New Product',
       image: '/Shop1.png',
       price: '₹999',
       description: 'Product description',
+      amazonLink: 'https://amazon.in',
+      inStock: true,
     };
     updateProducts([...data.products, newItem]);
   };
 
   const handleUpdate = (item: Product) => {
+    if (!data) return;
     updateProducts(data.products.map(p => p.id === item.id ? item : p));
     setEditingItem(null);
   };
 
   const handleDelete = (id: string) => {
+    if (!data) return;
     if (window.confirm('Delete this product?')) {
       updateProducts(data.products.filter(p => p.id !== id));
     }
@@ -401,7 +475,7 @@ const ProductManager: React.FC = () => {
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {data.products.map((item) => (
+        {data?.products.map((item) => (
           <div key={item.id} className="rounded-xl p-4 border" style={{ backgroundColor: '#2E2D2F', borderColor: 'rgba(255,255,255,0.1)' }}>
             <img src={item.image} alt={item.name} className="w-full h-40 object-cover rounded-lg mb-4" />
             
@@ -430,6 +504,23 @@ const ProductManager: React.FC = () => {
                   style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
                   rows={2}
                 />
+                <input
+                  type="text"
+                  value={editingItem.amazonLink || ''}
+                  onChange={(e) => setEditingItem({ ...editingItem, amazonLink: e.target.value })}
+                  className="w-full px-3 py-2 rounded-lg text-white border font-matter text-sm"
+                  style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
+                  placeholder="Amazon Link"
+                />
+                <label className="flex items-center text-white text-sm">
+                  <input
+                    type="checkbox"
+                    checked={editingItem.inStock ?? true}
+                    onChange={(e) => setEditingItem({ ...editingItem, inStock: e.target.checked })}
+                    className="mr-2"
+                  />
+                  In Stock
+                </label>
                 <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, editingItem)} className="w-full text-white text-sm" />
                 <div className="flex space-x-2">
                   <button onClick={() => handleUpdate(editingItem)} className="flex-1 bg-green-500 text-white py-2 rounded-lg text-sm">Save</button>
@@ -454,10 +545,156 @@ const ProductManager: React.FC = () => {
   );
 };
 
+// Package Manager
+const PackageManager: React.FC = () => {
+  const { data, updatePackages } = useAdmin();
+  const [editingItem, setEditingItem] = useState<Package | null>(null);
+  const [editingIncludes, setEditingIncludes] = useState<PackageInclude[]>([]);
+
+  const handleAdd = () => {
+    if (!data) return;
+    const newItem: Package = {
+      id: Date.now().toString(),
+      name: 'New Package',
+      icon: '/Sliver package.png',
+      includes: [{ text: 'Feature 1', highlight: false }],
+    };
+    updatePackages([...data.packages, newItem]);
+  };
+
+  const handleUpdate = (item: Package) => {
+    if (!data) return;
+    updatePackages(data.packages.map(p => p.id === item.id ? item : p));
+    setEditingItem(null);
+  };
+
+  const handleDelete = (id: string) => {
+    if (!data) return;
+    if (window.confirm('Delete this package?')) {
+      updatePackages(data.packages.filter(p => p.id !== id));
+    }
+  };
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, item: Package) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        handleUpdate({ ...item, icon: reader.result as string });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const startEditing = (item: Package) => {
+    setEditingItem(item);
+    setEditingIncludes([...item.includes]);
+  };
+
+  const addInclude = () => {
+    setEditingIncludes([...editingIncludes, { text: 'New feature', highlight: false }]);
+  };
+
+  const updateInclude = (index: number, field: 'text' | 'highlight', value: string | boolean) => {
+    const updated = [...editingIncludes];
+    updated[index] = { ...updated[index], [field]: value };
+    setEditingIncludes(updated);
+  };
+
+  const removeInclude = (index: number) => {
+    setEditingIncludes(editingIncludes.filter((_, i) => i !== index));
+  };
+
+  const savePackage = () => {
+    if (editingItem) {
+      handleUpdate({ ...editingItem, includes: editingIncludes });
+    }
+  };
+
+  return (
+    <div>
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-xl font-bold text-white font-bebas">Packages</h2>
+        <button onClick={handleAdd} className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-matter text-sm">
+          + Add Package
+        </button>
+      </div>
+
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {data?.packages.map((item) => (
+          <div key={item.id} className="rounded-xl p-4 border" style={{ backgroundColor: '#2E2D2F', borderColor: 'rgba(255,255,255,0.1)' }}>
+            <img src={item.icon} alt={item.name} className="w-20 h-20 object-contain mx-auto mb-4" />
+            
+            {editingItem?.id === item.id ? (
+              <div className="space-y-3">
+                <input
+                  type="text"
+                  value={editingItem.name}
+                  onChange={(e) => setEditingItem({ ...editingItem, name: e.target.value })}
+                  className="w-full px-3 py-2 rounded-lg text-white border font-matter text-sm"
+                  style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
+                  placeholder="Package Name"
+                />
+                <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, editingItem)} className="w-full text-white text-sm" />
+                
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <p className="text-white/80 text-xs">Features:</p>
+                    <button onClick={addInclude} className="text-xs px-2 py-1 rounded" style={{ backgroundColor: '#FE7028', color: 'white' }}>+ Add</button>
+                  </div>
+                  {editingIncludes.map((inc, idx) => (
+                    <div key={idx} className="flex gap-2 items-center">
+                      <input
+                        type="text"
+                        value={inc.text}
+                        onChange={(e) => updateInclude(idx, 'text', e.target.value)}
+                        className="flex-1 px-2 py-1 rounded text-white border font-matter text-xs"
+                        style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
+                      />
+                      <label className="flex items-center text-white text-xs whitespace-nowrap">
+                        <input
+                          type="checkbox"
+                          checked={inc.highlight}
+                          onChange={(e) => updateInclude(idx, 'highlight', e.target.checked)}
+                          className="mr-1"
+                        />
+                        Orange
+                      </label>
+                      <button onClick={() => removeInclude(idx)} className="text-red-500 text-xs px-2 py-1">✕</button>
+                    </div>
+                  ))}
+                </div>
+                
+                <div className="flex space-x-2">
+                  <button onClick={savePackage} className="flex-1 bg-green-500 text-white py-2 rounded-lg text-sm">Save</button>
+                  <button onClick={() => setEditingItem(null)} className="flex-1 bg-gray-500 text-white py-2 rounded-lg text-sm">Cancel</button>
+                </div>
+              </div>
+            ) : (
+              <div>
+                <h3 className="text-white font-semibold text-center mb-2">{item.name}</h3>
+                <div className="text-xs text-white/70 mb-4 space-y-0.5">
+                  {item.includes.map((inc, idx) => (
+                    <p key={idx} className={inc.highlight ? 'text-[#FE7028]' : ''}>{inc.text}</p>
+                  ))}
+                </div>
+                <div className="flex space-x-2">
+                  <button onClick={() => startEditing(item)} className="flex-1 text-white py-2 rounded-lg text-sm" style={{ backgroundColor: '#FE7028' }}>Edit</button>
+                  <button onClick={() => handleDelete(item.id)} className="flex-1 bg-red-500 text-white py-2 rounded-lg text-sm">Delete</button>
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 // Settings Manager
 const SettingsManager: React.FC = () => {
   const { data, updateMarqueeText } = useAdmin();
-  const [marquee, setMarquee] = useState(data.marqueeText);
+  const [marquee, setMarquee] = useState(data?.marqueeText || '');
 
   const handleSave = () => {
     updateMarqueeText(marquee);

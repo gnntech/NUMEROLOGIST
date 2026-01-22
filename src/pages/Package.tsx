@@ -1,106 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Footer from '../components/Footer';
-
-const packages = [
-  {
-    name: 'Silver Package',
-    icon: '/Sliver package.png',
-    includes: [
-      { text: 'Future guidance', highlight: false },
-      { text: 'Numerology report', highlight: false },
-      { text: '+', highlight: false },
-      { text: 'Half hour online', highlight: true },
-      { text: 'consultation', highlight: true },
-    ],
-  },
-  {
-    name: 'Gold Package',
-    icon: '/Gold Package.png',
-    includes: [
-      { text: 'Numerology name &', highlight: false },
-      { text: 'signature correction', highlight: false },
-      { text: '+', highlight: false },
-      { text: 'Half hour online', highlight: true },
-      { text: 'consultation', highlight: true },
-    ],
-  },
-  {
-    name: 'Platinum Package',
-    icon: '/Platinum Package.png',
-    includes: [
-      { text: 'Premium future guidance', highlight: false },
-      { text: 'Numerology report', highlight: false },
-      { text: '+', highlight: false },
-      { text: 'Signature correction', highlight: false },
-      { text: '+', highlight: false },
-      { text: '45 minutes online', highlight: true },
-      { text: 'consultation', highlight: true },
-      { text: '+', highlight: false },
-      { text: 'Name correction', highlight: false },
-    ],
-  },
-  {
-    name: 'Diamond',
-    icon: '/Diamond.png',
-    includes: [
-      { text: 'Business Numerology', highlight: false },
-      { text: '+', highlight: false },
-      { text: 'Business Name Correction', highlight: false },
-      { text: '+', highlight: false },
-      { text: 'Magical secret numbers and', highlight: false },
-      { text: 'secret remedies', highlight: false },
-      { text: '+', highlight: false },
-      { text: 'Money attraction 500', highlight: true },
-      { text: 'pocket kit + lucky silver coin', highlight: true },
-      { text: '+', highlight: false },
-      { text: '1 hour Online / offline', highlight: false },
-      { text: 'consultation', highlight: false },
-    ],
-  },
-  {
-    name: 'Sapphire',
-    icon: '/Sapphire.png',
-    includes: [
-      { text: 'Premium future guidance', highlight: false },
-      { text: 'Numerology report', highlight: false },
-      { text: '+', highlight: false },
-      { text: 'Atrology', highlight: true },
-      { text: '+', highlight: false },
-      { text: 'Signature correction', highlight: false },
-      { text: '+', highlight: false },
-      { text: 'Name correction', highlight: false },
-      { text: '+', highlight: false },
-      { text: 'Law of attraction', highlight: false },
-      { text: '(manifestation training)', highlight: false },
-      { text: '+', highlight: false },
-      { text: '1 hour online / offline', highlight: false },
-      { text: 'consultation', highlight: false },
-    ],
-  },
-  {
-    name: 'Emerald',
-    icon: '/Emerald.png',
-    includes: [
-      { text: 'Sapphire Package', highlight: false },
-      { text: '+', highlight: false },
-      { text: 'Your all  numerology', highlight: false },
-      { text: 'remedies crystals kit', highlight: false },
-      { text: '+', highlight: false },
-      { text: 'Money attracting 500', highlight: true },
-      { text: 'pocket kit', highlight: true },
-      { text: '+', highlight: false },
-      { text: 'Lucky silver coin', highlight: true },
-      { text: '+', highlight: false },
-      { text: 'Vyapar vriddhi yantra', highlight: false },
-      { text: '+', highlight: false },
-      { text: 'Secret magic numbers', highlight: false },
-      { text: '+', highlight: false },
-      { text: '1.5 hours online / offline', highlight: false },
-      { text: 'consultation', highlight: false },
-    ],
-  },
-];
+import { useAdmin } from '../context/AdminContext';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -125,6 +26,9 @@ const cardVariants = {
 };
 
 const Package: React.FC = () => {
+  const { data } = useAdmin();
+  const packages = data?.packages || [];
+
   return (
     <div className="min-h-screen">
       {/* Hero Section with Background */}

@@ -36,13 +36,13 @@ const PromoSlider: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    if (currentIndex >= data.promoCards.length) {
+    if (!data || currentIndex >= data.promoCards.length) {
       setCurrentIndex(0);
     }
-  }, [data.promoCards.length, currentIndex]);
+  }, [data, currentIndex]);
 
   useEffect(() => {
-    if (data.promoCards.length === 0) return;
+    if (!data || data.promoCards.length === 0) return;
     
     const interval = setInterval(() => {
       setCurrentIndex((prev) =>
@@ -51,9 +51,9 @@ const PromoSlider: React.FC = () => {
     }, 4000);
 
     return () => clearInterval(interval);
-  }, [data.promoCards.length]);
+  }, [data]);
 
-  if (data.promoCards.length === 0) {
+  if (!data || data.promoCards.length === 0) {
     return null;
   }
 
