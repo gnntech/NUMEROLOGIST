@@ -45,7 +45,9 @@ const Contact: React.FC = () => {
         return undefined;
       case 'contact_number':
         if (!value.trim()) return 'Phone Number is required';
-        if (!/^\d+$/.test(value.replace(/[\s-]/g, ''))) return 'Please enter a valid Phone Number';
+        const phoneDigits = value.replace(/[\s-]/g, '');
+        if (!/^\d+$/.test(phoneDigits)) return 'Please enter a valid Phone Number';
+        if (phoneDigits.length !== 10) return 'Phone Number must be exactly 10 digits';
         return undefined;
       case 'message':
         if (!value.trim()) return 'Message is required';
