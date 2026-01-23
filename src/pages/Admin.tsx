@@ -426,19 +426,71 @@ const TestimonialManager: React.FC = () => {
 const ProductManager: React.FC = () => {
   const { data, updateProducts } = useAdmin();
   const [editingItem, setEditingItem] = useState<Product | null>(null);
+  const [isAddingNew, setIsAddingNew] = useState(false);
+  const [newProduct, setNewProduct] = useState<Product>({
+    id: '',
+    name: '',
+    image: '/Shop1.png',
+    price: '₹',
+    description: '',
+    amazonLink: 'https://amazon.in',
+    inStock: true,
+  });
 
   const handleAdd = () => {
-    if (!data) return;
-    const newItem: Product = {
+    setIsAddingNew(true);
+    setNewProduct({
       id: Date.now().toString(),
-      name: 'New Product',
+      name: '',
       image: '/Shop1.png',
-      price: '₹999',
-      description: 'Product description',
+      price: '₹',
+      description: '',
       amazonLink: 'https://amazon.in',
       inStock: true,
-    };
-    updateProducts([...data.products, newItem]);
+    });
+  };
+
+  const handleSaveNew = () => {
+    if (!data) return;
+    if (!newProduct.name || !newProduct.price || !newProduct.description) {
+      alert('Please fill in all required fields');
+      return;
+    }
+    updateProducts([...data.products, newProduct]);
+    setIsAddingNew(false);
+    setNewProduct({
+      id: '',
+      name: '',
+      image: '/Shop1.png',
+      price: '₹',
+      description: '',
+      amazonLink: 'https://amazon.in',
+      inStock: true,
+    });
+  };
+
+  const handleCancelNew = () => {
+    setIsAddingNew(false);
+    setNewProduct({
+      id: '',
+      name: '',
+      image: '/Shop1.png',
+      price: '₹',
+      description: '',
+      amazonLink: 'https://amazon.in',
+      inStock: true,
+    });
+  };
+
+  const handleNewProductImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setNewProduct({ ...newProduct, image: reader.result as string });
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleUpdate = (item: Product) => {
@@ -475,6 +527,72 @@ const ProductManager: React.FC = () => {
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {/* New Product Form */}
+        {isAddingNew && (
+          <div className="rounded-xl p-4 border" style={{ backgroundColor: '#2E2D2F', borderColor: 'rgba(255,255,255,0.1)' }}>
+            <div className="w-full h-40 bg-gray-700 rounded-lg mb-4 flex items-center justify-center">
+              {newProduct.image !== '/Shop1.png' ? (
+                <img src={newProduct.image} alt="Preview" className="w-full h-full object-cover rounded-lg" />
+              ) : (
+                <span className="text-white/50 text-sm">No image</span>
+              )}
+            </div>
+            
+            <div className="space-y-3">
+              <input
+                type="text"
+                value={newProduct.name}
+                onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
+                className="w-full px-3 py-2 rounded-lg text-white border font-matter text-sm"
+                style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
+                placeholder="Product Name *"
+              />
+              <input
+                type="text"
+                value={newProduct.price}
+                onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })}
+                className="w-full px-3 py-2 rounded-lg text-white border font-matter text-sm"
+                style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
+                placeholder="Price (e.g., ₹999) *"
+              />
+              <textarea
+                value={newProduct.description}
+                onChange={(e) => setNewProduct({ ...newProduct, description: e.target.value })}
+                className="w-full px-3 py-2 rounded-lg text-white border font-matter text-sm"
+                style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
+                rows={2}
+                placeholder="Description *"
+              />
+              <input
+                type="text"
+                value={newProduct.amazonLink || ''}
+                onChange={(e) => setNewProduct({ ...newProduct, amazonLink: e.target.value })}
+                className="w-full px-3 py-2 rounded-lg text-white border font-matter text-sm"
+                style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
+                placeholder="Amazon Link"
+              />
+              <label className="flex items-center text-white text-sm">
+                <input
+                  type="checkbox"
+                  checked={newProduct.inStock ?? true}
+                  onChange={(e) => setNewProduct({ ...newProduct, inStock: e.target.checked })}
+                  className="mr-2"
+                />
+                In Stock
+              </label>
+              <div>
+                <p className="text-white/60 text-xs mb-1">Product Image</p>
+                <input type="file" accept="image/*" onChange={handleNewProductImageUpload} className="w-full text-white text-sm" />
+              </div>
+              <div className="flex space-x-2">
+                <button onClick={handleSaveNew} className="flex-1 bg-green-500 text-white py-2 rounded-lg text-sm">Save</button>
+                <button onClick={handleCancelNew} className="flex-1 bg-gray-500 text-white py-2 rounded-lg text-sm">Cancel</button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Existing Products */}
         {data?.products.map((item) => (
           <div key={item.id} className="rounded-xl p-4 border" style={{ backgroundColor: '#2E2D2F', borderColor: 'rgba(255,255,255,0.1)' }}>
             <img src={item.image} alt={item.name} className="w-full h-40 object-cover rounded-lg mb-4" />
