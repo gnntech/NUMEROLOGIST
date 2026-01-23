@@ -45,7 +45,9 @@ const Contact: React.FC = () => {
         return undefined;
       case 'contact_number':
         if (!value.trim()) return 'Phone Number is required';
-        if (!/^\d+$/.test(value.replace(/[\s-]/g, ''))) return 'Please enter a valid Phone Number';
+        const phoneDigits = value.replace(/[\s-]/g, '');
+        if (!/^\d+$/.test(phoneDigits)) return 'Please enter a valid Phone Number';
+        if (phoneDigits.length !== 10) return 'Phone Number must be exactly 10 digits';
         return undefined;
       case 'message':
         if (!value.trim()) return 'Message is required';
@@ -57,10 +59,19 @@ const Contact: React.FC = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    
+    // Limit phone number to 10 digits only
+    if (name === 'contact_number') {
+      const digitsOnly = value.replace(/\D/g, ''); // Remove non-digits
+      if (digitsOnly.length <= 10) {
+        setFormData(prev => ({ ...prev, [name]: digitsOnly }));
+      }
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
 
     if (touched[name]) {
-      const error = validateField(name, value);
+      const error = validateField(name, name === 'contact_number' ? value.replace(/\D/g, '') : value);
       setErrors(prev => ({ ...prev, [name]: error }));
     }
   };
@@ -283,8 +294,11 @@ const Contact: React.FC = () => {
                   value={formData.contact_number}
                   onChange={handleChange}
                   onBlur={handleBlur}
+                  maxLength={10}
+                  inputMode="numeric"
+                  pattern="[0-9]*"
                   className={`w-full bg-transparent border-b-2 ${errors.contact_number ? 'border-red-500' : 'border-[#1E1E1E]/60'} py-1 focus:outline-none focus:border-b-2 ${errors.contact_number ? 'focus:border-red-500' : 'focus:border-[#1E1E1E]/80'} text-[#1E1E1E] text-sm font-matter font-medium placeholder-[#1E1E1E] transition-colors`}
-                  placeholder="Phone Number"
+                  placeholder="Phone Number (10 digits)"
                 />
                 {errors.contact_number && <span className="text-red-500 text-xs font-medium block mt-1">{errors.contact_number}</span>}
               </div>

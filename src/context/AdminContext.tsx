@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { fallbackData } from '../data/fallbackData';
 
 // Types
 export interface PromoCard {
@@ -62,17 +63,7 @@ interface AdminContextType {
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
-const defaultData: AdminData = {
-  promoCards: [
-    { id: '1', title: 'Card 1', image: '/numerology-report.jpeg', mobileImage: '/mobile-numerology-report.jpg', description: 'Personal Numerology Report' },
-    { id: '2', title: 'Card 2', image: '/lucky-jewellery.jpeg', mobileImage: '/mobile-lucky-jewellery.jpg', description: 'Lucky Number Jewellery' },
-    { id: '3', title: 'Card 3', image: '/career-analysis.jpeg', mobileImage: '/mobile-career-analysis.jpg', description: 'Career Number Analysis' },
-  ],
-  testimonials: [],
-  products: [],
-  packages: [],
-  marqueeText: 'Book Now & Get 25% OFF',
-};
+// Remove the old defaultData - we'll use fallbackData from the imported file
 
 const AdminContext = createContext<AdminContextType | undefined>(undefined);
 
@@ -91,14 +82,15 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       if (response.ok) {
         const result = await response.json();
         setData(result);
+        console.log('✅ Data loaded from API');
       } else {
-        // Fallback to default data if API fails
-        setData(defaultData);
+        console.warn('⚠️ API returned error, using fallback data');
+        setData(fallbackData);
       }
     } catch (error) {
-      console.error('Error fetching admin data:', error);
-      // Fallback to default data
-      setData(defaultData);
+      console.error('❌ Error fetching admin data, using fallback data:', error);
+      // Use fallback data when API is unavailable
+      setData(fallbackData);
     } finally {
       setLoading(false);
     }
