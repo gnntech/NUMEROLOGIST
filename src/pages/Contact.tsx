@@ -59,8 +59,6 @@ const Contact: React.FC = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    
-    // Limit phone number to 10 digits only
     if (name === 'contact_number') {
       const digitsOnly = value.replace(/\D/g, ''); // Remove non-digits
       if (digitsOnly.length <= 10) {
