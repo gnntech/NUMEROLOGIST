@@ -60,7 +60,7 @@ const Contact: React.FC = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     if (name === 'contact_number') {
-      const digitsOnly = value.replace(/\D/g, ''); // Remove non-digits
+      const digitsOnly = value.replace(/\D/g, ''); 
       if (digitsOnly.length <= 10) {
         setFormData(prev => ({ ...prev, [name]: digitsOnly }));
       }
