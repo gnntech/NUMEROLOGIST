@@ -85,7 +85,7 @@ const IntroLoader: React.FC<IntroLoaderProps> = ({ isLoading, onComplete }) => {
           </h1>
         </motion.div>
 
-        {/* Person Image - rises from bottom to center, stays centered */}
+
         {phase >= 2 && (
           <motion.div
             className="absolute inset-0 flex items-end justify-center z-20"
