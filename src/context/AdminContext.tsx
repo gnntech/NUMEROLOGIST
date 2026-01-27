@@ -61,7 +61,7 @@ interface AdminContextType {
   updateMarqueeText: (text: string) => Promise<void>;
 }
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001/api';
 
 // Remove the old defaultData - we'll use fallbackData from the imported file
 
