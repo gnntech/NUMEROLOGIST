@@ -59,14 +59,22 @@ const Contact: React.FC = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
+
     if (name === 'contact_number') {
-      const digitsOnly = value.replace(/\D/g, ''); 
-      if (digitsOnly.length <= 10) {
-        setFormData(prev => ({ ...prev, [name]: digitsOnly }));
+      // Allow only numbers and restrict to 10 digits
+      const numericValue = value.replace(/\D/g, '');
+      if (numericValue.length <= 10) {
+        setFormData(prev => ({ ...prev, [name]: numericValue }));
+
+        if (touched[name]) {
+          const error = validateField(name, numericValue);
+          setErrors(prev => ({ ...prev, [name]: error }));
+        }
       }
-    } else {
-      setFormData(prev => ({ ...prev, [name]: value }));
+      return;
     }
+
+    setFormData(prev => ({ ...prev, [name]: value }));
 
     if (touched[name]) {
       const error = validateField(name, name === 'contact_number' ? value.replace(/\D/g, '') : value);
@@ -112,27 +120,34 @@ const Contact: React.FC = () => {
 
     setLoading(true);
 
-    if (form.current) {
-      emailjs.sendForm('service_4uqfwwq', 'template_yeei5pj', form.current, 'OodusXXLW3pgf2OKX')
-        .then((result) => {
-          console.log(result.text);
-          toast.success("Message sent successfully!");
-          setLoading(false);
-          setFormData({
-            user_name: '',
-            user_email: '',
-            contact_number: '',
-            service_interest: '',
-            message: ''
-          });
-          setTouched({});
-          if (form.current) form.current.reset();
-        }, (error) => {
-          console.log(error.text);
-          toast.error("Failed to send message. Please check console.");
-          setLoading(false);
+    const templateParams = {
+      user_name: formData.user_name,
+      user_email: formData.user_email,
+      contact_number: formData.contact_number,
+      service_interest: formData.service_interest || 'Not Specified',
+      message: formData.message,
+      time: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }) // Adding time in IST or local format
+    };
+
+    emailjs.send('service_4uqfwwq', 'template_yeei5pj', templateParams, 'OodusXXLW3pgf2OKX')
+      .then((result) => {
+        console.log(result.text);
+        toast.success("Message sent successfully!");
+        setLoading(false);
+        setFormData({
+          user_name: '',
+          user_email: '',
+          contact_number: '',
+          service_interest: '',
+          message: ''
         });
-    }
+        setTouched({});
+        if (form.current) form.current.reset();
+      }, (error) => {
+        console.log(error.text);
+        toast.error("Failed to send message. Please check console.");
+        setLoading(false);
+      });
   };
 
   const formSectionRef = useRef<HTMLDivElement>(null);
