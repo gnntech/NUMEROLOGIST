@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// Razorpay type
+
 declare global {
     interface Window {
         Razorpay: any;
