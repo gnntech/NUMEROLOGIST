@@ -2,9 +2,42 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Footer from '../components/Footer';
 import { useAdmin } from '../context/AdminContext';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { useCart } from '../context/CartContext';
+import { useNavigate } from 'react-router-dom';
+
+// Add Razorpay type definition
+declare global {
+  interface Window {
+    Razorpay: any;
+  }
+}
+
 
 const ProductCard: React.FC<{ product: any }> = ({ product }) => {
   const [isLiked, setIsLiked] = React.useState(false);
+  const { addToCart } = useCart();
+  const navigate = useNavigate();
+
+  const handleAddToCart = () => {
+    if (!product.inStock) {
+      toast.error('Product is out of stock');
+      return;
+    }
+    addToCart(product);
+    toast.success('Added to Cart!');
+  };
+
+  const handleBuyNow = () => {
+    if (!product.inStock) {
+      toast.error('Product is out of stock');
+      return;
+    }
+    addToCart(product);
+    navigate('/checkout');
+  };
 
   return (
     <motion.div
@@ -21,7 +54,7 @@ const ProductCard: React.FC<{ product: any }> = ({ product }) => {
           className="w-full h-full object-cover"
         />
         {!product.inStock && (
-          <div 
+          <div
             className="absolute top-3 right-3 text-white text-xs px-3 py-1 rounded-full font-matter"
             style={{ backgroundColor: '#FE7028' }}
           >
@@ -36,58 +69,42 @@ const ProductCard: React.FC<{ product: any }> = ({ product }) => {
           <h3 className="font-semibold text-xl text-gray-900 font-matter">
             {product.name}
           </h3>
-          <button 
-            onClick={() => setIsLiked(!isLiked)}
-            className="w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all"
-            style={{ borderColor: isLiked ? '#FE7028' : '#E5E7EB' }}
-          >
-            <svg 
-              className="w-5 h-5" 
-              fill={isLiked ? '#FE7028' : 'none'} 
-              stroke={isLiked ? '#FE7028' : '#9CA3AF'}
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-            </svg>
-          </button>
         </div>
         <p className="text-sm text-gray-500 mb-4 font-matter">
           {product.description}
         </p>
-        
+
         <div className="mt-auto">
           <p className="text-3xl font-bold text-gray-900 mb-4 font-matter">
             {product.price}
           </p>
-          
+
           {/* Two Buttons */}
           <div className="flex gap-3">
-            <motion.a
-              href={product.amazonLink || 'https://amazon.in'}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`flex-1 py-3 rounded-full font-semibold text-center flex items-center justify-center gap-2 font-matter ${
-                product.inStock 
-                  ? 'text-white cursor-pointer' 
-                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-              }`}
+            <motion.button
+              onClick={handleBuyNow}
+              className={`flex-1 py-3 rounded-full font-semibold text-center flex items-center justify-center gap-2 font-matter ${product.inStock
+                ? 'text-white cursor-pointer'
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                }`}
               style={{ backgroundColor: product.inStock ? '#FE7028' : undefined }}
               whileHover={product.inStock ? { scale: 1.02 } : {}}
               whileTap={product.inStock ? { scale: 0.98 } : {}}
+              disabled={!product.inStock}
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>
               Buy Now
-            </motion.a>
-            
+            </motion.button>
+
             <motion.button
-              className={`flex-1 py-3 rounded-full font-semibold text-center flex items-center justify-center gap-2 font-matter border-2 ${
-                product.inStock 
-                  ? 'cursor-pointer' 
-                  : 'border-gray-300 text-gray-400 cursor-not-allowed'
-              }`}
-              style={{ 
+              onClick={handleAddToCart}
+              className={`flex-1 py-3 rounded-full font-semibold text-center flex items-center justify-center gap-2 font-matter border-2 ${product.inStock
+                ? 'cursor-pointer'
+                : 'border-gray-300 text-gray-400 cursor-not-allowed'
+                }`}
+              style={{
                 borderColor: product.inStock ? '#FE7028' : undefined,
                 color: product.inStock ? '#FE7028' : undefined
               }}
@@ -113,30 +130,31 @@ const Shop: React.FC = () => {
 
   return (
     <div className="min-h-screen">
+      <ToastContainer position="top-center" />
       {/* Hero Section */}
-      <section 
+      <section
         className="relative overflow-hidden"
         style={{
           background: 'linear-gradient(135deg, #616060 0%, #222222 100%)',
         }}
       >
         {/* Background Image - Desktop */}
-        <div 
+        <div
           className="hidden lg:block absolute left-0 top-0 bottom-0 w-[70%] bg-no-repeat"
-          style={{ 
+          style={{
             backgroundImage: 'url(/Main_Shop_bg.png)',
             backgroundSize: '115%',
             backgroundPosition: 'left bottom'
           }}
         />
-        
+
         <div className="relative z-10 min-h-[50vh] lg:min-h-screen flex flex-col lg:flex-row lg:items-center">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-20 lg:pt-20">
             <div className="grid lg:grid-cols-2 gap-4 lg:gap-8 items-center">
-             
+
               <div className="hidden lg:block">
               </div>
-              
+
               {/* Right - Content */}
               <div className="text-center lg:text-left py-4 lg:py-0 lg:pl-32 px-4 sm:px-0">
                 <motion.h1
@@ -148,7 +166,7 @@ const Shop: React.FC = () => {
                 >
                   SHOP
                 </motion.h1>
-                
+
                 <motion.p
                   className="text-white text-base sm:text-lg lg:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0 opacity-90 mb-4 font-matter"
                   initial={{ opacity: 0, y: 20 }}
@@ -157,23 +175,23 @@ const Shop: React.FC = () => {
                 >
                   Explore a curated collection of spiritual tools chosen to support balance, clarity, and inner alignment. Each item is thoughtfully selected to complement your personal energy and numerology path.
                 </motion.p>
-                
+
                 <motion.p
                   className="text-white text-base sm:text-lg lg:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0 opacity-90 font-matter"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.3 }}
                 >
-                  All products redirect you to Amazon for a safe and seamless purchase experience.
+                  Secure payments via Razorpay. Your spiritual journey begins here.
                 </motion.p>
               </div>
             </div>
-            
+
             {/* Mobile Image */}
             <div className="lg:hidden mt-4 pb-4 -ml-4">
-              <img 
-                src="/Main_Shop_bg.png" 
-                alt="Shop" 
+              <img
+                src="/Main_Shop_bg.png"
+                alt="Shop"
                 className="w-[120%] max-w-none object-contain object-left"
               />
             </div>
@@ -182,7 +200,7 @@ const Shop: React.FC = () => {
       </section>
 
       {/* Products Grid Section */}
-      <section 
+      <section
         className="py-16 sm:py-20 lg:py-24 bg-white"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
