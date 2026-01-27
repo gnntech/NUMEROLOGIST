@@ -17,7 +17,6 @@ declare global {
 
 
 const ProductCard: React.FC<{ product: any }> = ({ product }) => {
-  const [isLiked, setIsLiked] = React.useState(false);
   const { addToCart } = useCart();
   const navigate = useNavigate();
 
