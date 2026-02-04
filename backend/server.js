@@ -17,10 +17,8 @@ mongoose.connect(process.env.MONGODB_URI)
 
 // Routes
 const adminRoutes = require('./routes/admin');
-const paymentRoutes = require('./routes/paymentRoutes');
 
 app.use('/api/admin', adminRoutes);
-app.use('/api/payment', paymentRoutes);
 
 // Health check route
 app.get('/api/health', (req, res) => {
