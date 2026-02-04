@@ -13,24 +13,6 @@ const ChevronRight = ({ size = 22 }: { size?: number }) => (
   </svg>
 );
 
-const images = [
-  {
-    src: "/numerology-report.jpeg",
-    mobileSrc: "/mobile-numerology-report.jpg",
-    alt: "Personal Numerology Report",
-  },
-  {
-    src: "/lucky-jewellery.jpeg",
-    mobileSrc: "/mobile-lucky-jewellery.jpg",
-    alt: "Lucky Number Jewellery",
-  },
-  {
-    src: "/career-analysis.jpeg",
-    mobileSrc: "/mobile-career-analysis.jpg",
-    alt: "Career Number Analysis",
-  },
-];
-
 const PromoSlider: React.FC = () => {
   const { data } = useAdmin();
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -57,18 +39,20 @@ const PromoSlider: React.FC = () => {
     return null;
   }
 
+  const promoCards = data.promoCards;
+
   return (
     <div className="relative w-full h-[80vh] overflow-hidden">
       <div
         className="flex h-full transition-transform duration-700 ease-in-out"
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
       >
-        {images.map((img, index) => (
-          <picture key={index} className="block h-full w-full flex-shrink-0">
-            <source media="(max-width: 640px)" srcSet={img.mobileSrc} />
+        {promoCards.map((card, index) => (
+          <picture key={card.id} className="block h-full w-full flex-shrink-0">
+            <source media="(max-width: 640px)" srcSet={card.mobileImage} />
             <img
-              src={img.src}
-              alt={img.alt}
+              src={card.image}
+              alt={card.title}
               className="h-full w-full object-cover"
             />
           </picture>
@@ -78,7 +62,7 @@ const PromoSlider: React.FC = () => {
       <button
         onClick={() =>
           setCurrentIndex(
-            currentIndex === 0 ? images.length - 1 : currentIndex - 1
+            currentIndex === 0 ? promoCards.length - 1 : currentIndex - 1
           )
         }
         className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/50 p-2 rounded-full text-white"
@@ -89,7 +73,7 @@ const PromoSlider: React.FC = () => {
       <button
         onClick={() =>
           setCurrentIndex(
-            currentIndex === images.length - 1 ? 0 : currentIndex + 1
+            currentIndex === promoCards.length - 1 ? 0 : currentIndex + 1
           )
         }
         className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/50 p-2 rounded-full text-white"

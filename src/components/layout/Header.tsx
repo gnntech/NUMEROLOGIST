@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useCart } from '../../context/CartContext';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
-  const { cartCount } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,11 +16,11 @@ const Header: React.FC = () => {
   }, []);
 
   const menuItems = [
-    { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
-    { name: 'Package', path: '/package' },
-    { name: 'Shop', path: '/shop' },
-    { name: 'Contact Us', path: '/contact' },
+    { name: 'Home', path: '/', isExternal: false },
+    { name: 'About', path: '/about', isExternal: false },
+    { name: 'Package', path: '/package', isExternal: false },
+    { name: 'Shop', path: 'https://gnn-e-commerce.vercel.app/', isExternal: true },
+    { name: 'Contact Us', path: '/contact', isExternal: false },
   ];
 
   return (
@@ -53,36 +51,38 @@ const Header: React.FC = () => {
             }}
           >
             {menuItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                className="px-5 py-2 text-sm font-medium font-matter rounded-full transition-all duration-200"
-                style={{
-                  backgroundColor: location.pathname === item.path ? '#FE7028' : 'transparent',
-                  color: '#FFFFFF'
-                }}
-              >
-                {item.name}
-              </Link>
+              item.isExternal ? (
+                <a
+                  key={item.path}
+                  href={item.path}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-5 py-2 text-sm font-medium font-matter rounded-full transition-all duration-200"
+                  style={{
+                    backgroundColor: 'transparent',
+                    color: '#FFFFFF'
+                  }}
+                >
+                  {item.name}
+                </a>
+              ) : (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className="px-5 py-2 text-sm font-medium font-matter rounded-full transition-all duration-200"
+                  style={{
+                    backgroundColor: location.pathname === item.path ? '#FE7028' : 'transparent',
+                    color: '#FFFFFF'
+                  }}
+                >
+                  {item.name}
+                </Link>
+              )
             ))}
           </nav>
 
-          {/* Cart Icon & Call Now */}
+          {/* Call Now Button */}
           <div className="hidden lg:flex items-center gap-4">
-            {/* Cart Icon - Only show on shop related pages */}
-            {['/shop', '/cart', '/checkout'].includes(location.pathname) && (
-              <Link to="/cart" className="relative p-2 text-white hover:text-[#FE7028] transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-                {cartCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-[#FE7028] text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center border-2 border-transparent">
-                    {cartCount}
-                  </span>
-                )}
-              </Link>
-            )}
-
             <button
               className="px-5 py-2.5 rounded-full font-medium transition-all duration-200 font-matter text-sm flex items-center space-x-2"
               style={{ backgroundColor: '#FE7028', color: '#FFFFFF' }}
@@ -125,18 +125,35 @@ const Header: React.FC = () => {
               }}
             >
               {menuItems.map((item) => (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="block px-4 py-3 text-base font-medium font-matter rounded-xl transition-all duration-200"
-                  style={{
-                    backgroundColor: location.pathname === item.path ? '#FE7028' : 'transparent',
-                    color: '#FFFFFF'
-                  }}
-                >
-                  {item.name}
-                </Link>
+                item.isExternal ? (
+                  <a
+                    key={item.path}
+                    href={item.path}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block px-4 py-3 text-base font-medium font-matter rounded-xl transition-all duration-200"
+                    style={{
+                      backgroundColor: 'transparent',
+                      color: '#FFFFFF'
+                    }}
+                  >
+                    {item.name}
+                  </a>
+                ) : (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block px-4 py-3 text-base font-medium font-matter rounded-xl transition-all duration-200"
+                    style={{
+                      backgroundColor: location.pathname === item.path ? '#FE7028' : 'transparent',
+                      color: '#FFFFFF'
+                    }}
+                  >
+                    {item.name}
+                  </Link>
+                )
               ))}
               <button
                 className="w-full mt-3 px-4 py-3 rounded-xl font-medium transition-all duration-200 font-matter flex items-center justify-center space-x-2"

@@ -1,4 +1,9 @@
 {
+  "promoCards": [
+    { "id": "1", "title": "Card 1", "image": "/numerology-report.jpeg", "mobileImage": "/mobile-numerology-report.jpg", "description": "Personal Numerology Report" },
+    { "id": "2", "title": "Card 2", "image": "/lucky-jewellery.jpeg", "mobileImage": "/mobile-lucky-jewellery.jpg", "description": "Lucky Number Jewellery" },
+    { "id": "3", "title": "Card 3", "image": "/career-analysis.jpeg", "mobileImage": "/mobile-career-analysis.jpg", "description": "Career Number Analysis" }
+  ],
   "testimonials": [
     { "id": "1", "name": "Sneha Iyer", "location": "Home Keeper", "quote": "The workshops improved my technical skills and helped me get placed in a top company.", "rating": 5, "isVideoTestimonial": false },
     { "id": "2", "name": "Pranit Nair", "location": "Businessman", "quote": "Joining X Club was the best decision; it shaped both my skills and personality.", "rating": 5, "isVideoTestimonial": false },
@@ -9,17 +14,6 @@
     { "id": "v1", "name": "Shreyas Karve", "location": "Businessman", "video": "/Bg_video.mp4", "avatar": "/Testimonial_card.png", "rating": 5, "isVideoTestimonial": true },
     { "id": "v2", "name": "Priya Patel", "location": "Designer", "video": "/Bg_video.mp4", "avatar": "/Testimonial_card.png", "rating": 5, "isVideoTestimonial": true },
     { "id": "v3", "name": "Amit Kumar", "location": "Developer", "video": "/Bg_video.mp4", "avatar": "/Testimonial_card.png", "rating": 5, "isVideoTestimonial": true }
-  ],
-  "products": [
-    { "id": "1", "name": "Tiger Eye Bracelet", "image": "/Card1.png", "price": "₹900", "description": "Strength, focus, and confident energy.", "amazonLink": "https://amazon.in", "inStock": true },
-    { "id": "2", "name": "Howlite Bracelet", "image": "/Card2.png", "price": "₹900", "description": "Promotes calm, balance, and clarity.", "amazonLink": "https://amazon.in", "inStock": false },
-    { "id": "3", "name": "Moonstone Bracelet", "image": "/Card3.png", "price": "₹1200", "description": "Soft, calming energy with a gentle glow.", "amazonLink": "https://amazon.in", "inStock": true },
-    { "id": "4", "name": "Green Jade Bracelet", "image": "/Card9.png", "price": "₹900", "description": "A symbol of peace and balance.", "amazonLink": "https://amazon.in", "inStock": true },
-    { "id": "5", "name": "Seven Chakra Bracelet", "image": "/Card6.png", "price": "₹1000", "description": "Balanced stones for overall harmony.", "amazonLink": "https://amazon.in", "inStock": true },
-    { "id": "6", "name": "Amazonite Bracelet", "image": "/Card5.png", "price": "₹900", "description": "Soothing tones with a refreshing feel.", "amazonLink": "https://amazon.in", "inStock": false },
-    { "id": "7", "name": "Sulemani Haquik Bracelet", "image": "/Card7.png", "price": "₹1000", "description": "Traditionally worn for grounding energy.", "amazonLink": "https://amazon.in", "inStock": false },
-    { "id": "8", "name": "Turquoise Bracelet", "image": "/Card8.png", "price": "₹900", "description": "Protective energy with timeless appeal.", "amazonLink": "https://amazon.in", "inStock": true },
-    { "id": "9", "name": "Bloodstone Bracelet", "image": "/Card9.png", "price": "₹900", "description": "Grounding energy with a bold, earthy presence.", "amazonLink": "https://amazon.in", "inStock": true }
   ],
   "packages": [
     { "id": "1", "name": "Silver Package", "icon": "/Sliver package.png", "includes": [

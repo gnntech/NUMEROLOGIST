@@ -4,6 +4,15 @@ const fs = require('fs');
 const seedData = JSON.parse(fs.readFileSync('./seed-data.json', 'utf8'));
 
 // Make API call to update the database
+fetch('http://localhost:5000/api/admin/data/promo-cards', {
+  method: 'PATCH',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ promoCards: seedData.promoCards }),
+})
+  .then(res => res.json())
+  .then(() => console.log('✅ Promo Cards seeded'))
+  .catch(err => console.error('❌ Error seeding promo cards:', err));
+
 fetch('http://localhost:5000/api/admin/data/testimonials', {
   method: 'PATCH',
   headers: { 'Content-Type': 'application/json' },
@@ -12,15 +21,6 @@ fetch('http://localhost:5000/api/admin/data/testimonials', {
   .then(res => res.json())
   .then(() => console.log('✅ Testimonials seeded'))
   .catch(err => console.error('❌ Error seeding testimonials:', err));
-
-fetch('http://localhost:5000/api/admin/data/products', {
-  method: 'PATCH',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ products: seedData.products }),
-})
-  .then(res => res.json())
-  .then(() => console.log('✅ Products seeded'))
-  .catch(err => console.error('❌ Error seeding products:', err));
 
 fetch('http://localhost:5000/api/admin/data/packages', {
   method: 'PATCH',

@@ -21,16 +21,6 @@ export interface Testimonial {
   isVideoTestimonial: boolean;
 }
 
-export interface Product {
-  id: string;
-  name: string;
-  image: string;
-  price: string;
-  description: string;
-  amazonLink?: string;
-  inStock?: boolean;
-}
-
 export interface PackageInclude {
   text: string;
   highlight: boolean;
@@ -46,7 +36,6 @@ export interface Package {
 interface AdminData {
   promoCards: PromoCard[];
   testimonials: Testimonial[];
-  products: Product[];
   packages: Package[];
   marqueeText: string;
 }
@@ -56,7 +45,6 @@ interface AdminContextType {
   loading: boolean;
   updatePromoCards: (cards: PromoCard[]) => Promise<void>;
   updateTestimonials: (testimonials: Testimonial[]) => Promise<void>;
-  updateProducts: (products: Product[]) => Promise<void>;
   updatePackages: (packages: Package[]) => Promise<void>;
   updateMarqueeText: (text: string) => Promise<void>;
 }
@@ -130,23 +118,6 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     }
   };
 
-  const updateProducts = async (products: Product[]) => {
-    try {
-      const response = await fetch(`${API_URL}/admin/data/products`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ products }),
-      });
-      if (response.ok) {
-        const result = await response.json();
-        setData(result);
-      }
-    } catch (error) {
-      console.error('Error updating products:', error);
-      throw error;
-    }
-  };
-
   const updatePackages = async (packages: Package[]) => {
     try {
       const response = await fetch(`${API_URL}/admin/data/packages`, {
@@ -182,7 +153,7 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   };
 
   return (
-    <AdminContext.Provider value={{ data, loading, updatePromoCards, updateTestimonials, updateProducts, updatePackages, updateMarqueeText }}>
+    <AdminContext.Provider value={{ data, loading, updatePromoCards, updateTestimonials, updatePackages, updateMarqueeText }}>
       {children}
     </AdminContext.Provider>
   );

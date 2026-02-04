@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useAdmin, PromoCard, Testimonial, Product, Package, PackageInclude } from '../context/AdminContext';
+import { useAdmin, PromoCard, Testimonial, Package, PackageInclude } from '../context/AdminContext';
 
-type TabType = 'promo' | 'testimonials' | 'products' | 'packages' | 'settings';
+type TabType = 'promo' | 'testimonials' | 'packages' | 'settings';
 
 const Admin: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -61,7 +61,6 @@ const Admin: React.FC = () => {
   const tabs: { id: TabType; label: string }[] = [
     { id: 'promo', label: 'Promo Cards' },
     { id: 'testimonials', label: 'Testimonials' },
-    { id: 'products', label: 'Products' },
     { id: 'packages', label: 'Packages' },
     { id: 'settings', label: 'Settings' },
   ];
@@ -106,7 +105,6 @@ const Admin: React.FC = () => {
         <div className="rounded-2xl p-6 border" style={{ backgroundColor: '#3A3939', borderColor: 'rgba(255,255,255,0.1)' }}>
           {activeTab === 'promo' && <PromoManager />}
           {activeTab === 'testimonials' && <TestimonialManager />}
-          {activeTab === 'products' && <ProductManager />}
           {activeTab === 'packages' && <PackageManager />}
           {activeTab === 'settings' && <SettingsManager />}
         </div>
@@ -413,247 +411,6 @@ const TestimonialManager: React.FC = () => {
                 ) : (
                   <p className="text-white/80 text-sm italic">"{item.quote}"</p>
                 )}
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-// Product Manager
-const ProductManager: React.FC = () => {
-  const { data, updateProducts } = useAdmin();
-  const [editingItem, setEditingItem] = useState<Product | null>(null);
-  const [isAddingNew, setIsAddingNew] = useState(false);
-  const [newProduct, setNewProduct] = useState<Product>({
-    id: '',
-    name: '',
-    image: '/Shop1.png',
-    price: '₹',
-    description: '',
-    amazonLink: 'https://amazon.in',
-    inStock: true,
-  });
-
-  const handleAdd = () => {
-    setIsAddingNew(true);
-    setNewProduct({
-      id: Date.now().toString(),
-      name: '',
-      image: '/Shop1.png',
-      price: '₹',
-      description: '',
-      amazonLink: 'https://amazon.in',
-      inStock: true,
-    });
-  };
-
-  const handleSaveNew = () => {
-    if (!data) return;
-    if (!newProduct.name || !newProduct.price || !newProduct.description) {
-      alert('Please fill in all required fields');
-      return;
-    }
-    updateProducts([...data.products, newProduct]);
-    setIsAddingNew(false);
-    setNewProduct({
-      id: '',
-      name: '',
-      image: '/Shop1.png',
-      price: '₹',
-      description: '',
-      amazonLink: 'https://amazon.in',
-      inStock: true,
-    });
-  };
-
-  const handleCancelNew = () => {
-    setIsAddingNew(false);
-    setNewProduct({
-      id: '',
-      name: '',
-      image: '/Shop1.png',
-      price: '₹',
-      description: '',
-      amazonLink: 'https://amazon.in',
-      inStock: true,
-    });
-  };
-
-  const handleNewProductImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setNewProduct({ ...newProduct, image: reader.result as string });
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleUpdate = (item: Product) => {
-    if (!data) return;
-    updateProducts(data.products.map(p => p.id === item.id ? item : p));
-    setEditingItem(null);
-  };
-
-  const handleDelete = (id: string) => {
-    if (!data) return;
-    if (window.confirm('Delete this product?')) {
-      updateProducts(data.products.filter(p => p.id !== id));
-    }
-  };
-
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, item: Product) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        handleUpdate({ ...item, image: reader.result as string });
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  return (
-    <div>
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl font-bold text-white font-bebas">Products</h2>
-        <button onClick={handleAdd} className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-matter text-sm">
-          + Add Product
-        </button>
-      </div>
-
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {/* New Product Form */}
-        {isAddingNew && (
-          <div className="rounded-xl p-4 border" style={{ backgroundColor: '#2E2D2F', borderColor: 'rgba(255,255,255,0.1)' }}>
-            <div className="w-full h-40 bg-gray-700 rounded-lg mb-4 flex items-center justify-center">
-              {newProduct.image !== '/Shop1.png' ? (
-                <img src={newProduct.image} alt="Preview" className="w-full h-full object-cover rounded-lg" />
-              ) : (
-                <span className="text-white/50 text-sm">No image</span>
-              )}
-            </div>
-            
-            <div className="space-y-3">
-              <input
-                type="text"
-                value={newProduct.name}
-                onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
-                className="w-full px-3 py-2 rounded-lg text-white border font-matter text-sm"
-                style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
-                placeholder="Product Name *"
-              />
-              <input
-                type="text"
-                value={newProduct.price}
-                onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })}
-                className="w-full px-3 py-2 rounded-lg text-white border font-matter text-sm"
-                style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
-                placeholder="Price (e.g., ₹999) *"
-              />
-              <textarea
-                value={newProduct.description}
-                onChange={(e) => setNewProduct({ ...newProduct, description: e.target.value })}
-                className="w-full px-3 py-2 rounded-lg text-white border font-matter text-sm"
-                style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
-                rows={2}
-                placeholder="Description *"
-              />
-              <input
-                type="text"
-                value={newProduct.amazonLink || ''}
-                onChange={(e) => setNewProduct({ ...newProduct, amazonLink: e.target.value })}
-                className="w-full px-3 py-2 rounded-lg text-white border font-matter text-sm"
-                style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
-                placeholder="Amazon Link"
-              />
-              <label className="flex items-center text-white text-sm">
-                <input
-                  type="checkbox"
-                  checked={newProduct.inStock ?? true}
-                  onChange={(e) => setNewProduct({ ...newProduct, inStock: e.target.checked })}
-                  className="mr-2"
-                />
-                In Stock
-              </label>
-              <div>
-                <p className="text-white/60 text-xs mb-1">Product Image</p>
-                <input type="file" accept="image/*" onChange={handleNewProductImageUpload} className="w-full text-white text-sm" />
-              </div>
-              <div className="flex space-x-2">
-                <button onClick={handleSaveNew} className="flex-1 bg-green-500 text-white py-2 rounded-lg text-sm">Save</button>
-                <button onClick={handleCancelNew} className="flex-1 bg-gray-500 text-white py-2 rounded-lg text-sm">Cancel</button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Existing Products */}
-        {data?.products.map((item) => (
-          <div key={item.id} className="rounded-xl p-4 border" style={{ backgroundColor: '#2E2D2F', borderColor: 'rgba(255,255,255,0.1)' }}>
-            <img src={item.image} alt={item.name} className="w-full h-40 object-cover rounded-lg mb-4" />
-            
-            {editingItem?.id === item.id ? (
-              <div className="space-y-3">
-                <input
-                  type="text"
-                  value={editingItem.name}
-                  onChange={(e) => setEditingItem({ ...editingItem, name: e.target.value })}
-                  className="w-full px-3 py-2 rounded-lg text-white border font-matter text-sm"
-                  style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
-                  placeholder="Name"
-                />
-                <input
-                  type="text"
-                  value={editingItem.price}
-                  onChange={(e) => setEditingItem({ ...editingItem, price: e.target.value })}
-                  className="w-full px-3 py-2 rounded-lg text-white border font-matter text-sm"
-                  style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
-                  placeholder="Price"
-                />
-                <textarea
-                  value={editingItem.description}
-                  onChange={(e) => setEditingItem({ ...editingItem, description: e.target.value })}
-                  className="w-full px-3 py-2 rounded-lg text-white border font-matter text-sm"
-                  style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
-                  rows={2}
-                />
-                <input
-                  type="text"
-                  value={editingItem.amazonLink || ''}
-                  onChange={(e) => setEditingItem({ ...editingItem, amazonLink: e.target.value })}
-                  className="w-full px-3 py-2 rounded-lg text-white border font-matter text-sm"
-                  style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
-                  placeholder="Amazon Link"
-                />
-                <label className="flex items-center text-white text-sm">
-                  <input
-                    type="checkbox"
-                    checked={editingItem.inStock ?? true}
-                    onChange={(e) => setEditingItem({ ...editingItem, inStock: e.target.checked })}
-                    className="mr-2"
-                  />
-                  In Stock
-                </label>
-                <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, editingItem)} className="w-full text-white text-sm" />
-                <div className="flex space-x-2">
-                  <button onClick={() => handleUpdate(editingItem)} className="flex-1 bg-green-500 text-white py-2 rounded-lg text-sm">Save</button>
-                  <button onClick={() => setEditingItem(null)} className="flex-1 bg-gray-500 text-white py-2 rounded-lg text-sm">Cancel</button>
-                </div>
-              </div>
-            ) : (
-              <div>
-                <h3 className="text-white font-semibold">{item.name}</h3>
-                <p className="font-bold mb-1" style={{ color: '#FE7028' }}>{item.price}</p>
-                <p className="text-white/70 text-sm mb-4">{item.description}</p>
-                <div className="flex space-x-2">
-                  <button onClick={() => setEditingItem(item)} className="flex-1 text-white py-2 rounded-lg text-sm" style={{ backgroundColor: '#FE7028' }}>Edit</button>
-                  <button onClick={() => handleDelete(item.id)} className="flex-1 bg-red-500 text-white py-2 rounded-lg text-sm">Delete</button>
-                </div>
               </div>
             )}
           </div>

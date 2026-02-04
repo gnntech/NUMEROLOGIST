@@ -10,6 +10,7 @@ const TestimonialSection = lazy(() => import('../components/TestimonialSection')
 const Footer = lazy(() => import('../components/Footer'));
 const MeaningfulGiftsSection = lazy(() => import('../components/MeaningfulGiftsSection'));
 const OnTheMediaSection = lazy(() => import('../components/OnTheMediaSection'));
+const SocialMediaPhone = lazy(() => import('./SocialMediaPhone'));
 
 // Loading fallback component
 const SectionLoader = () => (
@@ -300,6 +301,12 @@ const Home: React.FC = () => {
         <Suspense fallback={<SectionLoader />}>
           <OnTheMediaSection />
         </Suspense>
+
+        {/* Social Media Phone Section */}
+        <Suspense fallback={<SectionLoader />}>
+          <SocialMediaPhone />
+        </Suspense>
+
         {/* Testimonial Section */}
         <Suspense fallback={<SectionLoader />}>
           <TestimonialSection />

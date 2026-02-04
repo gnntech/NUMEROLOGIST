@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const promoCardSchema = new mongoose.Schema({
   id: String,
   title: String,
   image: String,
   mobileImage: String,
-  description: String
+  description: String,
 });
 
 const testimonialSchema = new mongoose.Schema({
@@ -16,44 +16,38 @@ const testimonialSchema = new mongoose.Schema({
   rating: Number,
   video: String, // Video URL or path
   avatar: String, // Avatar image URL
-  isVideoTestimonial: { type: Boolean, default: false }
-});
-
-const productSchema = new mongoose.Schema({
-  id: String,
-  name: String,
-  image: String,
-  price: String,
-  description: String,
-  amazonLink: String,
-  inStock: { type: Boolean, default: true }
+  isVideoTestimonial: { type: Boolean, default: false },
 });
 
 const packageSchema = new mongoose.Schema({
   id: String,
   name: String,
   icon: String,
-  includes: [{
-    text: String,
-    highlight: Boolean
-  }]
+  includes: [
+    {
+      text: String,
+      highlight: Boolean,
+    },
+  ],
 });
 
-const adminDataSchema = new mongoose.Schema({
-  promoCards: [promoCardSchema],
-  testimonials: [testimonialSchema],
-  products: [productSchema],
-  packages: [packageSchema],
-  marqueeText: {
-    type: String,
-    default: 'Book Now & Get 25% OFF'
+const adminDataSchema = new mongoose.Schema(
+  {
+    promoCards: [promoCardSchema],
+    testimonials: [testimonialSchema],
+    packages: [packageSchema],
+    marqueeText: {
+      type: String,
+      default: "Book Now & Get 25% OFF",
+    },
+    updatedAt: {
+      type: Date,
+      default: Date.now,
+    },
   },
-  updatedAt: {
-    type: Date,
-    default: Date.now
-  }
-}, {
-  timestamps: true
-});
+  {
+    timestamps: true,
+  },
+);
 
-module.exports = mongoose.model('AdminData', adminDataSchema);
+module.exports = mongoose.model("AdminData", adminDataSchema);
