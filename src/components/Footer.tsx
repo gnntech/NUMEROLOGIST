@@ -185,7 +185,7 @@ const Footer: React.FC = () => {
         </div>
       </div>
 
-      {/* Divider & Copyright */}
+    
       <div className="relative z-10 border-t border-white/20">
         <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-4">
           <motion.div
