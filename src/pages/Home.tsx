@@ -2,7 +2,7 @@ import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import IntroLoader from '../components/IntroLoader';
 
-// Lazy load components below the fold
+
 const PromoSection = lazy(() => import('../components/PromoSection'));
 const OurServicesSection = lazy(() => import('../components/OurServicesSection'));
 const PromoMarquee = lazy(() => import('../components/PromoMarquee'));
