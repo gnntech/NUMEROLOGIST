@@ -86,8 +86,8 @@ numerologics/
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
-   cd numerologics
+   git clone https://github.com/jayshinde0/NUMEROLOGIST
+   cd NUMEROLOGIST
    ```
 
 2. **Install dependencies**

@@ -1,5 +1,126 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+
+// Carousel component for mobile trending videos
+const TrendingVideosCarousel: React.FC<{ reels: any[] }> = ({ reels }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const goToPrevious = () => {
+    setCurrentIndex((prevIndex) => (prevIndex === 0 ? reels.length - 1 : prevIndex - 1));
+  };
+
+  const goToNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex === reels.length - 1 ? 0 : prevIndex + 1));
+  };
+
+  return (
+    <div className="lg:hidden">
+      <div className="relative w-full max-w-md mx-auto">
+        {/* Carousel Container */}
+        <div className="relative overflow-hidden rounded-2xl shadow-lg">
+          <motion.div
+            className="flex"
+            animate={{ x: `-${currentIndex * 100}%` }}
+            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+          >
+            {reels.map((reel) => (
+              <div key={reel.id} className="w-full flex-shrink-0">
+                <motion.a
+                  href={reel.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block relative"
+                >
+                  <div className="relative aspect-[9/16] bg-gradient-to-br from-gray-800 to-gray-900 overflow-hidden">
+                    {/* Video Element */}
+                    <video 
+                      src={reel.videoFile} 
+                      className="absolute inset-0 w-full h-full object-cover"
+                      muted
+                      loop
+                      playsInline
+                      autoPlay
+                      preload="metadata"
+                      onError={(e) => {
+                        console.log('Video failed to load:', reel.videoFile);
+                        e.currentTarget.style.display = 'none';
+                      }}
+                    />
+                    
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-10"></div>
+                    
+                    {/* Play Button Overlay */}
+                    <div className="absolute inset-0 flex items-center justify-center z-20">
+                      <motion.div
+                        className="w-16 h-16 rounded-full flex items-center justify-center shadow-2xl"
+                        style={{ background: 'linear-gradient(135deg, #FE7028, #F97316)' }}
+                        whileHover={{ scale: 1.3 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <svg className="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M8 5v14l11-7z"/>
+                        </svg>
+                      </motion.div>
+                    </div>
+
+                    {/* Instagram Reel Badge */}
+                    <div className="absolute top-4 right-4 z-20">
+                      <div className="rounded-lg px-3 py-1.5 shadow-lg backdrop-blur-sm" style={{ backgroundColor: '#FE7028' }}>
+                        <span className="text-white text-xs font-bold">REEL</span>
+                      </div>
+                    </div>
+
+                    {/* Video Title */}
+                    <div className="absolute bottom-0 left-0 right-0 p-4 z-20">
+                      <h4 className="font-bebas text-lg text-white tracking-wide drop-shadow-lg leading-tight">{reel.title}</h4>
+                    </div>
+                  </div>
+                </motion.a>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* Navigation Arrows */}
+        <button
+          onClick={goToPrevious}
+          className="absolute left-2 top-1/2 transform -translate-y-1/2 z-30 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg transition-all duration-200"
+          aria-label="Previous video"
+        >
+          <svg className="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        <button
+          onClick={goToNext}
+          className="absolute right-2 top-1/2 transform -translate-y-1/2 z-30 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg transition-all duration-200"
+          aria-label="Next video"
+        >
+          <svg className="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+
+        {/* Dot Indicators */}
+        <div className="flex justify-center gap-2 mt-6">
+          {reels.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                index === currentIndex ? 'bg-orange-600 w-8' : 'bg-gray-300 w-2'
+              }`}
+              style={index === currentIndex ? { backgroundColor: '#FE7028' } : {}}
+              aria-label={`Go to video ${index + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const SocialMediaPhone: React.FC = () => {
   // Instagram Reels - Extended list for phone grid with real Instagram links
@@ -372,8 +493,11 @@ const SocialMediaPhone: React.FC = () => {
             </p>
           </div>
 
-          {/* Video Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Mobile Carousel - Hidden on lg and above */}
+          <TrendingVideosCarousel reels={reels} />
+
+          {/* Desktop Grid - Hidden on sm and below */}
+          <div className="hidden lg:grid grid-cols-4 gap-6">
             {reels.map((reel, index) => (
               <motion.div
                 key={reel.id}

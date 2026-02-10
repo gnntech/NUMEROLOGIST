@@ -13,17 +13,24 @@ const PromoMarquee = () => {
         className="h-16 w-full overflow-hidden flex items-center"
         style={{ backgroundColor: "#FE7028" }}
       >
-        <div className="flex animate-marquee whitespace-nowrap">
+        <div className="flex animate-marquee whitespace-nowrap items-center">
           {Array.from({ length: 12 }).map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setOpen(true)}
-              className="mx-8 text-sm font-semibold flex items-center gap-2 cursor-pointer"
-              style={{ color: "#FFFFFF" }}
-              type="button"
-            >
-              {marqueeText}
-            </button>
+            <div key={index} className="flex items-center gap-4 mx-4">
+              <span
+                className="text-sm font-semibold"
+                style={{ color: "#FFFFFF" }}
+              >
+                {marqueeText} — Slots are limited. Reserve yours now!!
+              </span>
+              <button
+                onClick={() => setOpen(true)}
+                className="px-4 py-1.5 rounded font-semibold text-sm whitespace-nowrap flex-shrink-0 hover:opacity-90 transition-opacity"
+                style={{ backgroundColor: "#FFFFFF", color: "#FE7028" }}
+                type="button"
+              >
+                Book Now
+              </button>
+            </div>
           ))}
         </div>
       </div>
@@ -35,7 +42,7 @@ const PromoMarquee = () => {
             <h2 className="mb-2 text-xl font-bold">Book Now</h2>
 
             <p className="mb-4 text-sm text-gray-600">
-              Get 25% OFF on your numerology report
+              Get 25% OFF on your numerology consultation
             </p>
 
             <button

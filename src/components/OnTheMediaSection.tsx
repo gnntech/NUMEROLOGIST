@@ -74,7 +74,8 @@ const OnTheMediaSection: React.FC = () => {
                                 <div className="text-[26px] sm:text-[30px] lg:text-[34px]">
                                     NUMEROLOGY AND{' '}
                                     <span style={{ color: '#FE7028' }}>NAME CORRECTION</span> CAN
-                                </div>
+                                
+                                        </div>
 
 
                                 <div className="mt-1 text-[26px] sm:text-[30px] lg:text-[34px]">
