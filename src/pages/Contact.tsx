@@ -61,7 +61,7 @@ const Contact: React.FC = () => {
     const { name, value } = e.target;
 
     if (name === 'contact_number') {
-      // Allow only numbers and restrict to 10 digits
+      
       const numericValue = value.replace(/\D/g, '');
       if (numericValue.length <= 10) {
         setFormData(prev => ({ ...prev, [name]: numericValue }));
