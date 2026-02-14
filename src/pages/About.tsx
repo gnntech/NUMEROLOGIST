@@ -356,7 +356,7 @@ const About: React.FC = () => {
                 </div>
               </div>
 
-              {/* Image 6 (Hidden on mobile) */}
+            
               <div className="relative hidden lg:block w-[220px] h-[460px] rounded-2xl overflow-hidden shadow-lg border border-gray-100 group">
                 <img
                   src="./image61.png"
