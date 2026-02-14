@@ -139,7 +139,7 @@ const cardVariants = {
 };
 
 const Package: React.FC = () => {
-  const { data, loading } = useAdmin();
+  const { data } = useAdmin();
   
   // Ensure packages is always an array
   let packageList: PackageType[] = premiumPackages;
