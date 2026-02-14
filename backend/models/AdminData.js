@@ -7,7 +7,7 @@ const promoCardSchema = new mongoose.Schema({
   mobileImage: String,
   description: String,
 });
-
+  
 const testimonialSchema = new mongoose.Schema({
   id: String,
   name: String,
@@ -22,13 +22,13 @@ const testimonialSchema = new mongoose.Schema({
 const packageSchema = new mongoose.Schema({
   id: String,
   name: String,
-  icon: String,
-  includes: [
-    {
-      text: String,
-      highlight: Boolean,
-    },
-  ],
+  price: String,
+  image: String,
+  minimal: [String],
+  detailed: [String],
+  benefits: [String],
+  idealFor: [String],
+  formUrl: String,
 });
 
 const adminDataSchema = new mongoose.Schema(

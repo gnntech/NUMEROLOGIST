@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAdmin, PromoCard, Testimonial, Package, PackageInclude } from '../context/AdminContext';
+import { useAdmin, PromoCard, Testimonial, Package } from '../context/AdminContext';
 
 type TabType = 'promo' | 'testimonials' | 'packages' | 'settings';
 
@@ -424,15 +424,20 @@ const TestimonialManager: React.FC = () => {
 const PackageManager: React.FC = () => {
   const { data, updatePackages } = useAdmin();
   const [editingItem, setEditingItem] = useState<Package | null>(null);
-  const [editingIncludes, setEditingIncludes] = useState<PackageInclude[]>([]);
+  const [editingIncludes, setEditingIncludes] = useState<string[]>([]);
 
   const handleAdd = () => {
     if (!data) return;
     const newItem: Package = {
       id: Date.now().toString(),
       name: 'New Package',
-      icon: '/Sliver package.png',
-      includes: [{ text: 'Feature 1', highlight: false }],
+      price: '₹0',
+      image: '/Sapphire.png',
+      minimal: ['Feature 1'],
+      detailed: ['Feature 1'],
+      benefits: ['Benefit 1'],
+      idealFor: ['Everyone'],
+      formUrl: '#',
     };
     updatePackages([...data.packages, newItem]);
   };
@@ -455,7 +460,7 @@ const PackageManager: React.FC = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        handleUpdate({ ...item, icon: reader.result as string });
+        handleUpdate({ ...item, image: reader.result as string });
       };
       reader.readAsDataURL(file);
     }
@@ -463,17 +468,11 @@ const PackageManager: React.FC = () => {
 
   const startEditing = (item: Package) => {
     setEditingItem(item);
-    setEditingIncludes([...item.includes]);
+    setEditingIncludes([...item.minimal]);
   };
 
   const addInclude = () => {
-    setEditingIncludes([...editingIncludes, { text: 'New feature', highlight: false }]);
-  };
-
-  const updateInclude = (index: number, field: 'text' | 'highlight', value: string | boolean) => {
-    const updated = [...editingIncludes];
-    updated[index] = { ...updated[index], [field]: value };
-    setEditingIncludes(updated);
+    setEditingIncludes([...editingIncludes, 'New feature']);
   };
 
   const removeInclude = (index: number) => {
@@ -482,7 +481,7 @@ const PackageManager: React.FC = () => {
 
   const savePackage = () => {
     if (editingItem) {
-      handleUpdate({ ...editingItem, includes: editingIncludes });
+      handleUpdate({ ...editingItem, minimal: editingIncludes });
     }
   };
 
@@ -498,7 +497,7 @@ const PackageManager: React.FC = () => {
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         {data?.packages.map((item) => (
           <div key={item.id} className="rounded-xl p-4 border" style={{ backgroundColor: '#2E2D2F', borderColor: 'rgba(255,255,255,0.1)' }}>
-            <img src={item.icon} alt={item.name} className="w-20 h-20 object-contain mx-auto mb-4" />
+            <img src={item.image} alt={item.name} className="w-20 h-20 object-contain mx-auto mb-4" />
             
             {editingItem?.id === item.id ? (
               <div className="space-y-3">
@@ -517,24 +516,19 @@ const PackageManager: React.FC = () => {
                     <p className="text-white/80 text-xs">Features:</p>
                     <button onClick={addInclude} className="text-xs px-2 py-1 rounded" style={{ backgroundColor: '#FE7028', color: 'white' }}>+ Add</button>
                   </div>
-                  {editingIncludes.map((inc, idx) => (
+                  {editingIncludes.map((inc: string, idx: number) => (
                     <div key={idx} className="flex gap-2 items-center">
                       <input
                         type="text"
-                        value={inc.text}
-                        onChange={(e) => updateInclude(idx, 'text', e.target.value)}
+                        value={inc}
+                        onChange={(e) => {
+                          const updated = [...editingIncludes];
+                          updated[idx] = e.target.value;
+                          setEditingIncludes(updated);
+                        }}
                         className="flex-1 px-2 py-1 rounded text-white border font-matter text-xs"
                         style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
                       />
-                      <label className="flex items-center text-white text-xs whitespace-nowrap">
-                        <input
-                          type="checkbox"
-                          checked={inc.highlight}
-                          onChange={(e) => updateInclude(idx, 'highlight', e.target.checked)}
-                          className="mr-1"
-                        />
-                        Orange
-                      </label>
                       <button onClick={() => removeInclude(idx)} className="text-red-500 text-xs px-2 py-1">✕</button>
                     </div>
                   ))}
@@ -549,8 +543,8 @@ const PackageManager: React.FC = () => {
               <div>
                 <h3 className="text-white font-semibold text-center mb-2">{item.name}</h3>
                 <div className="text-xs text-white/70 mb-4 space-y-0.5">
-                  {item.includes.map((inc, idx) => (
-                    <p key={idx} className={inc.highlight ? 'text-[#FE7028]' : ''}>{inc.text}</p>
+                  {item.minimal.map((inc: string, idx: number) => (
+                    <p key={idx}>{inc}</p>
                   ))}
                 </div>
                 <div className="flex space-x-2">

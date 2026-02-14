@@ -21,16 +21,16 @@ export interface Testimonial {
   isVideoTestimonial: boolean;
 }
 
-export interface PackageInclude {
-  text: string;
-  highlight: boolean;
-}
-
 export interface Package {
   id: string;
   name: string;
-  icon: string;
-  includes: PackageInclude[];
+  price: string;
+  image: string;
+  minimal: string[];
+  detailed: string[];
+  benefits: string[];
+  idealFor: string[];
+  formUrl: string;
 }
 
 interface AdminData {
@@ -49,7 +49,7 @@ interface AdminContextType {
   updateMarqueeText: (text: string) => Promise<void>;
 }
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001/api';
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
 // Remove the old defaultData - we'll use fallbackData from the imported file
 
@@ -69,8 +69,8 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       const response = await fetch(`${API_URL}/admin/data`);
       if (response.ok) {
         const result = await response.json();
+        console.log('✅ Data loaded from API:', result);
         setData(result);
-        console.log('✅ Data loaded from API');
       } else {
         console.warn('⚠️ API returned error, using fallback data');
         setData(fallbackData);
