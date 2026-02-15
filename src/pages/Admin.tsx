@@ -14,7 +14,16 @@ const Admin: React.FC = () => {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (username === 'admin' && password === 'admin') {
+    const adminUsername = process.env.REACT_APP_ADMIN_USERNAME;
+    const adminPassword = process.env.REACT_APP_ADMIN_PASSWORD;
+    
+    // Check if environment variables are set
+    if (!adminUsername || !adminPassword) {
+      setError('Admin credentials not configured. Please set environment variables.');
+      return;
+    }
+    
+    if (username === adminUsername && password === adminPassword) {
       setIsLoggedIn(true);
       setError('');
     } else {
