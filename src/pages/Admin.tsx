@@ -534,7 +534,27 @@ const PackageManager: React.FC = () => {
                   style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
                   placeholder="Package Name"
                 />
+                <input
+                  type="text"
+                  value={editingItem.price}
+                  onChange={(e) => setEditingItem({ ...editingItem, price: e.target.value })}
+                  className="w-full px-3 py-2 rounded-lg text-white border font-matter text-sm"
+                  style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
+                  placeholder="Price (e.g., ₹24,000)"
+                />
                 <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, editingItem)} className="w-full text-white text-sm" />
+                
+                <div>
+                  <label className="text-white/80 text-xs block mb-1">Google Form URL:</label>
+                  <input
+                    type="url"
+                    value={editingItem.formUrl}
+                    onChange={(e) => setEditingItem({ ...editingItem, formUrl: e.target.value })}
+                    className="w-full px-3 py-2 rounded-lg text-white border font-matter text-sm"
+                    style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
+                    placeholder="https://forms.gle/..."
+                  />
+                </div>
                 
                 <div className="space-y-2">
                   <div className="flex justify-between items-center">

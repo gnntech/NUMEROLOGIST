@@ -35,7 +35,7 @@ const premiumPackages: PackageType[] = [
       'Career guidance seekers',
       'Personal growth enthusiasts',
     ],
-    formUrl: 'https://forms.gle/5n4PjbD92vX5tT8A9',
+    formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSetm590g2kptLp-ZjxdKxklGjqF7HyTAjuPX6MzrjlRSBSLlg/viewform',
   },
   {
     id: '2',
@@ -74,7 +74,7 @@ const premiumPackages: PackageType[] = [
       'Those facing repeated obstacles',
       'People wanting energy alignment',
     ],
-    formUrl: 'https://forms.gle/3gr1TP5aj4w25hXe6',
+    formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSc8x7is-8dyTp8bxO3sK6ByTRJabSIad_3RJu3LoxNlzBmAHw/viewform',
   },
   {
     id: '3',
@@ -150,10 +150,24 @@ const Package: React.FC = () => {
   }
   
   const [selectedPackage, setSelectedPackage] = useState<PackageType | null>(null);
+  const [showBookingForm, setShowBookingForm] = useState(false);
 
   const handleEnrollNow = () => {
     if (selectedPackage) {
       window.open(selectedPackage.formUrl, '_blank');
+    }
+  };
+
+  const handleReadMore = (pkg: PackageType) => {
+    setSelectedPackage(pkg);
+    setShowBookingForm(false);
+  };
+
+  const handleBookNow = (pkg: PackageType, e: React.MouseEvent) => {
+    e.stopPropagation();
+    // Directly open Google Form in new tab
+    if (pkg.formUrl) {
+      window.open(pkg.formUrl, '_blank');
     }
   };
 
@@ -186,7 +200,10 @@ const Package: React.FC = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
-            onClick={() => setSelectedPackage(null)}
+            onClick={() => {
+              setSelectedPackage(null);
+              setShowBookingForm(false);
+            }}
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
@@ -206,7 +223,10 @@ const Package: React.FC = () => {
                     </div>
                   </div>
                   <button
-                    onClick={() => setSelectedPackage(null)}
+                    onClick={() => {
+                      setSelectedPackage(null);
+                      setShowBookingForm(false);
+                    }}
                     className="w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-colors flex-shrink-0"
                   >
                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -218,6 +238,36 @@ const Package: React.FC = () => {
 
               {/* Modal Content */}
               <div className="p-8 space-y-8">
+                {showBookingForm ? (
+                  /* Booking Form */
+                  <div className="space-y-6">
+                    <h3 className="font-bebas text-2xl text-gray-900 tracking-wide text-center">
+                      BOOK YOUR CONSULTATION
+                    </h3>
+                    <div className="w-full h-[600px] rounded-xl overflow-hidden border-2 border-gray-200">
+                      <iframe
+                        src={selectedPackage.formUrl}
+                        width="100%"
+                        height="100%"
+                        frameBorder="0"
+                        marginHeight={0}
+                        marginWidth={0}
+                        title="Booking Form"
+                      >
+                        Loading…
+                      </iframe>
+                    </div>
+                    <button
+                      onClick={() => setShowBookingForm(false)}
+                      className="w-full py-3 rounded-xl font-bebas text-lg border-2 transition-all duration-300 tracking-wide"
+                      style={{ borderColor: '#FE7028', color: '#FE7028' }}
+                    >
+                      ← Back to Details
+                    </button>
+                  </div>
+                ) : (
+                  /* Package Details */
+                  <>
                 {/* What You Get Section */}
                 <div>
                   <h3 className="font-bebas text-2xl text-gray-900 tracking-wide mb-6 flex items-center">
@@ -279,7 +329,11 @@ const Package: React.FC = () => {
                 {/* CTA Button */}
                 <div className="pt-4">
                   <motion.button
-                    onClick={handleEnrollNow}
+                    onClick={() => {
+                      if (selectedPackage.formUrl) {
+                        window.open(selectedPackage.formUrl, '_blank');
+                      }
+                    }}
                     className="w-full py-4 rounded-xl font-bebas font-semibold text-lg text-white shadow-lg uppercase tracking-wide"
                     style={{ backgroundColor: '#FE7028' }}
                     whileHover={{ scale: 1.02, boxShadow: '0 20px 25px -5px rgba(254, 112, 40, 0.5)' }}
@@ -288,9 +342,11 @@ const Package: React.FC = () => {
                     Book Now - {selectedPackage.price}
                   </motion.button>
                   <p className="text-center text-gray-500 text-sm mt-3 font-matter">
-                    You'll be redirected to our booking form
+                    You'll be redirected to Google Forms
                   </p>
                 </div>
+                  </>
+                )}
               </div>
             </motion.div>
           </motion.div>
@@ -363,7 +419,7 @@ const Package: React.FC = () => {
                 className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col cursor-pointer"
                 variants={cardVariants}
                 whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                onClick={() => setSelectedPackage(pkg)}
+                onClick={() => handleReadMore(pkg)}
               >
                 {/* Icon */}
                 <motion.div 
@@ -409,15 +465,30 @@ const Package: React.FC = () => {
                   </ul>
                 </div>
 
-                {/* Book Button */}
-                <motion.button
-                  className="w-full py-4 rounded-full font-bebas text-lg text-white transition-all duration-300 tracking-wide"
-                  style={{ backgroundColor: '#FE7028' }}
-                  whileHover={{ scale: 1.05, boxShadow: '0 10px 25px rgba(254, 112, 40, 0.4)' }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Book Session
-                </motion.button>
+                {/* Action Buttons */}
+                <div className="flex gap-3">
+                  <motion.button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleReadMore(pkg);
+                    }}
+                    className="flex-1 py-3 rounded-full font-bebas text-lg border-2 transition-all duration-300 tracking-wide"
+                    style={{ borderColor: '#FE7028', color: '#FE7028' }}
+                    whileHover={{ scale: 1.05, backgroundColor: '#FE7028', color: '#FFFFFF' }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Read More
+                  </motion.button>
+                  <motion.button
+                    onClick={(e) => handleBookNow(pkg, e)}
+                    className="flex-1 py-3 rounded-full font-bebas text-lg text-white transition-all duration-300 tracking-wide"
+                    style={{ backgroundColor: '#FE7028' }}
+                    whileHover={{ scale: 1.05, boxShadow: '0 10px 25px rgba(254, 112, 40, 0.4)' }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Book Now
+                  </motion.button>
+                </div>
               </motion.div>
             ))}
           </motion.div>
