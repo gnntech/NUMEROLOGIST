@@ -152,12 +152,6 @@ const Package: React.FC = () => {
   const [selectedPackage, setSelectedPackage] = useState<PackageType | null>(null);
   const [showBookingForm, setShowBookingForm] = useState(false);
 
-  const handleEnrollNow = () => {
-    if (selectedPackage) {
-      window.open(selectedPackage.formUrl, '_blank');
-    }
-  };
-
   const handleReadMore = (pkg: PackageType) => {
     setSelectedPackage(pkg);
     setShowBookingForm(false);
