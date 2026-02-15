@@ -616,12 +616,14 @@ const PackageManager: React.FC = () => {
 
 // Settings Manager
 const SettingsManager: React.FC = () => {
-  const { data, updateMarqueeText } = useAdmin();
+  const { data, updateMarqueeText, updateMarqueeFormUrl } = useAdmin();
   const [marquee, setMarquee] = useState(data?.marqueeText || '');
+  const [formUrl, setFormUrl] = useState(data?.marqueeFormUrl || '');
 
   const handleSave = () => {
     updateMarqueeText(marquee);
-    toast.success('✅ Marquee text updated successfully!');
+    updateMarqueeFormUrl(formUrl);
+    toast.success('✅ Settings updated successfully!');
   };
 
   return (
@@ -631,12 +633,26 @@ const SettingsManager: React.FC = () => {
       <div className="space-y-6">
         <div>
           <label className="block text-white mb-2 font-matter">Marquee Text</label>
-          <input
-            type="text"
+          <textarea
             value={marquee}
             onChange={(e) => setMarquee(e.target.value)}
             className="w-full px-4 py-3 rounded-lg text-white border font-matter"
             style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
+            placeholder="Book Now & Get 25% OFF — Slots are limited. Reserve yours now!!"
+            rows={2}
+          />
+          <p className="text-white/60 text-xs mt-1">This is the complete text that will scroll in the marquee banner</p>
+        </div>
+        
+        <div>
+          <label className="block text-white mb-2 font-matter">Marquee Google Form URL</label>
+          <input
+            type="url"
+            value={formUrl}
+            onChange={(e) => setFormUrl(e.target.value)}
+            className="w-full px-4 py-3 rounded-lg text-white border font-matter"
+            style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }}
+            placeholder="https://docs.google.com/forms/d/e/..."
           />
         </div>
         

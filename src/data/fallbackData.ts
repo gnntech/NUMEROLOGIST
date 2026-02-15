@@ -211,5 +211,6 @@ export const fallbackData = {
       formUrl: '#',
     },
   ],
-  marqueeText: 'Book Now & Get 25% OFF',
+  marqueeText: 'Book Now & Get 25% OFF — Slots are limited. Reserve yours now!!',
+  marqueeFormUrl: '#',
 };

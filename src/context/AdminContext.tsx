@@ -38,6 +38,7 @@ interface AdminData {
   testimonials: Testimonial[];
   packages: Package[];
   marqueeText: string;
+  marqueeFormUrl: string;
 }
 
 interface AdminContextType {
@@ -47,6 +48,7 @@ interface AdminContextType {
   updateTestimonials: (testimonials: Testimonial[]) => Promise<void>;
   updatePackages: (packages: Package[]) => Promise<void>;
   updateMarqueeText: (text: string) => Promise<void>;
+  updateMarqueeFormUrl: (url: string) => Promise<void>;
 }
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
@@ -152,8 +154,25 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     }
   };
 
+  const updateMarqueeFormUrl = async (url: string) => {
+    try {
+      const response = await fetch(`${API_URL}/admin/data/marquee-form`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ marqueeFormUrl: url }),
+      });
+      if (response.ok) {
+        const result = await response.json();
+        setData(result);
+      }
+    } catch (error) {
+      console.error('Error updating marquee form URL:', error);
+      throw error;
+    }
+  };
+
   return (
-    <AdminContext.Provider value={{ data, loading, updatePromoCards, updateTestimonials, updatePackages, updateMarqueeText }}>
+    <AdminContext.Provider value={{ data, loading, updatePromoCards, updateTestimonials, updatePackages, updateMarqueeText, updateMarqueeFormUrl }}>
       {children}
     </AdminContext.Provider>
   );

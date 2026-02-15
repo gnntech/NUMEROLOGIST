@@ -6,7 +6,15 @@ const PromoMarquee = () => {
   const [isHovered, setIsHovered] = useState(false);
   const { data } = useAdmin();
 
-  const marqueeText = data?.marqueeText ?? "Book Now & Get 25% OFF";
+  const marqueeText = data?.marqueeText ?? "Book Now & Get 25% OFF — Slots are limited. Reserve yours now!!";
+  const formUrl = data?.marqueeFormUrl ?? "#";
+
+  const handleProceedToBooking = () => {
+    if (formUrl && formUrl !== "#") {
+      window.open(formUrl, "_blank");
+      setOpen(false);
+    }
+  };
 
   return (
     <>
@@ -28,7 +36,7 @@ const PromoMarquee = () => {
                 className="text-sm font-semibold"
                 style={{ color: "#FFFFFF" }}
               >
-                {marqueeText} — Slots are limited. Reserve yours now!!
+                {marqueeText}
               </span>
               <button
                 onClick={() => setOpen(true)}
@@ -54,7 +62,8 @@ const PromoMarquee = () => {
             </p>
 
             <button
-              className="w-full rounded-lg py-2 font-semibold text-white"
+              onClick={handleProceedToBooking}
+              className="w-full rounded-lg py-2 font-semibold text-white hover:opacity-90 transition-opacity"
               style={{ backgroundColor: "#FE7028" }}
               type="button"
             >

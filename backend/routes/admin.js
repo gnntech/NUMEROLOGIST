@@ -218,7 +218,8 @@ const defaultData = {
       formUrl: "#",
     },
   ],
-  marqueeText: "Book Now & Get 25% OFF",
+  marqueeText: "Book Now & Get 25% OFF — Slots are limited. Reserve yours now!!",
+  marqueeFormUrl: "#",
 };
 
 // GET admin data
@@ -315,6 +316,20 @@ router.patch("/data/marquee", async (req, res) => {
     res.json(adminData);
   } catch (error) {
     res.status(500).json({ error: "Failed to update marquee text" });
+  }
+});
+
+router.patch("/data/marquee-form", async (req, res) => {
+  try {
+    let adminData = await AdminData.findOne();
+    if (!adminData) {
+      adminData = new AdminData(defaultData);
+    }
+    adminData.marqueeFormUrl = req.body.marqueeFormUrl;
+    await adminData.save();
+    res.json(adminData);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to update marquee form URL" });
   }
 });
 

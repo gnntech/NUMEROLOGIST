@@ -38,7 +38,11 @@ const adminDataSchema = new mongoose.Schema(
     packages: [packageSchema],
     marqueeText: {
       type: String,
-      default: "Book Now & Get 25% OFF",
+      default: "Book Now & Get 25% OFF — Slots are limited. Reserve yours now!!",
+    },
+    marqueeFormUrl: {
+      type: String,
+      default: "#",
     },
     updatedAt: {
       type: Date,
