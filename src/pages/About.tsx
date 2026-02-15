@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Footer from "../components/Footer";
+import SEO from "../components/SEO";
 import { motion, AnimatePresence } from "framer-motion";
 
 const About: React.FC = () => {
@@ -31,6 +32,21 @@ const About: React.FC = () => {
 
   return (
     <div className="flex flex-col">
+      <SEO
+        title="About Gaurab Nerpagar - Expert Numerologist & Life Coach"
+        description="Meet Gaurab Nerpagar, a certified numerologist with years of experience in providing life guidance through numerology, wealth astrology, and spiritual counseling. Learn about his journey and expertise."
+        keywords="Gaurab Nerpagar, about numerologist, numerology expert, life coach, wealth astrology, spiritual guidance, numerology certification"
+        canonicalUrl="https://gaurabnerpagarnumerologics.com/about"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "Person",
+          "name": "Gaurab Nerpagar",
+          "jobTitle": "Numerologist & Life Coach",
+          "description": "Expert numerologist specializing in life guidance, wealth astrology, and spiritual counseling",
+          "url": "https://gaurabnerpagarnumerologics.com/about"
+        }}
+      />
+      
       {/* HERO / ABOUT INTRO */}
       <motion.div className="overflow-x-hidden">
         <div className="relative min-h-screen overflow-hidden">

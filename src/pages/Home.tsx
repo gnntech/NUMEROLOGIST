@@ -1,6 +1,7 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import IntroLoader from '../components/IntroLoader';
+import SEO from '../components/SEO';
 
 
 const PromoSection = lazy(() => import('../components/PromoSection'));
@@ -43,6 +44,20 @@ const Home: React.FC = () => {
 
   return (
     <>
+      <SEO
+        title="Gaurab Nerpagar Numerologics - Expert Numerology Consultations & Life Guidance"
+        description="Unlock the ancient wisdom of numerology with Gaurab Nerpagar. Get personalized numerology reports, career guidance, relationship compatibility analysis, and life path predictions. Book your consultation today!"
+        keywords="numerology, numerologist, Gaurab Nerpagar, numerology consultation, life path number, destiny number, numerology report, career numerology, relationship compatibility, name numerology, birth date analysis"
+        canonicalUrl="https://gaurabnerpagarnumerologics.com/"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "name": "Home - Gaurab Nerpagar Numerologics",
+          "description": "Expert numerology consultations and personalized reports for life guidance",
+          "url": "https://gaurabnerpagarnumerologics.com/"
+        }}
+      />
+      
       {/* Intro Loader - plays on every page refresh */}
       <IntroLoader isLoading={isLoading} onComplete={handleLoaderComplete} />
 

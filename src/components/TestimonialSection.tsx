@@ -22,6 +22,14 @@ const TestimonialSection: React.FC = () => {
     return () => clearInterval(interval);
   }, [textTestimonials.length]);
 
+  // Sync video with active card
+  useEffect(() => {
+    if (videoTestimonials.length > 0) {
+      setCurrentVideo(activeCardIndex % videoTestimonials.length);
+      setIsPlaying(false);
+    }
+  }, [activeCardIndex, videoTestimonials.length]);
+
   // Reset activeCardIndex if it's out of bounds
   useEffect(() => {
     if (textTestimonials.length > 0 && activeCardIndex >= textTestimonials.length) {
@@ -30,12 +38,22 @@ const TestimonialSection: React.FC = () => {
   }, [textTestimonials.length, activeCardIndex]);
 
   const handlePrevVideo = () => {
-    setCurrentVideo((prev) => (prev === 0 ? videoTestimonials.length - 1 : prev - 1));
+    const newVideoIndex = currentVideo === 0 ? videoTestimonials.length - 1 : currentVideo - 1;
+    setCurrentVideo(newVideoIndex);
+    // Sync card with video
+    if (textTestimonials.length > 0) {
+      setActiveCardIndex(newVideoIndex % textTestimonials.length);
+    }
     setIsPlaying(false);
   };
 
   const handleNextVideo = () => {
-    setCurrentVideo((prev) => (prev === videoTestimonials.length - 1 ? 0 : prev + 1));
+    const newVideoIndex = currentVideo === videoTestimonials.length - 1 ? 0 : currentVideo + 1;
+    setCurrentVideo(newVideoIndex);
+    // Sync card with video
+    if (textTestimonials.length > 0) {
+      setActiveCardIndex(newVideoIndex % textTestimonials.length);
+    }
     setIsPlaying(false);
   };
 
@@ -169,7 +187,14 @@ const TestimonialSection: React.FC = () => {
                         {videoTestimonials.map((_, index) => (
                           <button
                             key={index}
-                            onClick={() => { setCurrentVideo(index); setIsPlaying(false); }}
+                            onClick={() => { 
+                              setCurrentVideo(index); 
+                              // Sync card with video
+                              if (textTestimonials.length > 0) {
+                                setActiveCardIndex(index % textTestimonials.length);
+                              }
+                              setIsPlaying(false); 
+                            }}
                             className={`h-1.5 rounded-full transition-all ${index === currentVideo ? 'w-4' : 'w-1.5'}`}
                             style={{ backgroundColor: index === currentVideo ? '#FE7028' : '#D1D5DB' }}
                           />
@@ -291,7 +316,14 @@ const TestimonialSection: React.FC = () => {
               {textTestimonials.map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => setActiveCardIndex(index)}
+                  onClick={() => {
+                    setActiveCardIndex(index);
+                    // Sync video with card
+                    if (videoTestimonials.length > 0) {
+                      setCurrentVideo(index % videoTestimonials.length);
+                      setIsPlaying(false);
+                    }
+                  }}
                   className={`h-1.5 rounded-full transition-all ${index === activeCardIndex ? 'w-4' : 'w-1.5'}`}
                   style={{ backgroundColor: index === activeCardIndex ? '#FE7028' : '#D1D5DB' }}
                 />

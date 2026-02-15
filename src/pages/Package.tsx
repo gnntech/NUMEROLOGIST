@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
 import { useAdmin } from '../context/AdminContext';
 import type { Package as PackageType } from '../context/AdminContext';
 
@@ -158,6 +159,25 @@ const Package: React.FC = () => {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Numerology Packages - Sapphire, Emerald & Diamond Reports | Gaurab Nerpagar"
+        description="Choose from our premium numerology packages - Sapphire, Emerald, and Diamond. Get personalized numerology reports, name correction, signature analysis, and expert consultations. Packages starting from ₹24,000."
+        keywords="numerology packages, numerology report, premium numerology, Sapphire package, Emerald package, Diamond package, name correction, signature analysis, numerology consultation pricing"
+        canonicalUrl="https://gaurabnerpagarnumerologics.com/package"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "Product",
+          "name": "Numerology Consultation Packages",
+          "description": "Premium numerology packages with personalized reports and consultations",
+          "offers": {
+            "@type": "AggregateOffer",
+            "priceCurrency": "INR",
+            "lowPrice": "24000",
+            "highPrice": "54000"
+          }
+        }}
+      />
+      
       {/* Package Details Modal */}
       <AnimatePresence>
         {selectedPackage && (

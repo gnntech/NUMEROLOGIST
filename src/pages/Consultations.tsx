@@ -1,8 +1,26 @@
 import React from 'react';
+import SEO from '../components/SEO';
 
 const Consultations: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <SEO
+        title="Numerology Consultations - Personal & Business Guidance | Gaurab Nerpagar"
+        description="Book a personalized numerology consultation with Gaurab Nerpagar. Get expert guidance on life decisions, career choices, relationships, and business strategies through the power of numerology."
+        keywords="numerology consultation, personal consultation, business numerology, career guidance, relationship advice, numerology session, online consultation"
+        canonicalUrl="https://gaurabnerpagarnumerologics.com/consultations"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "Numerology Consultations",
+          "description": "Professional numerology consultation services",
+          "provider": {
+            "@type": "Person",
+            "name": "Gaurab Nerpagar"
+          }
+        }}
+      />
+      
       <div className="max-w-4xl mx-auto">
         <h1 className="text-4xl font-bold text-gray-900 mb-8 text-center">Consultations</h1>
         

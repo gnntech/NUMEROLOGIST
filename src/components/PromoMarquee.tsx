@@ -3,6 +3,7 @@ import { useAdmin } from "../context/AdminContext";
 
 const PromoMarquee = () => {
   const [open, setOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const { data } = useAdmin();
 
   const marqueeText = data?.marqueeText ?? "Book Now & Get 25% OFF";
@@ -12,8 +13,15 @@ const PromoMarquee = () => {
       <div
         className="h-16 w-full overflow-hidden flex items-center"
         style={{ backgroundColor: "#FE7028" }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
-        <div className="flex animate-marquee whitespace-nowrap items-center">
+        <div 
+          className="flex whitespace-nowrap items-center"
+          style={{
+            animation: isHovered || open ? 'none' : 'marquee 30s linear infinite',
+          }}
+        >
           {Array.from({ length: 12 }).map((_, index) => (
             <div key={index} className="flex items-center gap-4 mx-4">
               <span
@@ -63,8 +71,19 @@ const PromoMarquee = () => {
           </div>
         </div>
       )}
+
+      <style>{`
+        @keyframes marquee {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+      `}</style>
     </>
   );
 };
 
-export default PromoMarquee;  
+export default PromoMarquee;

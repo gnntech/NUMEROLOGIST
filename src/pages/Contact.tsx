@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
 import { ChevronDown } from 'lucide-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -221,6 +222,20 @@ const Contact: React.FC = () => {
 
   return (
     <>
+      <SEO
+        title="Contact Gaurab Nerpagar - Book Your Numerology Consultation"
+        description="Get in touch with Gaurab Nerpagar for personalized numerology consultations. Book your session, ask questions, or inquire about our numerology packages. We're here to guide you on your life path."
+        keywords="contact numerologist, book numerology consultation, Gaurab Nerpagar contact, numerology appointment, numerology inquiry, schedule consultation"
+        canonicalUrl="https://gaurabnerpagarnumerologics.com/contact"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "ContactPage",
+          "name": "Contact - Gaurab Nerpagar Numerologics",
+          "description": "Contact page for booking numerology consultations",
+          "url": "https://gaurabnerpagarnumerologics.com/contact"
+        }}
+      />
+      
       <ToastContainer
         position="top-right"
         autoClose={5000}

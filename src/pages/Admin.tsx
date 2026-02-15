@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useAdmin, PromoCard, Testimonial, Package } from '../context/AdminContext';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 type TabType = 'promo' | 'testimonials' | 'packages' | 'settings';
 
@@ -109,6 +111,20 @@ const Admin: React.FC = () => {
           {activeTab === 'settings' && <SettingsManager />}
         </div>
       </div>
+      
+      {/* Toast Container */}
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </div>
   );
 };
@@ -128,18 +144,21 @@ const PromoManager: React.FC = () => {
       description: 'Card description',
     };
     updatePromoCards([...data.promoCards, newCard]);
+    toast.success('✅ Promo card added successfully!');
   };
 
   const handleUpdate = (card: PromoCard) => {
     if (!data) return;
     updatePromoCards(data.promoCards.map(c => c.id === card.id ? card : c));
     setEditingCard(null);
+    toast.success('✅ Promo card updated successfully!');
   };
 
   const handleDelete = (id: string) => {
     if (!data) return;
     if (window.confirm('Are you sure you want to delete this card?')) {
       updatePromoCards(data.promoCards.filter(c => c.id !== id));
+      toast.success('✅ Promo card deleted successfully!');
     }
   };
 
@@ -279,18 +298,21 @@ const TestimonialManager: React.FC = () => {
       isVideoTestimonial: false,
     };
     updateTestimonials([...data.testimonials, newItem]);
+    toast.success('✅ Testimonial added successfully!');
   };
 
   const handleUpdate = (item: Testimonial) => {
     if (!data) return;
     updateTestimonials(data.testimonials.map(t => t.id === item.id ? item : t));
     setEditingItem(null);
+    toast.success('✅ Testimonial updated successfully!');
   };
 
   const handleDelete = (id: string) => {
     if (!data) return;
     if (window.confirm('Delete this testimonial?')) {
       updateTestimonials(data.testimonials.filter(t => t.id !== id));
+      toast.success('✅ Testimonial deleted successfully!');
     }
   };
 
@@ -440,18 +462,21 @@ const PackageManager: React.FC = () => {
       formUrl: '#',
     };
     updatePackages([...data.packages, newItem]);
+    toast.success('✅ Package added successfully!');
   };
 
   const handleUpdate = (item: Package) => {
     if (!data) return;
     updatePackages(data.packages.map(p => p.id === item.id ? item : p));
     setEditingItem(null);
+    toast.success('✅ Package updated successfully!');
   };
 
   const handleDelete = (id: string) => {
     if (!data) return;
     if (window.confirm('Delete this package?')) {
       updatePackages(data.packages.filter(p => p.id !== id));
+      toast.success('✅ Package deleted successfully!');
     }
   };
 
@@ -567,7 +592,7 @@ const SettingsManager: React.FC = () => {
 
   const handleSave = () => {
     updateMarqueeText(marquee);
-    alert('Settings saved!');
+    toast.success('✅ Marquee text updated successfully!');
   };
 
   return (
