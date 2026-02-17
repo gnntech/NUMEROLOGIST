@@ -25,7 +25,7 @@ const Header: React.FC = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'py-3' : 'py-5'
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out ${isScrolled ? 'py-3 shadow-lg' : 'py-5'
         }`}
       style={{
         backgroundColor: isScrolled ? 'rgba(50, 50, 50, 0.95)' : 'transparent',
@@ -35,7 +35,7 @@ const Header: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 transition-all duration-500 ease-in-out" style={{ transform: isScrolled ? 'scale(0.95)' : 'scale(1)' }}>
             <Link to="/" className="text-2xl font-bold font-matter text-white">
               GNN
             </Link>
@@ -43,7 +43,7 @@ const Header: React.FC = () => {
 
           {/* Center Nav - Glassmorphism Pill */}
           <nav
-            className="hidden lg:flex items-center rounded-full px-2 py-2 backdrop-blur-md"
+            className={`hidden lg:flex items-center rounded-full backdrop-blur-md transition-all duration-500 ease-in-out ${isScrolled ? 'px-2 py-2 scale-95' : 'px-2 py-2 scale-100'}`}
             style={{
               backgroundColor: 'rgba(255, 255, 255, 0.1)',
               border: '1px solid rgba(255, 255, 255, 0.15)',
@@ -57,7 +57,7 @@ const Header: React.FC = () => {
                   href={item.path}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-5 py-2 text-sm font-medium font-matter rounded-full transition-all duration-200"
+                  className="px-5 py-2 text-sm font-medium font-matter rounded-full transition-all duration-300"
                   style={{
                     backgroundColor: 'transparent',
                     color: '#FFFFFF'
@@ -69,7 +69,7 @@ const Header: React.FC = () => {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className="px-5 py-2 text-sm font-medium font-matter rounded-full transition-all duration-200"
+                  className="px-5 py-2 text-sm font-medium font-matter rounded-full transition-all duration-300"
                   style={{
                     backgroundColor: location.pathname === item.path ? '#FE7028' : 'transparent',
                     color: '#FFFFFF'
@@ -84,7 +84,7 @@ const Header: React.FC = () => {
           {/* Call Now Button */}
           <div className="hidden lg:flex items-center gap-4">
             <button
-              className="px-5 py-2.5 rounded-full font-medium transition-all duration-200 font-matter text-sm flex items-center space-x-2"
+              className={`rounded-full font-medium transition-all duration-500 ease-in-out font-matter text-sm flex items-center space-x-2 ${isScrolled ? 'px-5 py-2.5 scale-95' : 'px-5 py-2.5 scale-100'}`}
               style={{ backgroundColor: '#FE7028', color: '#FFFFFF' }}
             >
               <img
